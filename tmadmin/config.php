@@ -8,32 +8,16 @@
 error_reporting(1);
 //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
-//echo 
-$fy = $_SESSION['fy'] = 2021;
-
-                            
 /* online db */
 //define( 'DB_HOST', 'localhost'); define( 'DB_NAME', 'minierpdemo'); define( 'DB_USERNAME', 'minierpdemo'); define( 'DB_PASSWORD', 'Mini@rpdemo');
 
 /* local db */
 define( 'DB_HOST', 'localhost'); define( 'DB_USERNAME', 'root'); define( 'DB_PASSWORD', ''); define( 'DB_NAME', 'admin_lte_material');
-//define( 'DB_HOST', 'localhost'); define( 'DB_USERNAME', 'softlab'); define( 'DB_PASSWORD', 'softlab'); define( 'DB_NAME', 'softlab');
-/* onlinel db */
-//define( 'DB_HOST', 'localhost'); define( 'DB_NAME', 'freedbs'); define( 'DB_USERNAME', 'freedbs'); define( 'DB_PASSWORD', 'Freedbs@123');
 
-
-define( 'Admin', 'tferp_admin_lte_1admin_users');
-define( 'cities', 'tferp_admin_lte_1cities');
 define( 'config', 'tferp_admin_lte_1config');
-define( 'consignees', 'tferp_admin_lte_1consignees');
-define( 'customers', 'tferp_admin_lte_1customers');
-define( 'gst', 'tferp_admin_lte_1gst');
-define( 'itemtype', 'tferp_admin_lte_1itemtypes');
 define( 'settings', 'tferp_admin_lte_1settings');
-define( 'suppliers', 'tferp_admin_lte_1suppliers');
-define( 'uom', 'tferp_admin_lte_1uom');
 define( 'users', 'tferp_admin_lte_1users');
-define( 'items', 'tferp_admin_lte_2items_'.$fy);
+
 
 require_once "Classes/DBcon.php";
 require_once "Classes/Admin.php";

@@ -37,25 +37,16 @@ require_once 'config.php';
   <!-- /.login-logo -->
 <?php
 	$error = '';
-    if(isset($_POST['login'])) {
+    if(isset($_POST['reset'])) {
       if( !empty( $_POST )){
         try {
 		  $user_obj = new Class_User();
-		  $data = $user_obj->login( $_POST );
-		  if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']){  header('Location: invoices.php?invoicetype=I'); }
+		  $data = $user_obj->resetpassword( $_POST );
+		  
 		} catch (Exception $e) {  $error = $e->getMessage(); }
 	  }
     }
-    else if(isset($_POST['fp'])) {
-      if( !empty( $_POST )){
-	    try {
-		  $user_obj = new Class_User();
-//          if($_POST['email']){  $data = $user_obj->forgetpassword( $_POST ); }
-          if($_POST['email']){  $data = $user_obj->secretcode( $_POST ); }           
-		
-        } catch (Exception $e) {  $error = $e->getMessage(); }
-	  }
-    }
+    
 
   	if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']){ header('Location: dashboard.php'); }
     else {  //$error = 'unauthorized access'; 
@@ -65,7 +56,7 @@ require_once 'config.php';
 
         <div class="card">
           <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">Reset your Password</p>
             <div class="text-center"><img src="dist/img/<?php echo LOGO; ?>" jclass="user-image img-squre img-center" class="rounded mx-auto d-block" style="width:200px;" alt="User Image"></div>
             <form id="login-form" method="post" class="form-signin" role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <?php if($error != '') { ?>
@@ -75,7 +66,7 @@ require_once 'config.php';
                 if($error == LOGIN_FAIL) { echo "invalid username or password ! Try again "; }      
               ?>
               </div>                  
-              <?php } //6S4rbYnPko 
+              <?php } 
                 if($_GET['sts']){ ?>
               <div class="alert bg-green alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><b style="color:#FFFFFF !important;">X</b></span></button>
@@ -83,14 +74,14 @@ require_once 'config.php';
               </div>
               <?php }  ?>
               
-        <div class="input-group mb-3"><input type="email" class="form-control" placeholder="email" name="email" id="email" required jautofocus /><div class="input-group-append"><div class="input-group-text"><span class="fas fa-envelope"></span></div></div></div>
+        <div class="input-group mb-3"><input type="text" class="form-control" placeholder="secretcode" name="secretcode" id="secretcode" required jautofocus /><div class="input-group-append"><div class="input-group-text"><span class="fas fa-envelope"></span></div></div></div>
         <div class="input-group mb-3"><input type="password" class="form-control" placeholder="password" name="password" required /><div class="input-group-append"><div class="input-group-text"><span class="fas fa-lock"></span></div></div></div>
         
         
-        <div class="row"> <div class="col-8">   <a href="#my_modal" data-color="red" data-toggle="modal" class="btn bg-red waves-effect" jdata-book-id="">Forgot Password?</a> </div>
+        <div class="row"> <div class="col-8">   <a href="index.php" class="text-success btn btn-block btn-xs">I remember my password! <br> Go to Sign in page !!</a> </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" name="login" id="login" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" name="reset" id="reset" class="btn btn-primary btn-block">Reset</button>
              <!--button type="submit" name="fp" class="btn bg-blue waves-effect"  style="float:right;">Send me Password</button-->
           </div>
           <!-- /.col -->
@@ -99,31 +90,7 @@ require_once 'config.php';
     </div>
     <!-- /.login-card-body -->
 
-         <div class="modal fade" id="my_modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="defaultModalLabel">Forget Password</h4>
-                        </div>
-                         <form id="fp-form" method="post" class="form-signin" role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <div class="modal-body">
-                     
-				<div class="form-group">
-					<label class="mb-2">Please enter your email address</label>
-					<input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder=" your email" required="">
-					<!--small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small-->
-				</div>
-				    
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-yellow waves-effect" style="float:left;" data-dismiss="modal">No, close it!</button>
-                            <button type="submit" name="fp" class="btn bg-blue waves-effect"  style="float:right;"><!--Send me Password-->Reset My Password</button>
-                            
-                        </div>
-                        	</form>
-                    </div>
-                </div>
-            </div>
+        
   </div>
   
   
@@ -146,26 +113,7 @@ require_once 'config.php';
 
     $('#fy').datepicker({ autoclose: true, dateFormat: 'dd-mm-yy' }); 
 
-    $('#my_modal').on('show.bs.modal', function(e) {
-    var bookId = $(e.relatedTarget).data('book-id');
-    $(e.currentTarget).find('input[name="bookId"]').val(bookId);
-    
-     var dataString = 'id=' + bookId;
-     $(e.currentTarget).find('.ct').html(bookId);   
-     $.ajax({
-        type: "GET",
-        url: "labelprint.php",
-        data: dataString,
-        cache: false,
-        success: function (data) {
-          console.log(data);
-         $(e.currentTarget).find('.ct').html(data);
-        },
-        error: function(err) {
-          console.log(err);
-        }
-      }); 
-});
+
 </script>
 </body>
 </html>
