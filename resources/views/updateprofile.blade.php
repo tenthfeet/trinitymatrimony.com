@@ -38,11 +38,9 @@
                                                 <div class="form-group col-sm-6">
                                                     <label>Gender</label>
                                                     <div class="select-block1">
-                                                        <select name="gender" id="gender">
-                                                            <option value="">Select Gender</option>
-                                                            <option value="Male">Male</option>
-                                                            <option value="Female">Female</option>
-                                                        </select>
+                                                        @php
+                                                        echo arrayToSelectOption(Arr::$gender,"gender","","","","Gender");
+                                                        @endphp
                                                     </div>
                                                 </div>
                                             </div>
@@ -62,11 +60,10 @@
                                                 <div class="form-group col-sm-6">
                                                     <label>Mother Tongue</label>
                                                     <div class="select-block1">
-                                                        <select name="mothertongue" id="mothertongue">
-                                                            <option value="">Select Language</option>
-                                                            <option value="Malayalam">Malayalam</option>
-                                                            <option value="Tamil">Tamil</option>
-                                                        </select>
+                                                        @php
+                                                            echo arrayToSelectOption(Arr::$lang,"mothertongue","","","","Language");
+                                                        @endphp
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
@@ -79,12 +76,9 @@
                                                 <div class="form-group col-sm-6">
                                                     <label for="edit-name">Particular Church</label>
                                                     <div class="select-block1">
-                                                        <select name="particularchurch" id="particularchurch">
-                                                            <option value="">Select Church</option>
-                                                            <option value="SyroMalabar">SyroMalabar</option>
-                                                            <option value="SyroMalankara">SyroMalankara</option>
-                                                            <option value="Latin">Latin</option>
-                                                        </select>
+                                                        @php
+                                                            echo arrayToSelectOption(Arr::$church,"particularchurch","","","","Church");
+                                                        @endphp
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
@@ -119,17 +113,14 @@
                                                 <div class="form-group col-sm-6">
                                                     <label for="edit-name">Marital Status</label>
                                                     <div class="select-block1">
-                                                        <select name="particularchurch" id="particularchurch">
-                                                            <option value="">Select Status</option>
-                                                            <option value="Bachelor-Spinster">Bachelor-Spinster</option>
-                                                            <option value="Divorced">Divorced</option>
-                                                            <option value="Widower-Widow">Widower-Widow</option>
-                                                        </select>
+                                                        @php
+                                                            echo arrayToSelectOption(Arr::$marital,"maritalstatus","","","","Status");
+                                                        @endphp
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label for="edit-name">Upload Photo<span class="form-required" title="This field is required.">*</span></label>
-                                                    <input type="file" id="edit-name" name="name" value="" size="60" maxlength="60" class="form-text required">
+                                                    <input type="file" id="photo" name="photo" value="" class="form-text required">
                                                 </div>
                                             </div>
 
@@ -164,30 +155,25 @@
                                                 <div class="form-group col-sm-6">
                                                     <label for="edit-name">Educational Qualification</label>
                                                     <div class="select-block1">
-                                                        <select name="qualification" id="qualification">
-                                                            <option value="">Select Qualification</option>
-                                                            <option value="below10th">Below 10th</option>
-                                                            <option value="10th">10th</option>
-                                                            <option value="12th">12th</option>
-                                                            <option value="UG">Under Graduate</option>
-                                                            <option value="PG">Post Graduate</option>
-                                                        </select>
+                                                        @php
+                                                            echo arrayToSelectOption(Arr::$qualification,"qualification","","","","Qualification");
+                                                        @endphp
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label for="edit-name">Occupation</label>
-                                                    <input type="text" id="occupation" name="occupation" value="" size="60" maxlength="60" class="form-text required">
+                                                    <input type="text" id="occupation" name="occupation" value="" size="60" maxlength="150" class="form-text required">
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
                                                     <label for="edit-name">Area / Field</label>
-                                                    <input type="text" id="area" name="area" value="" size="60" maxlength="60" class="form-text">
+                                                    <input type="text" id="area" name="area" value="" size="60" maxlength="150" class="form-text">
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label for="edit-name">Annual income</label>
-                                                    <input type="number" id="income" name="income" value="" size="60" maxlength="60" class="form-text">
+                                                    <input type="number" id="income" name="income" value=""  class="form-text">
                                                 </div>
                                             </div>
 
@@ -212,30 +198,30 @@
                                         <div class="row">
                                             <div class="form-group col-sm-4">
                                                 <label for="edit-name">Father's Name</label>
-                                                <input type="text" id="fathername" name="fathername" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="text" id="fathername" name="fathername" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="edit-name">House Name</label>
-                                                <input type="text" id="fhouse" name="fhouse" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="text" id="fhouse" name="fhouse" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="edit-name">Father's Occupation</label>
-                                                <input type="text" id="foccupation" name="foccupation" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="text" id="foccupation" name="foccupation" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="form-group col-sm-4">
                                                 <label for="edit-name">Mother's Name</label>
-                                                <input type="text" id="mothername" name="mothername" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="text" id="mothername" name="mothername" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="edit-name">House Name</label>
-                                                <input type="text" id="mhouse" name="mhouse" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="text" id="mhouse" name="mhouse" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="edit-name">Mother's Occupation</label>
-                                                <input type="text" id="moccupation" name="moccupation" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="text" id="moccupation" name="moccupation" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                         </div>
 
@@ -245,10 +231,10 @@
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <div class="select-block1">
-                                                    <select name="siblings" id="siblings">
-                                                        <option value="No">No</option>
-                                                        <option value="Yes">Yes</option>
-                                                    </select>
+                                                    @php
+                                                        echo arrayToSelectOption(Arr::$ny,"siblings")
+                                                    @endphp
+                                                    
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
@@ -298,10 +284,9 @@
                                             <div class="form-group col-sm-6">
                                                 <label>House</label>
                                                 <div class="select-block1">
-                                                    <select name="housetype" id="housetype">
-                                                        <option value="Own">Own</option>
-                                                        <option value="Rented">Rented</option>
-                                                    </select>
+                                                    @php
+                                                        echo arrayToSelectOption(Arr::$housetype,"housetype");
+                                                    @endphp
                                                 </div>
                                             </div>
                                         </div>
