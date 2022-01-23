@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -29,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -56,8 +60,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', 'string', 'max:10', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.USERS],
+            'mobile' => ['required', 'string', 'max:10', 'unique:'.USERS],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -79,7 +83,28 @@ class RegisterController extends Controller
             'firstname' => $data['firstname'],
             'email' => $data['email'],
             'mobile' => $data['mobile'],
+            'status'=>'disabled',
             'password' => Hash::make($data['password']),
         ]);
+
+        
     }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath())
+                    ->withSuccess('Registration Completed Successfully...You Can Login after activation of your account...');
+    }
+
 }

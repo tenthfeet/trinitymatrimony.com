@@ -74,7 +74,7 @@
 
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Particular Church</label>
+                                                    <label >Particular Church</label>
                                                     <div class="select-block1">
                                                         @php
                                                             echo arrayToSelectOption(Arr::$church,"particularchurch","","","","Church");
@@ -82,36 +82,36 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Non Catholic Church</label>
+                                                    <label >Non Catholic Church</label>
                                                     <input type="text" id="noncath_church" name="noncath_church" value="" size="60" maxlength="60" class="form-text">
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Height (cm)</label>
+                                                    <label >Height (cm)</label>
                                                     <input type="text" id="height" name="height" value="" size="60" maxlength="60" class="form-text">
                                                 </div>
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Weight (Kg)</label>
+                                                    <label >Weight (Kg)</label>
                                                     <input type="text" id="weight" name="weight" value="" size="60" maxlength="60" class="form-text">
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Blood Group</label>
+                                                    <label >Blood Group</label>
                                                     <input type="text" id="blood" name="blood" value="" size="60" maxlength="60" class="form-text">
                                                 </div>
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Complexion</label>
+                                                    <label >Complexion</label>
                                                     <input type="text" id="complex" name="complex" value="" size="60" maxlength="60" class="form-text">
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Marital Status</label>
+                                                    <label >Marital Status</label>
                                                     <div class="select-block1">
                                                         @php
                                                             echo arrayToSelectOption(Arr::$marital,"maritalstatus","","","","Status");
@@ -119,18 +119,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Upload Photo<span class="form-required" title="This field is required.">*</span></label>
+                                                    <label >Upload Photo<span class="form-required" title="This field is required.">*</span></label>
                                                     <input type="file" id="photo" name="photo" value="" class="form-text required">
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                             <div class="form-group col-sm-6">
-                                                    <label for="edit-name">About (Describe about yourself in few words)</label>
+                                                    <label >About (Describe about yourself in few words)</label>
                                                     <textarea name="about" id="about" cols="30" class="form-text" style="height: 100px;"></textarea>
                                                 </div>
                                             <div class="form-group col-sm-6">
-                                                <label for="edit-name">Partner preference any</label>
+                                                <label >Partner preference any</label>
                                                 <textarea name="preference" id="preference" cols="30" class="form-text" style="height: 100px;"></textarea>
                                             </div>
                                             
@@ -153,7 +153,7 @@
                                         <div class="col-md-12 basic_1-left">
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Educational Qualification</label>
+                                                    <label >Educational Qualification</label>
                                                     <div class="select-block1">
                                                         @php
                                                             echo arrayToSelectOption(Arr::$qualification,"qualification","","","","Qualification");
@@ -161,25 +161,25 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Occupation</label>
+                                                    <label >Occupation</label>
                                                     <input type="text" id="occupation" name="occupation" value="" size="60" maxlength="150" class="form-text required">
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Area / Field</label>
+                                                    <label >Area / Field</label>
                                                     <input type="text" id="area" name="area" value="" size="60" maxlength="150" class="form-text">
                                                 </div>
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Annual income</label>
+                                                    <label >Annual income</label>
                                                     <input type="number" id="income" name="income" value=""  class="form-text">
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
-                                                    <label for="edit-name">Address of the Firm / Company / Self business</label>
+                                                    <label >Address of the Firm / Company / Self business</label>
                                                     <textarea name="firmaddress" id="firmaddress" cols="30" class="form-text" style="height: 100px;"></textarea>
                                                 </div>
                                                 
@@ -197,30 +197,30 @@
                                     <div class="basic_1-left">
                                         <div class="row">
                                             <div class="form-group col-sm-4">
-                                                <label for="edit-name">Father's Name</label>
+                                                <label >Father's Name</label>
                                                 <input type="text" id="fathername" name="fathername" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-4">
-                                                <label for="edit-name">House Name</label>
+                                                <label >House Name</label>
                                                 <input type="text" id="fhouse" name="fhouse" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-4">
-                                                <label for="edit-name">Father's Occupation</label>
+                                                <label >Father's Occupation</label>
                                                 <input type="text" id="foccupation" name="foccupation" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="form-group col-sm-4">
-                                                <label for="edit-name">Mother's Name</label>
+                                                <label >Mother's Name</label>
                                                 <input type="text" id="mothername" name="mothername" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-4">
-                                                <label for="edit-name">House Name</label>
+                                                <label >House Name</label>
                                                 <input type="text" id="mhouse" name="mhouse" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-4">
-                                                <label for="edit-name">Mother's Occupation</label>
+                                                <label >Mother's Occupation</label>
                                                 <input type="text" id="moccupation" name="moccupation" value="" size="60" maxlength="150" class="form-text">
                                             </div>
                                         </div>
@@ -269,7 +269,7 @@
                                         <div class="row">
                                             <div class="form-group col-sm-6">
                                                 <label>Present parish</label>
-                                                <input type="text" id="pparish" name="pparish" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="text" id="pparish" name="pparish" value=""  maxlength="150" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label>From Which year</label>
@@ -292,11 +292,11 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-6">
-                                                <label for="edit-name">Address for Contact</label>
+                                                <label >Address for Contact</label>
                                                 <textarea name="caddress" id="caddress" cols="30" class="form-text" style="height: 100px;"></textarea>
                                             </div>
                                             <div class="form-group col-sm-6">
-                                                <label for="edit-name">Permanent Address</label>
+                                                <label >Permanent Address</label>
                                                 <textarea name="paddress" id="paddress" cols="30" class="form-text" style="height: 100px;"></textarea>
                                             </div>
                                         </div>
@@ -304,11 +304,11 @@
                                         <div class="row">
                                             <div class="form-group col-sm-6">
                                                 <label >Phone number 1</label>
-                                                <input type="number" id="mobile1" name="mobile1" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="number" id="mobile1" name="mobile1" value=""  maxlength="10" class="form-text">
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label >Phone number 2</label>
-                                                <input type="number" id="mobile2" name="mobile2" value="" size="60" maxlength="60" class="form-text">
+                                                <input type="number" id="mobile2" name="mobile2" value="" maxlength="10" class="form-text">
                                             </div>
                                         </div>
 

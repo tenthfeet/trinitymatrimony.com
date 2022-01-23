@@ -19,12 +19,13 @@ class RegistrationController extends Controller
     protected function otp(Request $data)
     {
         $data->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.USERS]
         ]);
 
-        $otp=mt_rand(1000,9999);
+        //$otp=mt_rand(1000,9999);
+        $otp=1234;
         session(['reg_email'=>$data['email'],'reg_otp'=>$otp,'otp_time'=>strtotime(date("Y-m-d H:i:s"))]);
-        Mail::to($data['email'])->send(new RegisterOtp());
+        //Mail::to($data['email'])->send(new RegisterOtp());
         return redirect('/verify');
     }
 
