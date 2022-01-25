@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+// use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
-
 
 class LoginController extends Controller
 {
@@ -31,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/tmadmin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -41,6 +40,11 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        return view('admin.login');
     }
 
     public function login(Request $request)
@@ -73,11 +77,16 @@ class LoginController extends Controller
     {
         if (DB::table(USERS)->where('email', $request->email)->exists()) {
 
-            $condition= DB::table(USERS)->where('email', $request->email)->value('status');
-            if($condition === 'active'){
-                return $this->guard()->attempt(
-                    $this->credentials($request), $request->filled('remember')
-                );
+            $status= DB::table(USERS)->where('email', $request->email)->value('status');
+            $role= DB::table(USERS)->where('email', $request->email)->value('role');
+            if($status === 'active'){
+                if($role==='admin'||$role==='superadmin'){
+                    return $this->guard()->attempt(
+                        $this->credentials($request), $request->filled('remember')
+                    );
+                }throw ValidationException::withMessages([
+                    "msg" => "You are not admin..."
+                ]);
             }else{
                 throw ValidationException::withMessages([
                     "msg" => "Your account is might been not yet activated or Deactivated...",
@@ -103,7 +112,7 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         // return $request->only($this->username(), 'password');
-        return ['email' => $request['email'], 'password' => $request['password'], 'status' => 'active','role'=>'user'];
+        return ['email' => $request['email'], 'password' => $request['password'], 'status' => 'active'];
     }
 
     protected function sendFailedLoginResponse(Request $request)
@@ -115,3 +124,4 @@ class LoginController extends Controller
     }
     
 }
+

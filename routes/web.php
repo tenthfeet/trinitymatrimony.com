@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\Admin\LoginController as Adminlogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,18 @@ Route::post('/verify',[RegistrationController::class,'verifyOtp']);
 
 Route::view('/updateprofile','updateprofile');
 Route::view('/viewprofile','viewprofile');
+
+
+Route::get('/tmadmin',[Adminlogin::class,'showLoginForm'])->name('tmadmin');
+Route::post('/tmadmin',[Adminlogin::class,'login']);
+// Route::view('/tmadmin/dashboard','admin.dashboard')->middleware('auth');
+Route::get('/tmadmin/dashboard',function(){
+    if(Auth::check()){
+        return view('admin.dashboard');
+    }else{
+        return redirect('/tmadmin');
+    }
+});
 
 Auth::routes();
 
