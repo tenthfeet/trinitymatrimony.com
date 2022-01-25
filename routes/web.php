@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\Admin\LoginController as Adminlogin;
+use App\Http\Controllers\Admin\RegisterController as Adminregister;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,9 @@ Route::view('/viewprofile','viewprofile');
 
 Route::get('/tmadmin',[Adminlogin::class,'showLoginForm'])->name('tmadmin');
 Route::post('/tmadmin',[Adminlogin::class,'login']);
-// Route::view('/tmadmin/dashboard','admin.dashboard')->middleware('auth');
+Route::post('/tmout',[Adminlogin::class,'logout'])->name('tmout');
+Route::get('/tmadmin/register',[Adminregister::class,'showRegistrationForm']);
+Route::post('/tmadmin/register',[Adminregister::class,'register']);
 Route::get('/tmadmin/dashboard',function(){
     if(Auth::check()){
         return view('admin.dashboard');
@@ -44,5 +47,7 @@ Route::get('/tmadmin/dashboard',function(){
 });
 
 Auth::routes();
+
+Route::view('/tmadmin/adminlist','admin.adminlist');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

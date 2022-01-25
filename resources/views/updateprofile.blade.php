@@ -39,7 +39,7 @@
                                                     <label>Gender</label>
                                                     <div class="select-block1">
                                                         @php
-                                                        echo arrayToSelectOption(Arr::$gender,"gender","","","","Gender");
+                                                        echo arrayToSelectOption(Arrays::$gender,"gender","","","","Gender");
                                                         @endphp
                                                     </div>
                                                 </div>
@@ -61,7 +61,7 @@
                                                     <label>Mother Tongue</label>
                                                     <div class="select-block1">
                                                         @php
-                                                            echo arrayToSelectOption(Arr::$lang,"mothertongue","","","","Language");
+                                                            echo arrayToSelectOption(Arrays::$lang,"mothertongue","","","","Language");
                                                         @endphp
                                                         
                                                     </div>
@@ -77,7 +77,7 @@
                                                     <label >Particular Church</label>
                                                     <div class="select-block1">
                                                         @php
-                                                            echo arrayToSelectOption(Arr::$church,"particularchurch","","","","Church");
+                                                            echo arrayToSelectOption(Arrays::$church,"particularchurch","","","","Church");
                                                         @endphp
                                                     </div>
                                                 </div>
@@ -114,7 +114,7 @@
                                                     <label >Marital Status</label>
                                                     <div class="select-block1">
                                                         @php
-                                                            echo arrayToSelectOption(Arr::$marital,"maritalstatus","","","","Status");
+                                                            echo arrayToSelectOption(Arrays::$marital,"maritalstatus","","","","Status");
                                                         @endphp
                                                     </div>
                                                 </div>
@@ -156,7 +156,7 @@
                                                     <label >Educational Qualification</label>
                                                     <div class="select-block1">
                                                         @php
-                                                            echo arrayToSelectOption(Arr::$qualification,"qualification","","","","Qualification");
+                                                            echo arrayToSelectOption(Arrays::$qualification,"qualification","","","","Qualification");
                                                         @endphp
                                                     </div>
                                                 </div>
@@ -232,7 +232,7 @@
                                             <div class="form-group col-sm-4">
                                                 <div class="select-block1">
                                                     @php
-                                                        echo arrayToSelectOption(Arr::$ny,"siblings")
+                                                        echo arrayToSelectOption(Arrays::$ny,"siblings")
                                                     @endphp
                                                     
                                                 </div>
@@ -285,7 +285,7 @@
                                                 <label>House</label>
                                                 <div class="select-block1">
                                                     @php
-                                                        echo arrayToSelectOption(Arr::$housetype,"housetype");
+                                                        echo arrayToSelectOption(Arrays::$housetype,"housetype");
                                                     @endphp
                                                 </div>
                                             </div>

@@ -1,6 +1,6 @@
 <?php
 
-class Arr
+class Arrays
 {
     public static $gender=array(
         "Male"=>"Male",
@@ -45,5 +45,10 @@ class Arr
     public static $housetype=array(
         "Own"=>"Own",
         "Rented"=>"Rented"
+    );
+
+    public static $status=array(
+        "active"=>"Active",
+        "disabled"=>"Disabled"
     );
 }
