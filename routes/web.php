@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\Admin\LoginController as Adminlogin;
 use App\Http\Controllers\Admin\RegisterController as Adminregister;
+use App\Http\Controllers\HomeController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,37 +19,37 @@ use App\Http\Controllers\Admin\RegisterController as Adminregister;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Public Routes
+Route::view('/', 'welcome');
+Route::view('/about', 'about');
+Route::view('/contact', 'contact');
 
-Route::view('/about','about');
-Route::view('/contact','contact');
+Route::get('/registration', [RegistrationController::class, 'register']);
+Route::post('/registration', [RegistrationController::class, 'otp']);
+Route::get('/verify', [RegistrationController::class, 'verify'])->middleware('guest');
+Route::post('/verify', [RegistrationController::class, 'verifyOtp']);
 
-Route::get('/registration',[RegistrationController::class,'register']);
-Route::post('/registration',[RegistrationController::class,'otp']);
-Route::get('/verify',function(){ return view('verify');});
-Route::post('/verify',[RegistrationController::class,'verifyOtp']);
+Route::get('/tmadmin', [Adminlogin::class, 'showLoginForm'])->name('tmadmin')->middleware('adminguest');
+Route::post('/tmadmin', [Adminlogin::class, 'login'])->middleware('adminguest');
+Route::post('/tmout', [Adminlogin::class, 'logout'])->name('tmout');
 
-Route::view('/updateprofile','updateprofile');
-Route::view('/viewprofile','viewprofile');
-
-
-Route::get('/tmadmin',[Adminlogin::class,'showLoginForm'])->name('tmadmin');
-Route::post('/tmadmin',[Adminlogin::class,'login']);
-Route::post('/tmout',[Adminlogin::class,'logout'])->name('tmout');
-Route::get('/tmadmin/register',[Adminregister::class,'showRegistrationForm']);
-Route::post('/tmadmin/register',[Adminregister::class,'register']);
-Route::get('/tmadmin/dashboard',function(){
-    if(Auth::check()){
-        return view('admin.dashboard');
-    }else{
-        return redirect('/tmadmin');
-    }
-});
-
+// User Authentication Routes
 Auth::routes();
 
-Route::view('/tmadmin/adminlist','admin.adminlist');
+// Routes for Admin and SuperAdmin
+Route::group(['middleware' => ['is_admin']], function () {
+    // Routes only SuperAdmin
+    Route::group(['middleware' => ['is_superadmin']], function () {
+        Route::get('/tmadmin/register', [Adminregister::class, 'showRegistrationForm']);
+        Route::post('/tmadmin/register', [Adminregister::class, 'register']);
+        Route::view('/tmadmin/adminlist', 'admin.adminlist');
+    });
+    Route::view('/tmadmin/dashboard', 'admin.dashboard');
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Roures for user
+Route::group(['middleware' => ['is_user']], function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::view('/updateprofile', 'updateprofile');
+    Route::view('/viewprofile', 'viewprofile');
+});

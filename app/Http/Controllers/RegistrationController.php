@@ -10,10 +10,19 @@ use App\Mail\RegisterOtp;
 
 class RegistrationController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
     
     protected function register()
     {
         return view('registration');
+    }
+    protected function verify()
+    {
+        return view('verify');
     }
 
     protected function otp(Request $data)

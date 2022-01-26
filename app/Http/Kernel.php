@@ -43,6 +43,15 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'is_admin'=>[
+            \App\Http\Middleware\Admin\AdminAuth::class,
+        ],
+        'is_superadmin'=>[
+            \App\Http\Middleware\Admin\SuperAuth::class,
+        ],
+        'is_user'=>[
+            \App\Http\Middleware\User\UserAuth::class,
+        ]
     ];
 
     /**
@@ -58,6 +67,7 @@ class Kernel extends HttpKernel
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'adminguest' => \App\Http\Middleware\Admin\RedirectIfAuthenticatedAdmin::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
