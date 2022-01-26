@@ -22,35 +22,8 @@
                             Dashboard
                         </p>
                     </a>
-
                 </li>
                 @if (Auth::user()->role =="superadmin")
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-th"></i>
-                        <p>
-                            Manage administrators
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('/tmadmin/register') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/tmadmin/adminlist') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>List</p>
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
@@ -60,7 +33,42 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('/tmadmin/register') }}" class="nav-link">
+                        <i class="nav-icon fas fa-user-cog"></i>
+                        <p>
+                            Add Administrator
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/tmadmin/adminlist') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>
+                            List of Administrators
+                        </p>
+                    </a>
+                </li>
                 @endif
+                <li class="nav-item">
+                    <a href="{{ url('/tmadmin/userlist') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <!-- <i class="nav-icon fas fa-poll"></i> -->
+                        <p>
+                            All Users
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/tmadmin/dashboard') }}" class="nav-link">
+                        <i class="nav-icon fas fa-user-clock"></i>
+                        <!-- <i class="nav-icon fas fa-poll"></i> -->
+                        <p>
+                            Users Today
+                        </p>
+                    </a>
+                </li>
+                
                 
 
             </ul>

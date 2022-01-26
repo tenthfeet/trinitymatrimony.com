@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\LoginController as Adminlogin;
 use App\Http\Controllers\Admin\RegisterController as Adminregister;
 use App\Http\Controllers\HomeController;
 use GuzzleHttp\Middleware;
+use App\Http\Controllers\Admin\ManageUserController as ManageUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,14 +38,17 @@ Route::post('/tmout', [Adminlogin::class, 'logout'])->name('tmout');
 Auth::routes();
 
 // Routes for Admin and SuperAdmin
-Route::group(['middleware' => ['is_admin']], function () {
+Route::group(['prefix'=>'tmadmin','middleware' => ['is_admin']], function () {
     // Routes only SuperAdmin
     Route::group(['middleware' => ['is_superadmin']], function () {
-        Route::get('/tmadmin/register', [Adminregister::class, 'showRegistrationForm']);
-        Route::post('/tmadmin/register', [Adminregister::class, 'register']);
-        Route::view('/tmadmin/adminlist', 'admin.adminlist');
+        Route::get('/register/{id?}', [Adminregister::class, 'showRegistrationForm']);
+        Route::post('/register', [Adminregister::class, 'register']);
+        Route::put('/register/{id?}', [Adminregister::class, 'update']);
+        Route::get('/adminlist', [Adminregister::class,'list']);
     });
-    Route::view('/tmadmin/dashboard', 'admin.dashboard');
+    Route::get('/dashboard', [ManageUser::class,'today']);
+    Route::get('/userlist', [ManageUser::class,'userlist']);
+    Route::post('/userlist', [ManageUser::class,'updateUserStatus']);
 });
 
 // Roures for user

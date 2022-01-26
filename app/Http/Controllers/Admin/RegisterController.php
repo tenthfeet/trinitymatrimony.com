@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -42,13 +43,45 @@ class RegisterController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        
+
 
     }
 
-    public function showRegistrationForm()
+    public function showRegistrationForm($id=0)
     {
-        return view('admin.register');
+        // $id=$request->has('id')?$request->id:0;
+        if ($id) {
+            $user = DB::table(USERS)
+                ->select('id', 'firstname', 'email', 'mobile', 'status')
+                ->where('id', "=", $id)
+                ->first();
+            return view('admin.register', ['data' => $user]);
+            // return view('admin.adminlist', ['data' => $adminlist]);
+        } else {
+            return view('admin.register');
+        }
+    }
+
+    public function update(Request $request)
+    {
+        // echo "From update method";
+        $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+        ]);
+
+        $affectedRows = DB::table(USERS)
+            ->where('id', $request['id'])
+            ->update([
+                'firstname' => $request['name'],
+                'status' => $request['status']
+            ]);
+
+        if($affectedRows>0){
+            return redirect()->back()->with('msg', 'Updated successfully..!');
+            // return redirect()->back()->withSuccess('Updated successfully..!');
+        }else{
+            return redirect()->back()->with('msg', 'Record not updated...');
+        }
     }
 
     /**
@@ -61,8 +94,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.USERS],
-            'mobile' => ['required', 'string', 'size:10', 'unique:'.USERS],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . USERS],
+            'mobile' => ['required', 'string', 'size:10', 'unique:' . USERS],
             'password' => ['required', 'string', 'min:6'],
         ]);
     }
@@ -81,15 +114,13 @@ class RegisterController extends Controller
         // session()->forget(['reg_otp','reg_email','otp_time']);
         return User::create([
             'firstname' => $data['name'],
-            'surname'=>'',
+            'surname' => '',
             'email' => $data['email'],
             'mobile' => $data['mobile'],
-            'status'=>$data['status'],
-            'role'=>'admin',
+            'status' => $data['status'],
+            'role' => 'admin',
             'password' => Hash::make($data['password']),
         ]);
-
-        
     }
 
     public function register(Request $request)
@@ -104,10 +135,21 @@ class RegisterController extends Controller
             return $response;
         }
         return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath())
-                    ->withSuccess('Admin user added Successfully..!');
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath())
+            ->withSuccess('Admin user added Successfully..!');
     }
 
+    public function list()
+    {
+        $adminlist = DB::table(USERS)
+            ->select('id', 'firstname', 'email', 'status')
+            ->where('id', '!=', 1)
+            ->where(function($query){
+                $query->where('role','admin')
+                      ->orWhere('role','superadmin');
+            })
+            ->get();
+        return view('admin.adminlist', ['data' => $adminlist]);
+    }
 }
-
