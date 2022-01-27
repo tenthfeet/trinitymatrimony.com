@@ -57,8 +57,7 @@
                       </tbody>
                   </table>
                   <ul class="login_details">
-                    <li>Already a member? <a href="login.html">Login Now</a></li>
-                    <li>If not a member? <a href="register.html">Register Now</a></li>
+                    <li><a href="{{url('/updateprofile')}}">Update profile</a></li>
                   </ul>
               </div>
               <div class="clearfix"> </div>

@@ -1,13 +1,14 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\Admin\LoginController as Adminlogin;
 use App\Http\Controllers\Admin\RegisterController as Adminregister;
 use App\Http\Controllers\HomeController;
-use GuzzleHttp\Middleware;
 use App\Http\Controllers\Admin\ManageUserController as ManageUser;
+use App\Http\Controllers\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,7 @@ Route::group(['prefix'=>'tmadmin','middleware' => ['is_admin']], function () {
 // Roures for user
 Route::group(['middleware' => ['is_user']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::view('/updateprofile', 'updateprofile');
-    Route::view('/viewprofile', 'viewprofile');
+    Route::get('/viewprofile', [UserProfileController::class,'view']);
+    Route::get('/updateprofile', [UserProfileController::class,'update']);
+    Route::post('/updateprofile', [UserProfileController::class,'basicInfo']);
 });

@@ -37,6 +37,8 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->firstname }}<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url('/viewprofile') }}">View Profile</a></li>
+                                    <li><a href="{{ url('/updateprofile') }}">Update Profile</a></li>
                                     <li><a href="{{ route('password.request') }}">Change Password</a></li>
                                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Logout</a></li>
