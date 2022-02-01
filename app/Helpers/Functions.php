@@ -1,8 +1,9 @@
 <?php
 
-function arrayToSelectOption(array $a, string $id = "", string $class = "", string $attr = "", string $value = "", string $ph = "")
+function arrayToSelectOption(array $a, string $id = "", string $class = "", string $attr = "", $value = "", string $ph = "")
 {
-    $data= "<select id='$id' name='$id' class='$class' $attr>";
+    $c=$class!=''?"class='$class'":'';
+    $data= "<select id='$id' name='$id' $c $attr>";
     if($ph!=""){
         $data.= "<option value=''>--Select $ph--</option><br>";
     }

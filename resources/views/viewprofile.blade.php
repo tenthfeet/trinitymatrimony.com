@@ -12,19 +12,10 @@
      </div>
      <div class="profile">
           <div class="col-md-8 profile_left">
-              <h2>Id : 254870</h2>
+              <h2>Id : {{$data->pid}}</h2>
               <div class="col_3">
-                 <div class="col-sm-4 row_2">
-                  <div class="flexslider">
-                       <ul class="slides">
-                          <li data-thumb="images/4.jpg">
-                              <img style="width:250px;" src="images/p2.jpg" />
-                          </li>
-  
-                          
-                          
-                       </ul>
-                    </div>
+                 <div class="col-sm-4  text-center">
+                    <img class="rounded" style="width:200px;height:200px;" src="{{asset($data->photo)}}" />
               </div>
               <div class="col-sm-8 row_1">
                   <table class="table_working_hours">

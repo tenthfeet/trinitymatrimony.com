@@ -58,4 +58,10 @@ Route::group(['middleware' => ['is_user']], function () {
     Route::get('/viewprofile', [UserProfileController::class,'view']);
     Route::get('/updateprofile', [UserProfileController::class,'update']);
     Route::post('/updateprofile', [UserProfileController::class,'basicInfo']);
+    Route::post('/updatecareer', [UserProfileController::class,'career']);
+    Route::post('/updatefamily', [UserProfileController::class,'family']);
+    Route::post('/updatecontact', [UserProfileController::class,'contact']);
+    Route::post('/addsibling', [UserProfileController::class,'addsibling']);
+    Route::post('/deletesibling', [UserProfileController::class,'deletesibling']);
+    Route::post('/sibling', [UserProfileController::class,'sibling']);
 });
