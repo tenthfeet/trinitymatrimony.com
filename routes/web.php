@@ -55,7 +55,7 @@ Route::group(['prefix'=>'tmadmin','middleware' => ['is_admin']], function () {
 // Roures for user
 Route::group(['middleware' => ['is_user']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/viewprofile', [UserProfileController::class,'view']);
+    Route::get('/viewprofile/{id?}', [UserProfileController::class,'view']);
     Route::get('/updateprofile', [UserProfileController::class,'update']);
     Route::post('/updateprofile', [UserProfileController::class,'basicInfo']);
     Route::post('/updatecareer', [UserProfileController::class,'career']);

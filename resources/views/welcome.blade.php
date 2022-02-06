@@ -15,12 +15,13 @@
     <link href='//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
     <!----font-Awesome----->
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
-    <script src="{{asset('js/jquery.flexisel.js')}}"></script>
+    <script src="{{ asset('js/jquery.flexisel.js') }}"></script>
     <style>
         .dflexisel {
             width: 280px;
             height: 160px;
         }
+
     </style>
 
 </head>
@@ -32,64 +33,49 @@
         <div class="container">
             <div class="banner_info">
                 <h3>Find your soulmate</h3>
-                <a href="#" class="hvr-shutter-out-horizontal">Create your Profile</a>
+                <a href="{{ url('/updateprofile') }}" class="hvr-shutter-out-horizontal">Create your Profile</a>
             </div>
         </div>
 
         <div class="profile_search">
             <div class="container wrap_1">
                 <form action="">
+                    @csrf
                     <div class="search_top">
                         <div class="inline-block">
                             <label class="gender_1">I am looking for :</label>
                             <div class="age_box1" style="max-width: 100%; display: inline-block;">
-                                <select>
-                                    <option value="">* Select Gender</option>
-                                    <option value="Male">Bride</option>
-                                    <option value="Female">Groom</option>
-                                </select>
+                                @php
+                                    echo arrayToSelectOption(Arrays::$lookingFor, 'gender', '', 'required', '', 'Gender');
+                                @endphp
                             </div>
                         </div>
                         <div class="inline-block">
                             <label class="gender_1">Education :</label>
                             <div class="age_box1" style="max-width: 100%; display: inline-block;">
-                                <select>
-                                    <option value="">* Select Edu. Qual.</option>
-                                    <option value="Washington">UG</option>
-                                    <option value="Texas">PG</option>
-                                    <option value="Georgia">Professional</option>
-                                    <option value="Virginia">Below UG</option>
-                                </select>
+                                @php
+                                    echo arrayToSelectOption(Arrays::$qualification, 'qualification', '', '', '', 'Edu. Qual.');
+                                @endphp
+
                             </div>
                         </div>
-                        <div class="inline-block">
-                            <label class="gender_1">Profession :</label>
-                            <div class="age_box1" style="max-width: 100%; display: inline-block;">
-                                <select>
-                                    <option value="">* Select Profession</option>
-                                    <option value="Sports &amp; Adventure">Engineer &amp; </option>
-                                    <option value="Movies &amp; Entertainment">Medical &amp; </option>
-                                    <option value="Arts &amp; Science">Professor &amp; </option>
-                                    <option value="Technology">Technology</option>
-                                    <option value="Fashion">Fashion</option>
-                                </select>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="inline-block">
                         <div class="age_box2" style="max-width: 220px;">
                             <label class="gender_1">Age :</label>
-                            <input class="transparent" placeholder="From:" style="width: 34%;" type="text" value="">&nbsp;-&nbsp;<input class="transparent" placeholder="To:" style="width: 34%;" type="text" value="">
+                            <input class="transparent" placeholder="From:" style="width: 34%;" type="number"
+                                value="" max="60">&nbsp;-&nbsp;<input class="transparent" placeholder="To:"
+                                style="width: 34%;" type="number" value="" max="60">
                         </div>
                     </div>
                     <div class="inline-block">
                         <label class="gender_1">Annual Income :</label>
                         <div class="age_box1" style="max-width: 100%; display: inline-block;">
-                            <select>
-                                <option value="">* Select Income</option>
-                                <option value="Single">10,00,000-15,00,000</option>
-                                <option value="Single">>15,00,000</option>
-                            </select>
+                            @php
+                                echo arrayToSelectOption(Arrays::$income, 'income', '', '', '', 'Income');
+                            @endphp
+
                         </div>
                     </div>
                     <div class="submit inline-block">
@@ -113,11 +99,13 @@
                 <li>
                     <div class="col_1">
                         <a href="#">
-                            <img src="{{asset('images/1.jpg')}}" alt="" class="hover-animation image-zoom-in img-responsive flexisel" />
+                            <img src="{{ asset('images/1.jpg') }}" alt=""
+                                class="hover-animation image-zoom-in img-responsive flexisel" />
                             <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
                                 <div class="center-middle">Know More</div>
                             </div>
-                            <h3><span class="m_3">ID : MI-387412</span><br>28, Software Engineer, Coimbatore<br>
+                            <h3><span class="m_3">ID : MI-387412</span><br>28, Software Engineer,
+                                Coimbatore<br>
                             </h3>
                         </a>
                     </div>
@@ -125,7 +113,8 @@
                 <li>
                     <div class="col_1">
                         <a href="#">
-                            <img src="{{asset('images/p2.jpg')}}" alt="" class="flexisel hover-animation image-zoom-in img-responsive" />
+                            <img src="{{ asset('images/p2.jpg') }}" alt=""
+                                class="flexisel hover-animation image-zoom-in img-responsive" />
                             <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
                                 <div class="center-middle">Know More</div>
                             </div>
@@ -136,11 +125,13 @@
                 <li>
                     <div class="col_1">
                         <a href="#">
-                            <img src="{{asset('images/a5.jpg')}}" alt="" class=" flexisel hover-animation image-zoom-in img-responsive" />
+                            <img src="{{ asset('images/a5.jpg') }}" alt=""
+                                class=" flexisel hover-animation image-zoom-in img-responsive" />
                             <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
                                 <div class="center-middle">Know More</div>
                             </div>
-                            <h3><span class="m_3">ID : MI-387412</span><br>28, Software Engineer, Coimbatore<br>
+                            <h3><span class="m_3">ID : MI-387412</span><br>28, Software Engineer,
+                                Coimbatore<br>
                             </h3>
                         </a>
                     </div>
@@ -148,7 +139,8 @@
                 <li>
                     <div class="col_1">
                         <a href="#">
-                            <img src="{{asset('images/p4.jpg')}}" alt="" class="flexisel hover-animation image-zoom-in img-responsive" />
+                            <img src="{{ asset('images/p4.jpg') }}" alt=""
+                                class="flexisel hover-animation image-zoom-in img-responsive" />
                             <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
                                 <div class="center-middle">Know More</div>
                             </div>
@@ -208,12 +200,15 @@
                             </div>
                             <div class="suceess_story-content-container">
                                 <figure class="suceess_story-content-featured-image">
-                                    <img width="75" height="75" src="{{asset('images/7.jpg')}}" class="img-responsive" alt="" />
+                                    <img width="75" height="75" src="{{ asset('images/7.jpg') }}"
+                                        class="img-responsive" alt="" />
                                 </figure>
                                 <div class="suceess_story-content-info">
                                     <h4><a href="#">Juliet & Romeo</a></h4>
-                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect, communication, patience..
-                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a href="#">More...</a></p>
+                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect,
+                                        communication, patience..
+                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a
+                                            href="#">More...</a></p>
                                 </div>
                             </div>
                         </li>
@@ -227,8 +222,10 @@
                                 </figure>
                                 <div class="suceess_story-content-info">
                                     <h4><a href="#">Juliet & Romeo</a></h4>
-                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect, communication, patience..
-                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a href="#">More...</a></p>
+                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect,
+                                        communication, patience..
+                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a
+                                            href="#">More...</a></p>
                                 </div>
                             </div>
                         </li>
@@ -242,8 +239,10 @@
                                 </figure>
                                 <div class="suceess_story-content-info">
                                     <h4><a href="#">Juliet & Romeo</a></h4>
-                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect, communication, patience..
-                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a href="#">More...</a></p>
+                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect,
+                                        communication, patience..
+                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a
+                                            href="#">More...</a></p>
                                 </div>
                             </div>
                         </li>
@@ -257,8 +256,10 @@
                                 </figure>
                                 <div class="suceess_story-content-info">
                                     <h4><a href="#">Juliet & Romeo</a></h4>
-                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect, communication, patience..
-                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a href="#">More...</a></p>
+                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect,
+                                        communication, patience..
+                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a
+                                            href="#">More...</a></p>
                                 </div>
                             </div>
                         </li>
@@ -272,8 +273,10 @@
                                 </figure>
                                 <div class="suceess_story-content-info">
                                     <h4><a href="#">Juliet & Romeo</a></h4>
-                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect, communication, patience..
-                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a href="#">More...</a></p>
+                                    <p>Marriage is a life long journey that thrives on love, commitment, trust, respect,
+                                        communication, patience..
+                                        Really thankful to TRINITY MATRIMONY. really happy..thank U.<a
+                                            href="#">More...</a></p>
                                 </div>
                             </div>
                         </li>
@@ -289,41 +292,45 @@
     <!-- Guest Messages -->
 
     <div class="bg">
-		<div class="container"> 
-			<h3>Guest Messages</h3>
-			<div class="heart-divider">
-				<span class="grey-line"></span>
-				<i class="fa fa-heart pink-heart"></i>
-				<i class="fa fa-heart grey-heart"></i>
-				<span class="grey-line"></span>
+        <div class="container">
+            <h3>Guest Messages</h3>
+            <div class="heart-divider">
+                <span class="grey-line"></span>
+                <i class="fa fa-heart pink-heart"></i>
+                <i class="fa fa-heart grey-heart"></i>
+                <span class="grey-line"></span>
             </div>
             <div class="col-sm-6">
-            	<div class="bg_left">
-            		<h4>But I must explain</h4>
-            		<h5>Friend of Bride</h5>
-            		<p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            	   <ul class="team-socials">
-                    <li><a href="#"><span class="icon-social "><i class="fa fa-facebook"></i></span></a></li>
-                    <li><a href="#"><span class="icon-social "><i class="fa fa-twitter"></i></span></a></li>
-                    <li><a href="#"><span class="icon-social"><i class="fa fa-google-plus"></i></span></a></li>
-                   </ul>
-            	</div>
+                <div class="bg_left">
+                    <h4>But I must explain</h4>
+                    <h5>Friend of Bride</h5>
+                    <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                        beatae vitae dicta sunt explicabo.</p>
+                    <ul class="team-socials">
+                        <li><a href="#"><span class="icon-social "><i class="fa fa-facebook"></i></span></a></li>
+                        <li><a href="#"><span class="icon-social "><i class="fa fa-twitter"></i></span></a></li>
+                        <li><a href="#"><span class="icon-social"><i class="fa fa-google-plus"></i></span></a></li>
+                    </ul>
+                </div>
             </div>
             <div class="col-sm-6">
-            	<div class="bg_left">
-            		<h4>But I must explain</h4>
-            		<h5>Friend of Groom</h5>
-            		<p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            	   <ul class="team-socials">
-                    <li><a href="#"><span class="icon-social "><i class="fa fa-facebook"></i></span></a></li>
-                    <li><a href="#"><span class="icon-social "><i class="fa fa-twitter"></i></span></a></li>
-                    <li><a href="#"><span class="icon-social"><i class="fa fa-google-plus"></i></span></a></li>
-                   </ul>
-            	</div>
+                <div class="bg_left">
+                    <h4>But I must explain</h4>
+                    <h5>Friend of Groom</h5>
+                    <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                        beatae vitae dicta sunt explicabo.</p>
+                    <ul class="team-socials">
+                        <li><a href="#"><span class="icon-social "><i class="fa fa-facebook"></i></span></a></li>
+                        <li><a href="#"><span class="icon-social "><i class="fa fa-twitter"></i></span></a></li>
+                        <li><a href="#"><span class="icon-social"><i class="fa fa-google-plus"></i></span></a></li>
+                    </ul>
+                </div>
             </div>
             <div class="clearfix"> </div>
-		</div>
-	</div>
+        </div>
+    </div>
 
 
     <x-footer />

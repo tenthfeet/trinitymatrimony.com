@@ -11,6 +11,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -45,7 +46,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -58,8 +59,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.USERS],
-            'mobile' => ['required', 'string', 'max:10', 'unique:'.USERS],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . USERS],
+            'mobile' => ['required', 'string', 'max:10', 'unique:' . USERS],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -76,16 +77,17 @@ class RegisterController extends Controller
         // print_r($data);
 
         // session()->forget(['reg_otp','reg_email','otp_time']);
+
+
+
         return User::create([
             'surname' => $data['surname'],
             'firstname' => $data['firstname'],
             'email' => $data['email'],
             'mobile' => $data['mobile'],
-            'status'=>'disabled',
+            'status' => 'disabled',
             'password' => Hash::make($data['password']),
         ]);
-
-        
     }
 
     public function register(Request $request)
@@ -100,9 +102,8 @@ class RegisterController extends Controller
             return $response;
         }
         return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath())
-                    ->withSuccess('Registration Completed Successfully...You Can Login after activation of your account...');
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath())
+            ->withSuccess('Registration Completed Successfully...You Can Login after activation of your account...');
     }
-
 }

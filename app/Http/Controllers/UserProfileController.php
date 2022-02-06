@@ -10,12 +10,23 @@ use Illuminate\Support\Facades\Storage;
 
 class UserProfileController extends Controller
 {
-    public function view()
+
+
+    public function view($id = 0)
     {
-        $user = DB::table(PROFILES)
-            ->where('uid', Auth::user()->id)
-            ->first();
-        return view('viewprofile', ['data' => $user]);
+        if ($id) {
+            $user = DB::table(USERS)
+                ->join(PROFILES,USERS.'.id','=',PROFILES.'.uid')
+                ->where(PROFILES.'.uid', $id)
+                ->first();
+            return view('viewprofile', ['data' => $user]);
+        } else {
+            $user = DB::table(USERS)
+                ->join(PROFILES,USERS.'.id','=',PROFILES.'.uid')
+                ->where('uid', Auth::user()->id)
+                ->first();
+            return view('viewprofile', ['data' => $user]);
+        }
     }
 
     public function update()
@@ -68,13 +79,13 @@ class UserProfileController extends Controller
                 'preference' => $request['preference']
             ]);
 
-        
+
         $photo = 0;
         if ($request->hasFile('photo')) {
             if ($request->file('photo')->isValid()) {
-                $location= DB::table(PROFILES)->where('uid', Auth::user()->id)->value('photo');
-                $del=Storage::delete($location);
-                if($del){
+                $location = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('photo');
+                $del = Storage::delete($location);
+                if ($del) {
                     $name = $request->pid . "_" . date("dmyHis") . "." . $request->photo->extension();
                     $path = $request->photo->storeAs('profile_pic', $name);
                     $photo = DB::table(PROFILES)
@@ -83,7 +94,6 @@ class UserProfileController extends Controller
                             'photo' => $path
                         ]);
                 }
-                
             }
         }
 
@@ -203,16 +213,17 @@ class UserProfileController extends Controller
             'sibhouse' => $request['sibhouse']
         ]);
 
-        if($insert){
+        if ($insert) {
             return response()->json(['status' => 'success', 'msg' => 'Your Sibling added successfully..!']);
-        }else{
+        } else {
             return response()->json(['status' => 'failed', 'msg' => 'Could not add your Silbling...']);
         }
     }
 
-    public function deletesibling(Request $request){
+    public function deletesibling(Request $request)
+    {
 
-        $deleted = DB::table(SIBLINGS)->where('id',$request->sid)->delete();
+        $deleted = DB::table(SIBLINGS)->where('id', $request->sid)->delete();
 
         if ($deleted > 0) {
             return response()->json(['status' => 'success']);
@@ -221,8 +232,9 @@ class UserProfileController extends Controller
         }
     }
 
-    public function sibling(Request $request){
-        $users = DB::table(SIBLINGS)->where('uid',$request->id)->get();
+    public function sibling(Request $request)
+    {
+        $users = DB::table(SIBLINGS)->where('uid', $request->id)->get();
         return Response::json($users);
     }
 }

@@ -19,9 +19,11 @@ class Arrays
     );
 
     public static $marital=array(
-        "Bachelor-Spinster"=>"Bachelor-Spinster",
+        "Bachelor"=>"Bachelor",
+        "Spinster"=>"Spinster",
         "Divorced"=>"Divorced",
-        "Widower-Widow"=>"Widower-Widow"
+        "Widower"=>"Widower",
+        "Widow"=>"Widow",
     );
 
     public static $qualification=array(
@@ -51,4 +53,16 @@ class Arrays
         "active"=>"Active",
         "disabled"=>"Disabled"
     );
+
+    public static $lookingFor=[
+        "Male"=>"Groom",
+        "Female"=>"Bride"
+    ];
+
+    public static $income=[
+        "1"=>"upto 5,00,000",
+        "2"=>"5,00,000 - 10,00,000",
+        "3"=>"above 10,00,000",
+    ];
+
 }

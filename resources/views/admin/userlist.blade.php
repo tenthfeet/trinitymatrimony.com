@@ -21,6 +21,7 @@
                                 <th>Surame</th>
                                 <th>Email</th>
                                 <th>Status</th>
+                                <th>Mrg status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,7 +37,12 @@
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @php
-                                            echo arrayToSelectOption(Arrays::$status, 'status-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn('.$user->id.')"', $user->status);
+                                            echo arrayToSelectOption(Arrays::$status, 'status-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn(' . $user->id . ')"', $user->status);
+                                        @endphp
+                                    </td>
+                                    <td>
+                                        @php
+                                            echo arrayToSelectOption(Arrays::$ny, 'married-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn(' . $user->id . ')"', $user->married);
                                         @endphp
                                     </td>
                                     <td>
@@ -61,9 +67,11 @@
 
         function update(id) {
             let status = $('#status-' + id).val();
+            let married = $('#married-' + id).val();
             let dstring = {
-                "id":id,
-                "status":status
+                "id": id,
+                "status": status,
+                "married": married
             }
             // console.log(dstring);
             $.ajaxSetup({
@@ -76,12 +84,18 @@
                 url: "{{ url('tmadmin/userlist') }}",
                 data: dstring,
                 cache: false,
-                datatype:"json",
+                datatype: "json",
+                beforeSend: function() {
+                    $('#'+id).html('Save <i class="fas fa-spinner fa-spin"></i>');
+                },
                 success: function(data) {
                     // console.log(data);
                     if (data.msg == "success") {
                         $("#" + id).html("Saved");
                         $('#' + id).attr('disabled', true);
+                    } else {
+                        $('#' + id).attr('disabled', false);
+                        $("#" + id).html("Save");
                     }
                 }
 

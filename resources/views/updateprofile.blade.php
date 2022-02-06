@@ -6,7 +6,7 @@
         <div class="container">
             <div class="breadcrumb1">
                 <ul>
-                    <a href="index.html"><i class="fa fa-home home_1"></i></a>
+                    <a href="{{url('/viewprofile')}}"><i class="fa fa-home home_1"></i></a>
                     <span class="divider">&nbsp;|&nbsp;</span>
                     <li class="current-page">Your Profile Details</li>
                 </ul>
@@ -381,7 +381,7 @@
                                                         </button>
                                                     </div>
 
-                                                    <table id="sib_table" class="table table-bordered">
+                                                    <table id="sib_table" class="table table-bordered table-responsive">
                                                         <thead>
                                                             <tr>
                                                                 <td width="25%">Name</td>
