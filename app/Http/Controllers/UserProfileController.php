@@ -14,15 +14,20 @@ class UserProfileController extends Controller
 
     public function view($id = 0)
     {
+
         if ($id) {
-            $user = DB::table(USERS)
-                ->join(PROFILES,USERS.'.id','=',PROFILES.'.uid')
-                ->where(PROFILES.'.uid', $id)
-                ->first();
-            return view('viewprofile', ['data' => $user]);
+            if (DB::table(PROFILES)->where('uid', $id)->exists()) {
+                $user = DB::table(USERS)
+                    ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
+                    ->where(PROFILES . '.uid', $id)
+                    ->first();
+                return view('viewprofile', ['data' => $user]);
+            } else {
+                return redirect()->back();
+            }
         } else {
             $user = DB::table(USERS)
-                ->join(PROFILES,USERS.'.id','=',PROFILES.'.uid')
+                ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
                 ->where('uid', Auth::user()->id)
                 ->first();
             return view('viewprofile', ['data' => $user]);
@@ -84,7 +89,11 @@ class UserProfileController extends Controller
         if ($request->hasFile('photo')) {
             if ($request->file('photo')->isValid()) {
                 $location = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('photo');
-                $del = Storage::delete($location);
+                if($location==null){
+                    $del=true;
+                }else{
+                    $del = Storage::delete($location);
+                }
                 if ($del) {
                     $name = $request->pid . "_" . date("dmyHis") . "." . $request->photo->extension();
                     $path = $request->photo->storeAs('profile_pic', $name);

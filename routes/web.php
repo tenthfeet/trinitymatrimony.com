@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RegisterController as Adminregister;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ManageUserController as ManageUser;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\ProfileSearchController as Search;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +65,6 @@ Route::group(['middleware' => ['is_user']], function () {
     Route::post('/addsibling', [UserProfileController::class,'addsibling']);
     Route::post('/deletesibling', [UserProfileController::class,'deletesibling']);
     Route::post('/sibling', [UserProfileController::class,'sibling']);
+    Route::post('/search',[Search::class,'result']);
+    // Route::get('/search',[Search::class,'show']);
 });

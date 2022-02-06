@@ -62,9 +62,12 @@
                                     </tr> --}}
                                 </tbody>
                             </table>
-                            <ul class="login_details">
-                                <li><a href="{{ url('/updateprofile') }}">Update profile</a></li>
-                            </ul>
+                            @if ($data->uid == Auth::User()->id)
+                                <ul class="login_details">
+                                    <li><a href="{{ url('/updateprofile') }}">Update profile</a></li>
+                                </ul>
+                            @endif
+
                         </div>
                         <div class="clearfix"> </div>
                     </div>

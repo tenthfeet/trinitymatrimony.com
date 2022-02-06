@@ -39,7 +39,7 @@
 
         <div class="profile_search">
             <div class="container wrap_1">
-                <form action="">
+                <form action="{{url('/search')}}" method="post">
                     @csrf
                     <div class="search_top">
                         <div class="inline-block">
@@ -56,7 +56,6 @@
                                 @php
                                     echo arrayToSelectOption(Arrays::$qualification, 'qualification', '', '', '', 'Edu. Qual.');
                                 @endphp
-
                             </div>
                         </div>
 
@@ -64,8 +63,8 @@
                     <div class="inline-block">
                         <div class="age_box2" style="max-width: 220px;">
                             <label class="gender_1">Age :</label>
-                            <input class="transparent" placeholder="From:" style="width: 34%;" type="number"
-                                value="" max="60">&nbsp;-&nbsp;<input class="transparent" placeholder="To:"
+                            <input class="transparent" name="from" placeholder="From:" style="width: 34%;" type="number"
+                                value="" max="60">&nbsp;-&nbsp;<input name="to" class="transparent" placeholder="To:"
                                 style="width: 34%;" type="number" value="" max="60">
                         </div>
                     </div>
@@ -75,7 +74,6 @@
                             @php
                                 echo arrayToSelectOption(Arrays::$income, 'income', '', '', '', 'Income');
                             @endphp
-
                         </div>
                     </div>
                     <div class="submit inline-block">
