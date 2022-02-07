@@ -16,6 +16,26 @@ class UserProfileController extends Controller
     {
 
         if ($id) {
+            $viewed = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('viewed');
+            if ($viewed == null) {
+                DB::table(PROFILES)
+                    ->where('uid', Auth::user()->id)
+                    ->update([
+                        'viewed' => $id,
+                    ]);
+            } else {
+                $v_arr = explode(",", $viewed);
+                if (!in_array($id, $v_arr)) {
+                    array_push($v_arr, $id);
+                    $v_str = implode(",", $v_arr);
+                    DB::table(PROFILES)
+                        ->where('uid', Auth::user()->id)
+                        ->update([
+                            'viewed' => $v_str,
+                        ]);
+                }
+            }
+
             if (DB::table(PROFILES)->where('uid', $id)->exists()) {
                 $user = DB::table(USERS)
                     ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
@@ -26,6 +46,7 @@ class UserProfileController extends Controller
                 return redirect()->back();
             }
         } else {
+
             $user = DB::table(USERS)
                 ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
                 ->where('uid', Auth::user()->id)
@@ -89,9 +110,9 @@ class UserProfileController extends Controller
         if ($request->hasFile('photo')) {
             if ($request->file('photo')->isValid()) {
                 $location = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('photo');
-                if($location==null){
-                    $del=true;
-                }else{
+                if ($location == null) {
+                    $del = true;
+                } else {
                     $del = Storage::delete($location);
                 }
                 if ($del) {
@@ -245,5 +266,14 @@ class UserProfileController extends Controller
     {
         $users = DB::table(SIBLINGS)->where('uid', $request->id)->get();
         return Response::json($users);
+    }
+
+    public function profilesearch(Request $req){
+        if (DB::table(PROFILES)->where('pid', $req->pid)->exists()) {
+            $uid=DB::table(PROFILES)->where('pid', $req->pid)->value('uid');
+            return redirect('/viewprofile/'.$uid);
+        }else{
+            return redirect()->back();
+        }
     }
 }

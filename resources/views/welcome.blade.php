@@ -37,51 +37,7 @@
             </div>
         </div>
 
-        <div class="profile_search">
-            <div class="container wrap_1">
-                <form action="{{url('/search')}}" method="post">
-                    @csrf
-                    <div class="search_top">
-                        <div class="inline-block">
-                            <label class="gender_1">I am looking for :</label>
-                            <div class="age_box1" style="max-width: 100%; display: inline-block;">
-                                @php
-                                    echo arrayToSelectOption(Arrays::$lookingFor, 'gender', '', 'required', '', 'Gender');
-                                @endphp
-                            </div>
-                        </div>
-                        <div class="inline-block">
-                            <label class="gender_1">Education :</label>
-                            <div class="age_box1" style="max-width: 100%; display: inline-block;">
-                                @php
-                                    echo arrayToSelectOption(Arrays::$qualification, 'qualification', '', '', '', 'Edu. Qual.');
-                                @endphp
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="inline-block">
-                        <div class="age_box2" style="max-width: 220px;">
-                            <label class="gender_1">Age :</label>
-                            <input class="transparent" name="from" placeholder="From:" style="width: 34%;" type="number"
-                                value="" max="60">&nbsp;-&nbsp;<input name="to" class="transparent" placeholder="To:"
-                                style="width: 34%;" type="number" value="" max="60">
-                        </div>
-                    </div>
-                    <div class="inline-block">
-                        <label class="gender_1">Annual Income :</label>
-                        <div class="age_box1" style="max-width: 100%; display: inline-block;">
-                            @php
-                                echo arrayToSelectOption(Arrays::$income, 'income', '', '', '', 'Income');
-                            @endphp
-                        </div>
-                    </div>
-                    <div class="submit inline-block">
-                        <input id="submit-btn" class="hvr-wobble-vertical" type="submit" value="Find Matches">
-                    </div>
-                </form>
-            </div>
-        </div>
+        
     </div>
 
     <div class="grid_1">

@@ -6,3 +6,9 @@
 .text-red{
 	color:red;
 }
+
+.ctr{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

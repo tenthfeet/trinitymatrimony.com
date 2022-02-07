@@ -328,8 +328,9 @@
                 </div>
                 <div class="col-md-4 profile_right">
                     <div class="newsletter">
-                        <form>
-                            <input type="text" name="ne" size="30" required="" placeholder="Enter Profile ID :">
+                        <form method="post" action="{{url('/profilesearch')}}">
+                            @csrf
+                            <input type="text" name="pid" size="30" required="" placeholder="Enter Profile ID :">
                             <input type="submit" value="Go">
                         </form>
                     </div>

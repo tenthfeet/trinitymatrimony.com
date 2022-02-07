@@ -65,6 +65,10 @@ Route::group(['middleware' => ['is_user']], function () {
     Route::post('/addsibling', [UserProfileController::class,'addsibling']);
     Route::post('/deletesibling', [UserProfileController::class,'deletesibling']);
     Route::post('/sibling', [UserProfileController::class,'sibling']);
+    // Route::post('/search',[Search::class,'result']);
     Route::post('/search',[Search::class,'result']);
-    // Route::get('/search',[Search::class,'show']);
+    Route::get('/search',[Search::class,'show']);
+    Route::get('/viewedprofiles',[Search::class,'viewedProfile']);
+    Route::get('/newprofiles',[Search::class,'newProfile']);
+    Route::post('/profilesearch',[UserProfileController::class,'profilesearch']);
 });

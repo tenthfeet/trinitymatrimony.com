@@ -27,7 +27,8 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">New Matches</a></li>
+                                    <li><a href="{{url('/newprofiles')}}">New Matches</a></li>
+                                    <li><a href="{{url('/viewedprofiles')}}">Viewed Matches</a></li>
                                 </ul>
                             </li>
                             @guest
@@ -47,6 +48,7 @@
                                     @csrf
                                 </form>
                             </li>
+                            <li><a href="{{ url('/search') }}">Search</a></li>
                             <!-- <li><a href="{{ route('logout') }}">Logout</a></li> -->
                             @endguest
                             <li class="last"><a href="{{ url('/contact') }}">Contacts</a></li>
