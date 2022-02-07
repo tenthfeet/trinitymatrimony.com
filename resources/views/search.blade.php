@@ -98,6 +98,7 @@
     </div>
 
     <script>
+        const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
         const page = {
             cp: 1,
             tnor: 0,
@@ -193,32 +194,41 @@
                     } else {
                         for (let x in t) {
                             //Add table rows
+// if(t[x].dob=='1970-01-01')
+                            let photo=t[x].photo?asset(t[x].photo):'';
+                            let firstname=t[x].firstname ? t[x].firstname:'';
+                            let surname=t[x].surname ? t[x].surname:'';
+                            let about = t[x].about ? t[x].about :'';
+                            let dob=t[x].dob!='1970-01-01' ? getAge(t[x].dob):'';
+                            let qualification=t[x].qualification?t[x].qualification:'';
+                            let income= t[x].income? t[x].income:'';
+
+
                             body += '<li>' +
                                 '<div class="suceess_story-date">' +
                                 '<span class="entry-1">' + t[x].pid + '</span>' +
                                 '</div>' +
                                 '<div class="suceess_story-content-container">' +
                                 '<figure class="suceess_story-content-featured-image">' +
-                                '<img width="75" height="75" src="' + asset(t[x].photo) + '"' +
+                                '<img width="75" height="75" src="' + photo + '"' +
                                 'class="img-responsive" alt="" />' +
                                 '</figure>' +
                                 '<div class="suceess_story-content-info">' +
-                                '<h4><a href="' + asset('viewprofile/' + t[x].uid) + '">' + t[x]
-                                .firstname + ' ' + t[x].surname + '</a>' +
+                                '<h4><a href="' + asset('viewprofile/' + t[x].uid) + '">' +firstname + ' ' +surname + '</a>' +
                                 '</h4>' +
-                                '<p>' + t[x].about + '</p>' +
+                                '<p>' + about + '</p>' +
                                 '<table class="table_working_hours">' +
                                 '<tr class="opened">' +
-                                '<td class="day_label">DOB :</td>' +
-                                '<td class="day_value">' + t[x].dob + '</td>' +
+                                '<td class="day_label" style="width:30%">Age :</td>' +
+                                '<td class="day_value">' + dob + ' Years</td>' +
                                 '</tr>' +
                                 '<tr class="opened">' +
-                                '<td class="day_label">Qualification:</td>' +
-                                '<td class="day_value">' + t[x].qualification + '</td>' +
+                                '<td class="day_label" style="width:30%">Qualification:</td>' +
+                                '<td class="day_value">' +qualification + '</td>' +
                                 '</tr>' +
                                 '<tr class="opened">' +
-                                '<td class="day_label">Annual Income:</td>' +
-                                '<td class="day_value">' + t[x].income + '</td>' +
+                                '<td class="day_label" style="width:30%">Annual Income:</td>' +
+                                '<td class="day_value">' +income + '</td>' +
                                 '</tr>' +
                                 '</table>' +
                                 '</div>' +

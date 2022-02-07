@@ -95,7 +95,7 @@
                                                 <tbody>
 
                                                     <tr class="opened">
-                                                        <td class="day_label">House Name :</td>
+                                                        <td class="day_label" >House Name :</td>
                                                         <td class="day_value">{{ $data->housename }}</td>
                                                     </tr>
                                                     <tr class="opened">
