@@ -9,6 +9,7 @@
             <i class="fa fa-heart grey-heart"></i>
             <span class="grey-line"></span>
         </div>
+        
     </div>
     </div>
     <div style="margin-bottom:1em;background-color:rgba(12, 9, 10, 0.29);">
@@ -66,11 +67,18 @@
         {{-- @if ($collection) --}}
         <div class="container">
             <h2>Matched Profiles</h2>
-            <div class="heart-divider">
+            <div id="ico" class="heart-divider">
                 <span class="grey-line"></span>
                 <i class="fa fa-heart pink-heart"></i>
                 <i class="fa fa-heart grey-heart"></i>
                 <span class="grey-line"></span>
+            </div>
+            <div id="load" class="loader heart-divider" style="display: none;">
+                <div><img src="{{asset('/images/heart.svg')}}"></div>
+                <div><img src="{{asset('/images/heart.svg')}}"></div>
+                <div><img src="{{asset('/images/heart.svg')}}"></div>
+                <div><img src="{{asset('/images/heart.svg')}}"></div>
+                <div><img src="{{asset('/images/heart.svg')}}"></div>
             </div>
             <div class="row_1">
 
@@ -118,7 +126,7 @@
         };
 
         function asset(url) {
-            let prefix = 'http://localhost:8000/';
+            let prefix = "{{env('APP_URL')}}/";
             return prefix + url;
         }
         $('#search').click(function() {
@@ -173,10 +181,14 @@
                 beforeSend: function() {
                     $('#search').html('Finding ...');
                     $('#search').attr('disabled', true);
+                    $('#ico').hide();
+                    $('#load').show();
                 },
                 success: function(result) {
                     $('#search').attr('disabled', false);
                     $('#search').html("Find Matches");
+                    $('#ico').show();
+                    $('#load').hide();
                     // console.log(res);
                     // var sql_data = JSON.parse(result);
                     page.s_tnor = result.tnor;
@@ -194,14 +206,14 @@
                     } else {
                         for (let x in t) {
                             //Add table rows
-// if(t[x].dob=='1970-01-01')
-                            let photo=t[x].photo?asset(t[x].photo):'';
-                            let firstname=t[x].firstname ? t[x].firstname:'';
-                            let surname=t[x].surname ? t[x].surname:'';
-                            let about = t[x].about ? t[x].about :'';
-                            let dob=t[x].dob!='1970-01-01' ? getAge(t[x].dob):'';
-                            let qualification=t[x].qualification?t[x].qualification:'';
-                            let income= t[x].income? t[x].income:'';
+                            // if(t[x].dob=='1970-01-01')
+                            let photo = t[x].photo ? asset(t[x].photo) : '';
+                            let firstname = t[x].firstname ? t[x].firstname : '';
+                            let surname = t[x].surname ? t[x].surname : '';
+                            let about = t[x].about ? t[x].about : '';
+                            let dob = t[x].dob != '1970-01-01' ? getAge(t[x].dob) : '';
+                            let qualification = t[x].qualification ? t[x].qualification : '';
+                            let income = t[x].income ? t[x].income : '';
 
 
                             body += '<li>' +
@@ -214,7 +226,8 @@
                                 'class="img-responsive" alt="" />' +
                                 '</figure>' +
                                 '<div class="suceess_story-content-info">' +
-                                '<h4><a href="' + asset('viewprofile/' + t[x].uid) + '">' +firstname + ' ' +surname + '</a>' +
+                                '<h4><a href="' + asset('viewprofile/' + t[x].uid) + '">' + firstname + ' ' +
+                                surname + '</a>' +
                                 '</h4>' +
                                 '<p>' + about + '</p>' +
                                 '<table class="table_working_hours">' +
@@ -224,11 +237,11 @@
                                 '</tr>' +
                                 '<tr class="opened">' +
                                 '<td class="day_label" style="width:30%">Qualification:</td>' +
-                                '<td class="day_value">' +qualification + '</td>' +
+                                '<td class="day_value">' + qualification + '</td>' +
                                 '</tr>' +
                                 '<tr class="opened">' +
                                 '<td class="day_label" style="width:30%">Annual Income:</td>' +
-                                '<td class="day_value">' +income + '</td>' +
+                                '<td class="day_value">' + income + '</td>' +
                                 '</tr>' +
                                 '</table>' +
                                 '</div>' +
