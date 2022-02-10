@@ -129,7 +129,8 @@
             let prefix = "{{env('APP_URL')}}/";
             return prefix + url;
         }
-        $('#search').click(function() {
+        $('#search').click(function(event) {
+            event.preventDefault();
             search();
             getTableData(page.cp);
         });
