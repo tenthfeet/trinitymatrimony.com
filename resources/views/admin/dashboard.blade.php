@@ -83,9 +83,11 @@
 
     function update(id) {
         let status = $('#status-' + id).val();
+        let married = $('#married-' + id).val();
         let dstring = {
             "id":id,
-            "status":status
+            "status":status,
+            "married": married
         }
         // console.log(dstring);
         $.ajaxSetup({
