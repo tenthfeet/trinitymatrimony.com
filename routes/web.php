@@ -23,7 +23,7 @@ use App\Http\Controllers\ProfileSearchController as Search;
 */
 
 // Public Routes
-Route::view('/', 'welcome');
+Route::get('/', [HomeController::class, 'index']);
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
 
@@ -55,7 +55,7 @@ Route::group(['prefix'=>'tmadmin','middleware' => ['is_admin']], function () {
 
 // Roures for user
 Route::group(['middleware' => ['is_user']], function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/viewprofile/{id?}', [UserProfileController::class,'view']);
     Route::get('/updateprofile', [UserProfileController::class,'update']);
     Route::post('/updateprofile', [UserProfileController::class,'basicInfo']);
@@ -65,7 +65,6 @@ Route::group(['middleware' => ['is_user']], function () {
     Route::post('/addsibling', [UserProfileController::class,'addsibling']);
     Route::post('/deletesibling', [UserProfileController::class,'deletesibling']);
     Route::post('/sibling', [UserProfileController::class,'sibling']);
-    // Route::post('/search',[Search::class,'result']);
     Route::post('/search',[Search::class,'result']);
     Route::get('/search',[Search::class,'show']);
     Route::get('/viewedprofiles',[Search::class,'viewedProfile']);

@@ -51,59 +51,22 @@
                 <span class="grey-line"></span>
             </div>
             <ul id="flexiselDemo3">
+                
+                @foreach ($latest as $item)
                 <li>
                     <div class="col_1">
-                        <a href="#">
-                            <img src="{{ asset('images/1.jpg') }}" alt=""
-                                class="hover-animation image-zoom-in img-responsive flexisel" />
-                            <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
-                                <div class="center-middle">Know More</div>
-                            </div>
-                            <h3><span class="m_3">ID : MI-387412</span><br>28, Software Engineer,
-                                Coimbatore<br>
-                            </h3>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="col_1">
-                        <a href="#">
-                            <img src="{{ asset('images/p2.jpg') }}" alt=""
+                        <a href="{{asset('viewprofile/'.$item->uid)}}">
+                            <img  src="{{ asset($item->photo) }}" alt=""  
                                 class="flexisel hover-animation image-zoom-in img-responsive" />
                             <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
                                 <div class="center-middle">Know More</div>
                             </div>
-                            <h3><span class="m_3">ID : MI-387412</span><br>25, Doctor, Chochin<br></h3>
+                            <h3><span class="m_3">ID : {{$item->pid}}</span><br>{{$item->firstname." ".$item->surname}}<br></h3>
                         </a>
                     </div>
                 </li>
-                <li>
-                    <div class="col_1">
-                        <a href="#">
-                            <img src="{{ asset('images/a5.jpg') }}" alt=""
-                                class=" flexisel hover-animation image-zoom-in img-responsive" />
-                            <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
-                                <div class="center-middle">Know More</div>
-                            </div>
-                            <h3><span class="m_3">ID : MI-387412</span><br>28, Software Engineer,
-                                Coimbatore<br>
-                            </h3>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="col_1">
-                        <a href="#">
-                            <img src="{{ asset('images/p4.jpg') }}" alt=""
-                                class="flexisel hover-animation image-zoom-in img-responsive" />
-                            <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
-                                <div class="center-middle">Know More</div>
-                            </div>
-                            <h3><span class="m_3">ID : MI-387412</span><br>25, Doctor, Chochin<br></h3>
-                        </a>
-                    </div>
-                </li>
-
+                @endforeach
+                
             </ul>
             <script type="text/javascript">
                 $(window).load(function() {
