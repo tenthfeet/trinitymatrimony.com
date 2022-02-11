@@ -9,7 +9,7 @@
             <i class="fa fa-heart grey-heart"></i>
             <span class="grey-line"></span>
         </div>
-        
+
     </div>
     </div>
     <div style="margin-bottom:1em;background-color:rgba(12, 9, 10, 0.29);">
@@ -74,11 +74,11 @@
                 <span class="grey-line"></span>
             </div>
             <div id="load" class="loader heart-divider" style="display: none;">
-                <div><img src="{{asset('/images/heart.svg')}}"></div>
-                <div><img src="{{asset('/images/heart.svg')}}"></div>
-                <div><img src="{{asset('/images/heart.svg')}}"></div>
-                <div><img src="{{asset('/images/heart.svg')}}"></div>
-                <div><img src="{{asset('/images/heart.svg')}}"></div>
+                <div><img src="{{ asset('/images/heart.svg') }}"></div>
+                <div><img src="{{ asset('/images/heart.svg') }}"></div>
+                <div><img src="{{ asset('/images/heart.svg') }}"></div>
+                <div><img src="{{ asset('/images/heart.svg') }}"></div>
+                <div><img src="{{ asset('/images/heart.svg') }}"></div>
             </div>
             <div class="row_1">
 
@@ -126,13 +126,26 @@
         };
 
         function asset(url) {
-            let prefix = "{{env('APP_URL')}}/";
+            let prefix = "{{ env('APP_URL') }}/";
             return prefix + url;
         }
         $('#search').click(function(event) {
             event.preventDefault();
-            search();
-            getTableData(page.cp);
+            let gender = $('#gender').val();
+            if (gender == '') {
+                Swal.fire({
+                    toast: true,
+                    position: 'center',
+                    showConfirmButton: false,
+                    text: 'Please Select gender',
+                    icon: 'error',
+                    timer: 3000
+                });
+            } else {
+                search();
+                getTableData(page.cp);
+            }
+
         });
 
         function search() {
