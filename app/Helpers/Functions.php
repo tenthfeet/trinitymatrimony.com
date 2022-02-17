@@ -1,6 +1,6 @@
 <?php
 
-function arrayToSelectOption(array $a, string $id = "", string $class = "", string $attr = "", $value = "", string $ph = "")
+function selectOptionFromArray(array $a, string $id = "", string $class = "", string $attr = "", $value = "", string $ph = "")
 {
     $c = $class != '' ? "class='$class'" : '';
     $data = "<select id='$id' name='$id' $c $attr>";

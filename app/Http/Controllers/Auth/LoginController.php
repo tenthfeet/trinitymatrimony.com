@@ -43,6 +43,21 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+
+    public function showLoginForm()
+    {
+        $latest = DB::table(USERS)
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo','occupation')
+            ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
+            ->where(USERS . '.married', '=', 'No')
+            ->where(PROFILES . '.photo', '!=', null)
+            ->orderBy(PROFILES . '.id', 'desc')
+            ->limit(6)
+            ->get();
+
+        return view('auth.login',['latest'=>$latest]);
+    }
+
     public function login(Request $request)
     {
         $this->validateLogin($request);

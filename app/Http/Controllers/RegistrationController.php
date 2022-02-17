@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegisterOtp;
+use Illuminate\Support\Facades\DB;
 
 class RegistrationController extends Controller
 {
@@ -18,11 +19,29 @@ class RegistrationController extends Controller
     
     protected function register()
     {
-        return view('registration');
+        $latest = DB::table(USERS)
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo','occupation')
+            ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
+            ->where(USERS . '.married', '=', 'No')
+            ->where(PROFILES . '.photo', '!=', null)
+            ->orderBy(PROFILES . '.id', 'desc')
+            ->limit(6)
+            ->get();
+
+        return view('registration',['latest'=>$latest]);
     }
     protected function verify()
     {
-        return view('verify');
+        $latest = DB::table(USERS)
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo','occupation')
+            ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
+            ->where(USERS . '.married', '=', 'No')
+            ->where(PROFILES . '.photo', '!=', null)
+            ->orderBy(PROFILES . '.id', 'desc')
+            ->limit(6)
+            ->get();
+
+        return view('verify',['latest'=>$latest]);
     }
 
     protected function otp(Request $data)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UserProfileController extends Controller
@@ -113,11 +114,12 @@ class UserProfileController extends Controller
                 if ($location == null) {
                     $del = true;
                 } else {
-                    $del = Storage::delete($location);
+                    $del = File::delete($location);
                 }
                 if ($del) {
                     $name = $request->pid . "_" . date("dmyHis") . "." . $request->photo->extension();
-                    $path = $request->photo->storeAs('profile_pic', $name);
+                    // $path = $request->photo->storeAs('profile_pic', $name);
+                    $path = $request->photo->move('profile_picture', $name);
                     $photo = DB::table(PROFILES)
                         ->where('uid', Auth::user()->id)
                         ->update([

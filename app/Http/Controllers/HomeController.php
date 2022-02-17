@@ -25,16 +25,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // return view('home');
+        // return view('welcome');
         $latest = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo','occupation')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
             ->where(PROFILES . '.photo', '!=', null)
             ->orderBy(PROFILES . '.id', 'desc')
-            ->limit(5)
+            ->limit(6)
             ->get();
 
-        return view('/welcome',['latest'=>$latest]);
+        return view('welcome',['latest'=>$latest]);
     }
 }
