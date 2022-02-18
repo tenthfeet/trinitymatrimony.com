@@ -1,55 +1,80 @@
-@extends('layouts.app')
+@extends('layouts.other')
 
 @section('content')
-<div class="grid_3">
-    <div class="container">
-        <div class="breadcrumb1">
-            <ul>
-                <a href="{{url('/')}}"><i class="fa fa-home home_1"></i></a>
-                <span class="divider">&nbsp;|&nbsp;</span>
-                <li class="current-page">Contact</li>
-            </ul>
+    <!-- about breadcrumb -->
+    <section class="w3l-about-breadcrumb text-left">
+        <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+            <div class="container py-2">
+                <h2 class="title">Contact Us</h2>
+                <ul class="breadcrumbs-custom-path mt-2">
+                    <li><a href="{{url('/')}}">Home</a></li>
+                    <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> Contact </li>
+                </ul>
+            </div>
         </div>
-        <div class="grid_5">
-            <p>some content</p>
-            <address class="addr row">
-                <dl class="grid_4">
-                    <dt>Address :</dt>
-                    <dd>
-                        TRINITY MATRIMONY <br>
-                        Holy Trinity Cathedral, Ramanathapuram, <br>
-                        Coimbatore. Tamilnadu, India.
-                        <br>
+    </section>
+    <!-- //about breadcrumb -->
 
-                    </dd>
-                </dl>
-                <dl class="grid_4">
-                    <dt>Telephones :</dt>
-                    <dd>
-                        +91 422 2222 222222 <br>
-                        +91 422 2222 222222
-                    </dd>
-                </dl>
-                <dl class="grid_4">
-                    <dt>E-mail :</dt>
-                    <dd><a href="malito:mail@trinitymatrimony.com">mail(at)mail@trinitymatrimony.com</a></dd>
-                </dl>
-            </address>
-        </div>
-    </div>
-</div>
-<div class="about_middle">
-    <div class="container">
-        <h2>Contact Form</h2>
-        <form id="contact-form" class="contact-form">
-            <fieldset>
-                <input type="text" class="text" placeholder="" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-                <input type="text" class="text" placeholder="" value="Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone';}">
-                <input type="text" class="text" placeholder="" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
-                <textarea value="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
-                <input name="submit" type="submit" id="submit" value="Submit">
-            </fieldset>
-        </form>
-    </div>
-</div>
+    
+
+    <!-- contact-form -->
+    <section class="w3l-contact" id="contact">
+        <div class="contact-infubd py-5">
+            <div class="container py-lg-3">
+                <div class="contact-grids row">
+                    <div class="col-lg-6 contact-left">
+                        <div class="partners">
+                            <div class="cont-details">
+                                <h5>Get in touch</h5>
+                                <p class="mt-3 mb-4">Hi there, We are available 24/7 by fax, e-mail or by phone. Drop
+                                    us line so we can talk
+                                    futher about that.</p>
+                            </div>
+                            <div class="hours">
+                                <h6 class="mt-4">Email:</h6>
+                                <p> <a href="mailto:mail@traversal.com">
+                                        mail@traversal.com</a></p>
+                                <h6 class="mt-4">Visit Us:</h6>
+                                <p> 78-80 Upper St Giles St. Norwich NR2 1LT United Kingdom.</p>
+                                <h6 class="mt-4">Contact:</h6>
+                                <p class="margin-top"><a href="tel:+44-255-366-88">+44-255-366-88</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mt-lg-0 mt-5 contact-right">
+                        <form action="#" method="post" class="signin-form">
+                            <div class="input-grids">
+                                <div class="form-group">
+                                    <input type="text" name="w3lName" id="w3lName" placeholder="Your Name*"
+                                        class="contact-input" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="w3lSender" id="w3lSender" placeholder="Your Email*"
+                                        class="contact-input" required="" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="w3lSubect" id="w3lSubect" placeholder="Subject*"
+                                        class="contact-input" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="w3lMessage" id="w3lMessage" placeholder="Type your message here*"
+                                    required=""></textarea>
+                            </div>
+                            <div class="text-right">
+                                <button class="btn btn-style btn-primary">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="map mt-5 pt-md-5">
+                    <h5>Map</h5>
+                    <iframe
+                        src="https://maps.google.com/maps?q=holy%20trinity%20cathedral,%20ramanathapuram,%20coimbatore&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        style="border:0" allowfullscreen=""></iframe>
+                </div>
+            </div>
+    </section>
+    <!-- /contact-form -->
 @endsection

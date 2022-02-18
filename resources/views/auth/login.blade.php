@@ -3,7 +3,20 @@
 @section('content')
     <div class="container">
         <div class="banner-infhny">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <h3 class="ml-2">Login</h3>
+            <div style="margin-top: 1em;">
+                @error('msg')
+                    <div class="alert alert-info">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
             <div class="flex-wrap search-wthree-field mt-md-5 mt-4">
                 <form action="{{ route('login') }}" method="post" class="booking-form">
                     @csrf
@@ -25,19 +38,9 @@
                             </span>
                         @enderror
                     </div>
-                    <div style="margin-top: 1em;">
-                        @error('msg')
-                            <span class="text-red" role="alert">
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+
+
                     <div class="bottom-btn col-md-4 mt-3">
                         <button class="btn btn-style btn-secondary">Begin</button>
                         @if (Route::has('password.request'))
