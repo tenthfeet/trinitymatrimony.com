@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="banner-infhny">
-            <h3>You don't need to go far to find what matters.</h3>
+            <h3>Way to To Make Your Wedding</h3>
             <h6 class="mb-3">Discover your Soulmate</h6>
             <div class="flex-wrap search-wthree-field mt-md-5 mt-4">
                 <form action="#" method="post" class="booking-form">

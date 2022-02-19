@@ -14875,7 +14875,8 @@ nav ul li a:hover {
   }
 
   .navbar .navbar-brand {
-    font-size: 30px !important;
+    font-size: 22px !important;
+    margin: 0px;
   }
 
   .mobile-position {

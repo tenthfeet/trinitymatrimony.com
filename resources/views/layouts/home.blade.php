@@ -97,11 +97,11 @@
                 <div class="maghny-gd-1 col-lg-6">
                     <div class="maghny-grid">
                         <figure class="effect-lily border-radius  m-0">
-                            <img class="img-fluid" src="{{ asset('images/g10.jpg') }}" alt="" />
+                            <img class="img-fluid" src="{{ asset('images/Pope_Francis.jpg') }}" alt="" />
                             <figcaption>
                                 <div>
-                                    <h4>3Days, 4 Nights</h4>
-                                    <p>From 1720$ </p>
+                                    <h4>His Holiness</h4>
+                                    <h4>POPE FRANCIS</h4>
                                 </div>
 
                             </figcaption>
@@ -113,11 +113,12 @@
                         <div class="maghny-gd-1 col-6">
                             <div class="maghny-grid">
                                 <figure class="effect-lily border-radius">
-                                    <img class="img-fluid" src="{{ asset('images/g9.jpg') }}" alt="" />
+                                    <img class="img-fluid" src="{{ asset('images/george-alencherr.jpg') }}" alt="" />
                                     <figcaption>
                                         <div>
-                                            <h4>3Days, 4 Nights</h4>
-                                            <p>From 1220$ </p>
+                                            <h4 style="font-size: 16px;">George Cardinal Alencherry</h4>
+                                            {{-- <h4>GEORGE CARDINAL ALENCHERRY</h4> --}}
+                                            {{-- <p>From 1220$ </p> --}}
                                         </div>
 
                                     </figcaption>
@@ -127,11 +128,11 @@
                         <div class="maghny-gd-1 col-6">
                             <div class="maghny-grid">
                                 <figure class="effect-lily border-radius">
-                                    <img class="img-fluid" src="{{ asset('images/g8.jpg') }}" alt="" />
+                                    <img class="img-fluid" src="{{ asset('images/Mar-Andrews-Thazhath.jpg') }}" alt="" />
                                     <figcaption>
                                         <div>
-                                            <h4>3Days, 4 Nights</h4>
-                                            <p>From 1620$ </p>
+                                            <h4 style="font-size: 16px;">Mar Andrews Thazhath</h4>
+                                            {{-- <p>From 1620$ </p> --}}
                                         </div>
 
                                     </figcaption>
@@ -141,11 +142,11 @@
                         <div class="maghny-gd-1 col-6 mt-4">
                             <div class="maghny-grid">
                                 <figure class="effect-lily border-radius">
-                                    <img class="img-fluid" src="{{ asset('images/g7.jpg') }}" alt="" />
+                                    <img class="img-fluid" src="{{ asset('images/alappatt.jpg') }}" alt="" />
                                     <figcaption>
                                         <div>
-                                            <h4>3Days, 4 Nights</h4>
-                                            <p>From 1820$ </p>
+                                            <h4 style="font-size: 16px;">Mar Paul Alappatt</h4>
+                                            {{-- <p>From 1820$ </p> --}}
                                         </div>
 
                                     </figcaption>
@@ -155,11 +156,11 @@
                         <div class="maghny-gd-1 col-6 mt-4">
                             <div class="maghny-grid">
                                 <figure class="effect-lily border-radius">
-                                    <img class="img-fluid" src="{{ asset('images/g7.jpg') }}" alt="" />
+                                    <img class="img-fluid" src="{{ asset('images/puttur.jpeg') }}" alt="" />
                                     <figcaption>
                                         <div>
-                                            <h4>3Days, 4 Nights</h4>
-                                            <p>From 1520$ </p>
+                                            <h4 style="font-size: 16px;">V.Rev.Fr. Joseph Puthur</h4>
+                                            {{-- <p>From 1520$ </p> --}}
                                         </div>
 
                                     </figcaption>
