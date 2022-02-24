@@ -57,7 +57,7 @@
                                                             @php
                                                                 $v = $errors->has('gender') ? old('gender') : $data->gender;
                                                                 $c = $errors->has('gender') ? 'border-red' : '';
-                                                                echo arrayToSelectOption(Arrays::$gender, 'gender', $c, '', $v, 'Gender');
+                                                                echo selectOptionFromArray(Arrays::$gender, 'gender', $c, '', $v, 'Gender');
                                                             @endphp
                                                         </div>
                                                         @error('gender')
@@ -95,7 +95,7 @@
                                                             @php
                                                                 $v = $errors->has('mothertongue') ? old('mothertongue') : $data->mothertongue;
                                                                 $c = $errors->has('mothertongue') ? 'border-red' : '';
-                                                                echo arrayToSelectOption(Arrays::$lang, 'mothertongue', $c, '', $v, 'Language');
+                                                                echo selectOptionFromArray(Arrays::$lang, 'mothertongue', $c, '', $v, 'Language');
                                                             @endphp
 
                                                         </div>
@@ -122,7 +122,7 @@
                                                             @php
                                                                 $v = $errors->has('particularchurch') ? old('particularchurch') : $data->particularchurch;
                                                                 $c = $errors->has('particularchurch') ? 'border-red' : '';
-                                                                echo arrayToSelectOption(Arrays::$church, 'particularchurch', $c, '', $v, 'Church');
+                                                                echo selectOptionFromArray(Arrays::$church, 'particularchurch', $c, '', $v, 'Church');
                                                             @endphp
                                                         </div>
                                                         @error('particularchurch')
@@ -189,7 +189,7 @@
                                                             @php
                                                                 $v = $errors->has('maritalstatus') ? old('maritalstatus') : $data->maritalstatus;
                                                                 $c = $errors->has('maritalstatus') ? 'border-red' : '';
-                                                                echo arrayToSelectOption(Arrays::$marital, 'maritalstatus', $c, '', $v, 'Status');
+                                                                echo selectOptionFromArray(Arrays::$marital, 'maritalstatus', $c, '', $v, 'Status');
                                                             @endphp
                                                         </div>
                                                         @error('maritalstatus')
@@ -253,7 +253,7 @@
                                                             <div class="select-block1">
                                                                 @php
                                                                     $v = $errors->has('qualification') ? old('qualification') : $data->qualification;
-                                                                    echo arrayToSelectOption(Arrays::$qualification, 'qualification', '', 'required', $v, 'Qualification');
+                                                                    echo selectOptionFromArray(Arrays::$qualification, 'qualification', '', 'required', $v, 'Qualification');
                                                                 @endphp
                                                             </div>
                                                             <div id="er-qualification" class="text-red"></div>
@@ -366,7 +366,7 @@
                                                         <div class="select-block1">
                                                             @php
                                                                 $v = $data->siblings != '' ? $data->siblings : '';
-                                                                echo arrayToSelectOption(Arrays::$ny, 'siblings', '', '', $v);
+                                                                echo selectOptionFromArray(Arrays::$ny, 'siblings', '', '', $v);
                                                             @endphp
 
                                                         </div>
@@ -442,7 +442,7 @@
                                                         <div class="select-block1">
                                                             @php
                                                                 $v = $data->housetype != '' ? $data->housetype : '';
-                                                                echo arrayToSelectOption(Arrays::$housetype, 'housetype', '', '', $v);
+                                                                echo selectOptionFromArray(Arrays::$housetype, 'housetype', '', '', $v);
                                                             @endphp
                                                         </div>
                                                         <div id="error-housetype" class="text-red"></div>
