@@ -37,12 +37,12 @@
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @php
-                                            echo arrayToSelectOption(Arrays::$status, 'status-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn(' . $user->id . ')"', $user->status);
+                                            echo selectOptionFromArray(Arrays::$status, 'status-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn(' . $user->id . ')"', $user->status);
                                         @endphp
                                     </td>
                                     <td>
                                         @php
-                                            echo arrayToSelectOption(Arrays::$ny, 'married-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn(' . $user->id . ')"', $user->married);
+                                            echo selectOptionFromArray(Arrays::$ny, 'married-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn(' . $user->id . ')"', $user->married);
                                         @endphp
                                     </td>
                                     <td>
