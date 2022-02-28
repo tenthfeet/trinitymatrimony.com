@@ -22,7 +22,7 @@
                         <div class="age_box1" style="max-width: 100%; display: inline-block;">
                             @php
                                 // $v=$req->gender?$req->gender:'';
-                                echo arrayToSelectOption(Arrays::$lookingFor, 'gender', '', 'required', '', 'Gender');
+                                echo selectOptionFromArray(Arrays::$lookingFor, 'gender', '', 'required', '', 'Gender');
                             @endphp
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <div class="age_box1" style="max-width: 100%; display: inline-block;">
                             @php
                                 // $v=$req->qualification?$req->qualification:'';
-                                echo arrayToSelectOption(Arrays::$qualification, 'qualification', '', '', '', 'Edu. Qual.');
+                                echo selectOptionFromArray(Arrays::$qualification, 'qualification', '', '', '', 'Edu. Qual.');
                             @endphp
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         <div class="age_box1" style="max-width: 100%; display: inline-block;">
                             @php
                                 // $v=$req->income?$req->income:'';
-                                echo arrayToSelectOption(Arrays::$income, 'income', '', '', '', 'Income');
+                                echo selectOptionFromArray(Arrays::$income, 'income', '', '', '', 'Income');
                             @endphp
                         </div>
                     </div>

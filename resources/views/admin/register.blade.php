@@ -102,7 +102,7 @@
                         <div class="col-md-4">
                             @php
                                 $v = request()->route()->id ? $data->status : '';
-                                echo arrayToSelectOption(Arrays::$status, 'status', 'form-control', '', $v);
+                                echo selectOptionFromArray(Arrays::$status, 'status', 'form-control', '', $v);
                             @endphp
                         </div>
                     </div>
