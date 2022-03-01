@@ -194,7 +194,7 @@ class UserProfileController extends Controller
         if ($profiledata > 0) {
             return response()->json(['status' => 'success', 'msg' => 'Family data updated successfully..!']);
         } else {
-            return response()->json(['status' => 'danger', 'msg' => 'Could not update Family data..!']);
+            return response()->json(['status' => 'danger', 'msg' => 'Family data not updated..!']);
         }
     }
 
@@ -223,9 +223,9 @@ class UserProfileController extends Controller
                 'mobile2' => $request['mobile2']
             ]);
         if ($profiledata > 0) {
-            return response()->json(['status' => 'success', 'msg' => 'Family data updated successfully..!']);
+            return response()->json(['status' => 'success', 'msg' => 'Contact details updated successfully..!']);
         } else {
-            return response()->json(['status' => 'danger', 'msg' => 'Could not update Family data..!']);
+            return response()->json(['status' => 'danger', 'msg' => 'Contact details not updated..!']);
         }
     }
 

@@ -19,14 +19,13 @@
 
     <div class="grid_3">
         <div class="container">
-
             <div class="profile row">
                 <div class="col-md-9">
                     <div class="m-4">
-                        <h2 class="mb-1">Profile Id : {{ $data->pid }}</h2>
+                        <h2 class="mb-1 text-theme">Profile Id : {{ $data->pid }}</h2>
                         <div class="row">
                             <div class="col-sm-6  text-center">
-                                <img class="rounded" style="width:200px;height:200px;"
+                                <img class="rounded" style="height:200px;"
                                     src="{{ asset($data->photo) }}" />
                             </div>
                             <div class="col-sm-6">
@@ -99,7 +98,7 @@
                                 <div class="tab-pane fade show active" id="basic" role="tabpanel"
                                     aria-labelledby="basic-tab">
                                     <div class="tab_box">
-                                        <h5>{{ $data->about }}</h5>
+                                        <h6>{{ $data->about }}</h6>
                                     </div>
                                     <div class="row">
                                         {{-- <h3>Education & Career</h3> --}}
@@ -194,7 +193,7 @@
                                         
                                     </div>
                                     <div class="tab_box">
-                                        <h5>Partner preference</h5>
+                                        <h6>Partner preference</h6>
                                         <p>{{ $data->preference }}</p>
                                     </div>
                                 </div>
@@ -274,26 +273,26 @@
                                     </div>
                                     @if ($data->siblings == 'Yes')
                                         <div class="tab_box">
-                                            <h1>Sibling Details</h1>
+                                            <h6>Sibling Details</h6>
                                         </div>
                                         <div class="table-responsive">
                                             <table id="sib_table" class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        {{-- <td width="25%">Name</td>
-                                                        <td width="5%">Age</td>
-                                                        <td width="20%">Job</td>
-                                                        <td width="20%">Name of Brother in law / Sister in law
-                                                        </td>
-                                                        <td width="20%">House Name</td>
-                                                        <td width="5%">Del</td> --}}
-                                                        <td style="width: 200px;">Name</td>
-                                                        <td width="5%">Age</td>
-                                                        <td width="20%">Job</td>
-                                                        <td width="20%">Name of Brother in law / Sister in law
-                                                        </td>
-                                                        <td width="20%">House Name</td>
-                                                        {{-- <td jwidth="5%">Del</td> --}}
+                                                        {{-- <th width="25%">Name</th>
+                                                        <th width="5%">Age</th>
+                                                        <th width="20%">Job</th>
+                                                        <th width="20%">Name of Brother in law / Sister in law
+                                                        </th>
+                                                        <th width="20%">House Name</th>
+                                                        <th width="5%">Del</th> --}}
+                                                        <th style="width: 200px;">Name</th>
+                                                        <th width="5%">Age</th>
+                                                        <th width="20%">Job</th>
+                                                        <th width="20%">Name of Brother in law / Sister in law
+                                                        </th>
+                                                        <th width="20%">House Name</th>
+                                                        {{-- <th jwidth="5%">Del</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -307,7 +306,7 @@
                                     <div class="basic_1 basic_2">
                                         <div class="basic_1-left">
                                             <table class="table_working_hours">
-                                                <h1>Sibling</h1>
+                                                {{-- <h1>Sibling</h1> --}}
                                                 <tbody>
                                                     <tr class="opened">
                                                         <td class="day_label">Phone number 1 :</td>
@@ -364,22 +363,23 @@
 
                 </div>
                 <div class="col-md-3">
+                    <h3 class="my-4 text-theme">Search Profile by Id</h3>
                     <div class="newsletter">
                         <form method="post" action="{{ url('/profilesearch') }}">
                             @csrf
-                            <input type="search" name="pid" size="30" required="" placeholder="Enter Profile ID :">
-                            <input type="submit" value="Go">
+                            <div class="form-group">
+                                <input type="search" class="form-control" name="pid" size="30" required="" placeholder="Enter Profile ID :">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-warning" value="Go">
+                            </div>
+                            
+                            
                         </form>
                     </div>
-                    <div class="view_profile">
-                        <h3>View Similar Profiles</h3>
-
-
-
-
-                    </div>
+                    
                     <div class="view_profile view_profile1">
-                        <h3>Members who viewed this profile also viewed</h3>
+                        <h4 class="text-theme">Recent Profiles</h4>
 
                     </div>
                 </div>

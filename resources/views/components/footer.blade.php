@@ -18,9 +18,9 @@
                     <div class="col-md-4 column mt-md-0 mt-4">
                         <h3>Useful Links</h3>
                         <ul class="footer-gd-16">
-                            <li><a href="#">Terms & Conditions</a></li>
+                            <li><a href="{{url('/terms')}}">Terms & Conditions</a></li>
                             <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="{{url('/privacy')}}">Privacy Policy</a></li>
                             {{-- <li><a href="#">About Company</a></li> --}}
                             {{-- <li><a href="#">Our Packages</a></li> --}}
                         </ul>

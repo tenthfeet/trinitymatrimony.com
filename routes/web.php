@@ -26,6 +26,8 @@ use App\Http\Controllers\ProfileSearchController as Search;
 Route::get('/', [HomeController::class, 'index']);
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
+Route::view('/terms', 'terms');
+Route::view('/privacy', 'privacy');
 
 Route::get('/registration', [RegistrationController::class, 'register']);
 Route::post('/registration', [RegistrationController::class, 'otp']);

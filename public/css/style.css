@@ -2,6 +2,9 @@
     border-color: red !important;
 }
 
+.text-theme{
+    color:#FF1654;
+}
 
 .text-red {
     color: red;

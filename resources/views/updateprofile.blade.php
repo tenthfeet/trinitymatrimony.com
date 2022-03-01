@@ -1,16 +1,591 @@
-@extends('layouts.app')
+@extends('layouts.other')
 
 @section('content')
+    <!-- about breadcrumb -->
+    <section class="w3l-about-breadcrumb text-left">
+        <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+            <div class="container py-2">
+                {{-- <h2 class="title">Contact Us</h2> --}}
+                <ul class="breadcrumbs-custom-path mt-2">
+                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> View Profile
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- //about breadcrumb -->
 
     <div class="grid_3">
         <div class="container">
-            <div class="breadcrumb1">
-                <ul>
-                    <a href="{{url('/viewprofile')}}"><i class="fa fa-home home_1"></i></a>
-                    <span class="divider">&nbsp;|&nbsp;</span>
-                    <li class="current-page">Your Profile Details</li>
-                </ul>
+            <div class="profile row">
+                <div class="col-md-9">
+                    <div class="m-4">
+                        @if (session()->has('msg'))
+                            <div class="alert alert-info">
+                                {{ session('msg') }}
+                            </div>
+                        @endif
+                        <h2 class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
+                        {{-- <div class="row">
+                            <div class="col-sm-6  text-center">
+                                <img class="rounded" style="height:200px;" src="{{ asset($data->photo) }}" />
+                            </div>
+                            <div class="col-sm-6">
+                                <table class="table_working_hours">
+                                    <tbody>
+                                        <tr>
+                                            <td width="40%">Name :</td>
+                                            <td>{{ $data->firstname . ' ' . $data->surname }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Age :</td>
+
+                                            <td>
+                                                @php
+                                                    if ($data->dob != '1970-01-01') {
+                                                        echo age($data->dob);
+                                                    }
+                                                @endphp
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gender :</td>
+                                            <td>{{ $data->gender }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Marital Status :</td>
+                                            <td>{{ $data->maritalstatus }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Height :</td>
+                                            <td>
+                                                @php
+                                                    if ($data->height != null) {
+                                                        echo htmlspecialchars($data->height) . ' cm';
+                                                    }
+                                                @endphp
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                @if ($data->uid == Auth::User()->id)
+                                    <ul class="breadcrumbs-custom-path">
+                                        <li><a href="{{ url('/updateprofile') }}">Update profile</a></li>
+                                    </ul>
+                                @endif
+
+                            </div>
+                        </div> --}}
+                        <div class="my-4">
+                            <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab"
+                                        aria-controls="home" aria-selected="true">Basic Information</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="career-tab" data-toggle="tab" href="#career" role="tab"
+                                        aria-controls="profile" aria-selected="false">Qualification and career</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="family-tab" data-toggle="tab" href="#family" role="tab"
+                                        aria-controls="contact" aria-selected="false">Family Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                                        aria-controls="contact" aria-selected="false">Contact details</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="basic" role="tabpanel"
+                                    aria-labelledby="basic-tab">
+                                    <div class="col-sm-12 login_left">
+                                        <form action="{{ url('/updateprofile') }}" method="post"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label>House Name *</label>
+                                                    <input type="text" id="housename" name="housename"
+                                                        value="{{ $errors->has('housename') ? old('housename') : $data->housename }}"
+                                                        class="form-control @error('housename') border-red @enderror">
+                                                    @error('housename')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label>Gender *</label>
+
+                                                    @php
+                                                        $v = $errors->has('gender') ? old('gender') : $data->gender;
+                                                        $c = $errors->has('gender') ? 'custom-select border-red' : 'custom-select';
+                                                        echo selectOptionFromArray(Arrays::$gender, 'gender', $c, '', $v, 'Gender');
+                                                    @endphp
+
+                                                    @error('gender')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label>Date of Birth *</label>
+                                                    <input type="date" id="dob" name="dob"
+                                                        value="{{ $data->dob == '1970-01-01' ? '' : date('Y-m-d', strtotime($data->dob)) }}"
+                                                        class="form-control @error('dob') border-red @enderror">
+                                                    @error('dob')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label>Date of Baptism</label>
+                                                    <input type="date" id="dobap" name="dobap"
+                                                        value="{{ $data->dobap == '1970-01-01' ? '' : date('Y-m-d', strtotime($data->dobap)) }}"
+                                                        size="60" maxlength="60"
+                                                        class="form-control @error('dobap') border-red @enderror">
+                                                    @error('dobap')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label>Mother Tongue *</label>
+                                                    <div class="select-block1">
+                                                        @php
+                                                            $v = $errors->has('mothertongue') ? old('mothertongue') : $data->mothertongue;
+                                                            $c = $errors->has('mothertongue') ? 'custom-select border-red' : 'custom-select';
+                                                            echo selectOptionFromArray(Arrays::$lang, 'mothertongue', $c, '', $v, 'Language');
+                                                        @endphp
+
+                                                    </div>
+                                                    @error('mothertongue')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label>Other Language Known</label>
+                                                    <input type="text" id="otherlang" name="otherlang"
+                                                        value="{{ $errors->has('otherlang') ? old('otherlang') : $data->otherlang }}"
+                                                        size="60" maxlength="60"
+                                                        class="form-control @error('otherlang') border-red @enderror">
+                                                    @error('otherlang')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label>Particular Church</label>
+                                                    <div class="select-block1 ">
+                                                        @php
+                                                            $v = $errors->has('particularchurch') ? old('particularchurch') : $data->particularchurch;
+                                                            $c = $errors->has('particularchurch') ? 'custom-select border-red' : 'custom-select';
+                                                            echo selectOptionFromArray(Arrays::$church, 'particularchurch', $c, '', $v, 'Church');
+                                                        @endphp
+                                                    </div>
+                                                    @error('particularchurch')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label>Non Catholic Church</label>
+                                                    <input type="text" id="noncath_church" name="noncath_church"
+                                                        value="{{ $errors->has('noncath_church') ? old('noncath_church') : $data->noncath_church }}"
+                                                        class="form-control @error('noncath_church') border-red @enderror">
+                                                    @error('noncath_church')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label>Height (cm) *</label>
+                                                    <input type="text" id="height" name="height"
+                                                        value="{{ $errors->has('height') ? old('height') : $data->height }}"
+                                                        class="form-control @error('height') border-red @enderror">
+                                                    @error('height')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label>Weight (Kg) *</label>
+                                                    <input type="text" id="weight" name="weight"
+                                                        value="{{ $errors->has('weight') ? old('weight') : $data->weight }}"
+                                                        class="form-control @error('weight') border-red @enderror">
+                                                    @error('weight')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label>Blood Group *</label>
+                                                    <input type="text" id="blood" name="blood"
+                                                        value="{{ $errors->has('blood') ? old('blood') : $data->blood }}"
+                                                        class="form-control @error('blood') border-red @enderror">
+                                                    @error('blood')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label>Complexion</label>
+                                                    <input type="text" id="complex" name="complex"
+                                                        value="{{ $errors->has('complex') ? old('complex') : $data->complex }}"
+                                                        class="form-control @error('complex') border-red @enderror">
+                                                    @error('complex')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label>Marital Status *</label>
+                                                    <div class="select-block1">
+                                                        @php
+                                                            $v = $errors->has('maritalstatus') ? old('maritalstatus') : $data->maritalstatus;
+                                                            $c = $errors->has('maritalstatus') ? 'custom-select border-red' : 'custom-select';
+                                                            echo selectOptionFromArray(Arrays::$marital, 'maritalstatus', $c, '', $v, 'Status');
+                                                        @endphp
+                                                    </div>
+                                                    @error('maritalstatus')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label>Upload Photo<span class="form-required"
+                                                            title="This field is required.">*</span></label>
+                                                    <input type="file"
+                                                        class="form-control-file @error('photo') border-red @enderror"
+                                                        id="photo" name="photo">
+                                                </div>
+                                                @error('photo')
+                                                    <div class="text-red">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-sm-6">
+                                                    <label>Describe about yourself in few words*</label>
+                                                    <textarea name="about" id="about" cols="30"
+                                                        class="form-control @error('about') border-red @enderror"
+                                                        style="height: 100px;">{{ $errors->has('about') ? old('about') : $data->about }}</textarea>
+                                                    @error('about')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label>Partner preference any *</label>
+                                                    <textarea name="preference" id="preference" cols="30"
+                                                        class="form-control @error('preference') border-red @enderror"
+                                                        style="height: 100px;">{{ $errors->has('preference') ? old('preference') : $data->preference }}</textarea>
+                                                    @error('preference')
+                                                        <div class="text-red">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
+
+                                            <input type="hidden" name="pid" value="{{ $data->pid }}">
+
+                                            <div class="form-actions">
+                                                <input type="submit" id="edit-submit" value="SAVE" class="btn btn-warning">
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="career" role="tabpanel" aria-labelledby="career-tab">
+                                    <div class="basic_3">
+                                        <h4>Qualification and Career</h4>
+                                        <div class="basic_1 basic_2">
+                                            <form id="career-frm">
+                                                <div class="col-md-12 basic_1-left">
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-6">
+                                                            <label>Educational Qualification</label>
+                                                            <div class="select-block1">
+                                                                @php
+                                                                    $v = $errors->has('qualification') ? old('qualification') : $data->qualification;
+                                                                    echo selectOptionFromArray(Arrays::$qualification, 'qualification', 'custom-select', 'required', $v, 'Qualification');
+                                                                @endphp
+                                                            </div>
+                                                            <div id="er-qualification" class="text-red"></div>
+                                                        </div>
+                                                        <div class="form-group col-sm-6">
+                                                            <label>Occupation</label>
+                                                            <input type="text" id="occupation" name="occupation"
+                                                                value="{{ $data->occupation }}"
+                                                                class="form-control required">
+                                                            <div id="er-occupation" class="text-red"></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-6">
+                                                            <label>Area / Field</label>
+                                                            <input type="text" id="area" name="area"
+                                                                value="{{ $data->area }}" size="60" maxlength="150"
+                                                                class="form-control">
+                                                            <div id="er-area" class="text-red"></div>
+                                                        </div>
+                                                        <div class="form-group col-sm-6">
+                                                            <label>Annual income</label>
+                                                            <input type="number" id="income" name="income"
+                                                                value="{{ $data->income }}" class="form-control">
+                                                            <div id="er-income" class="text-red"></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-6">
+                                                            <label>Address of the Firm / Company / Self business</label>
+                                                            <textarea name="firmaddress" id="firmaddress" cols="30"
+                                                                class="form-control"
+                                                                style="height: 100px;">{{ $data->firmaddress }}</textarea>
+                                                            <div id="er-firmaddress" class="text-red"></div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div id='career-response'></div>
+
+                                                    <div class="form-actions">
+                                                        <button id="upcareer" type="button" class="btn btn-warning"
+                                                            onclick="updatecareer()">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="family" role="tabpanel" aria-labelledby="family-tab">
+                                    <div class="basic_1 basic_2">
+                                        <form id="family-frm">
+                                            <div class="basic_1-left">
+                                                <div class="row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Father's Name</label>
+                                                        <input type="text" id="fathername" name="fathername"
+                                                            value="{{ $data->fathername }}" size="60" maxlength="150"
+                                                            class="form-control">
+                                                        <div id="error-fathername" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label>House Name</label>
+                                                        <input type="text" id="fhouse" name="fhouse"
+                                                            value="{{ $data->fhouse }}" size="60" maxlength="150"
+                                                            class="form-control">
+                                                        <div id="error-fhouse" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Father's Occupation</label>
+                                                        <input type="text" id="foccupation" name="foccupation"
+                                                            value="{{ $data->foccupation }}" size="60" maxlength="150"
+                                                            class="form-control">
+                                                        <div id="error-foccupation" class="text-red"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Mother's Name</label>
+                                                        <input type="text" id="mothername" name="mothername"
+                                                            value="{{ $data->mothername }}" size="60" maxlength="150"
+                                                            class="form-control">
+                                                        <div id="error-mothername" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label>House Name</label>
+                                                        <input type="text" id="mhouse" name="mhouse"
+                                                            value="{{ $data->mhouse }}" size="60" maxlength="150"
+                                                            class="form-control">
+                                                        <div id="error-mhouse" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Mother's Occupation</label>
+                                                        <input type="text" id="moccupation" name="moccupation"
+                                                            value="{{ $data->moccupation }}" size="60" maxlength="150"
+                                                            class="form-control">
+                                                        <div id="error-moccupation" class="text-red"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Do you have Siblings?</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <div class="select-block1">
+                                                            @php
+                                                                $v = $data->siblings != '' ? $data->siblings : '';
+                                                                echo selectOptionFromArray(Arrays::$ny, 'siblings', 'custom-select', '', $v);
+                                                            @endphp
+
+                                                        </div>
+                                                        <div id="error-siblings" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+
+                                                        <button type="button" id="addsibling" class="btn btn-warning"
+                                                            data-toggle="modal" data-target="#sib" style="margin-top: 0px;">
+                                                            Add Siblings
+                                                        </button>
+                                                    </div>
+
+                                                    <table id="sib_table" class="table table-bordered table-responsive">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="25%">Name</th>
+                                                                <th width="5%">Age</th>
+                                                                <th width="20%">Job</th>
+                                                                <th width="20%">Name of Brother in law / Sister in law</th>
+                                                                <th width="20%">House Name</th>
+                                                                <th width="5%">Del</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div id='family-response'></div>
+
+                                                <div class="form-actions">
+                                                    <button id="upfamily" type="button" class="btn btn-warning"
+                                                        onclick="updatefamily()">Save</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                    <div class="basic_1 basic_2">
+                                        <form id="contact-frm">
+                                            <div class="basic_1-left">
+                                                <div class="row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Present parish</label>
+                                                        <input type="text" id="pparish" name="pparish"
+                                                            value="{{ $data->pparish }}" maxlength="150"
+                                                            class="form-control">
+                                                        <div id="error-pparish" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>From Which year</label>
+                                                        <input type="text" id="pyear" name="pyear"
+                                                            value="{{ $data->pyear }}" size="60" maxlength="60"
+                                                            class="form-control">
+                                                        <div id="error-pyear" class="text-red"></div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Former parish, Diocese</label>
+                                                        <input type="text" id="fparish" name="fparish"
+                                                            value="{{ $data->fparish }}" size="60" maxlength="60"
+                                                            class="form-control">
+                                                        <div id="error-fparish" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>House</label>
+                                                        <div class="select-block1">
+                                                            @php
+                                                                $v = $data->housetype != '' ? $data->housetype : '';
+                                                                echo selectOptionFromArray(Arrays::$housetype, 'housetype', 'custom-select', '', $v);
+                                                            @endphp
+                                                        </div>
+                                                        <div id="error-housetype" class="text-red"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Address for Contact</label>
+                                                        <textarea name="caddress" id="caddress" cols="30"
+                                                            class="form-control"
+                                                            style="height: 100px;">{{ $data->caddress }}</textarea>
+                                                        <div id="error-caddress" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Permanent Address</label>
+                                                        <textarea name="paddress" id="paddress" cols="30"
+                                                            class="form-control"
+                                                            style="height: 100px;">{{ $data->paddress }}</textarea>
+                                                        <div id="error-paddress" class="text-red"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Phone number 1</label>
+                                                        <input type="number" id="mobile1" name="mobile1"
+                                                            value="{{ Auth::user()->mobile }}" maxlength="10"
+                                                            class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Phone number 2</label>
+                                                        <input type="number" id="mobile2" name="mobile2"
+                                                            value="{{ $data->mobile2 }}" maxlength="10"
+                                                            class="form-control">
+                                                        <div id="error-mobile2" class="text-red"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div id='contact-response'></div>
+
+                                                <div class="form-actions">
+                                                    <button id="updatecontact" type="button" class="btn btn-warning"
+                                                        onclick="updateContact()">SAVE</button>
+
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h3 class="my-4 text-theme">Search Profile by Id</h3>
+                    <div class="newsletter">
+                        <form method="post" action="{{ url('/profilesearch') }}">
+                            @csrf
+                            <div class="form-group">
+                                <input type="search" class="form-control" name="pid" size="30" required=""
+                                    placeholder="Enter Profile ID :">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-warning" value="Go">
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                    <div class="view_profile view_profile1">
+                        <h4 class="text-theme">Recent Profiles</h4>
+
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+
+    {{-- <div class="grid_3">
+        <div class="container">
             <div class="profile">
                 <div class="col-md-8 profile_left">
                     @if (session()->has('msg'))
@@ -373,8 +948,7 @@
                                                         <div id="error-siblings" class="text-red"></div>
                                                     </div>
                                                     <div class="form-group col-sm-4">
-                                                        {{-- <input type="button"  value="+"
-                                                            class="btn_1 submit" style="margin-top: 0px;"> --}}
+                                                        
                                                         <button type="button" id="addsibling" class="btn_1 submit"
                                                             data-toggle="modal" data-target="#sib" style="margin-top: 0px;">
                                                             Add Siblings
@@ -498,7 +1072,7 @@
                 </div>
                 <div class="col-md-4 profile_right">
                     <div class="newsletter">
-                        <form method="post" action="{{url('/profilesearch')}}">
+                        <form method="post" action="{{ url('/profilesearch') }}">
                             @csrf
                             <input type="text" name="pid" size="30" required="" placeholder="Enter Profile ID :">
                             <input type="submit" value="Go">
@@ -519,7 +1093,7 @@
                 <div class="clearfix"> </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Modal --}}
     <div class="modal fade " id="sib" data-backdrop="static" data-keyboard="false" tabindex="-1"
@@ -560,23 +1134,24 @@
                             <input id="sibhouse" class="form-control" type="text" name="sibhouse">
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button type="button" onclick="addsib()" class="btn btn-primary">Add</button>
+                            <button id="mbtn" type="button" onclick="addsib()" class="btn btn-secondary">Add</button>
                         </div>
                     </form>
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 
                 </div>
             </div>
         </div>
     </div>
     {{-- End of Modal --}}
+@endsection
 
+@section('script')
     <script>
-
         function del(id) {
             if (confirm("Are you really want to delete this row...?")) {
                 // $(this).closest("tr").remove();
@@ -606,8 +1181,6 @@
                 });
             }
         }
-
-       
     </script>
     <script>
         let fields = ["qualification", "occupation", "area", "income", "firmaddress"];
@@ -625,23 +1198,29 @@
                 data: $('#career-frm').serialize(),
                 cache: false,
                 datatype: "json",
+                beforeSend: function() {
+                    $('#upcareer').html('Save <i class="fa fa-spinner fa-spin"></i>');
+                },
                 success: function(data) {
+                    $('#upcareer').html('Save');
                     // console.log(data);
                     fields.forEach(item => {
                         $('#er-' + item).html('');
                         $('#' + item).removeClass('border-red');
 
                     });
-                    if (data.status == 'success') {
+                    if (data.status == 'success' || data.status == 'danger') {
                         $('#career-response').removeClass();
                         $('#career-response').addClass('alert alert-' + data.status);
                         $('#career-response').html(data.msg);
+                        $('#career-response').show();
                     } else {
                         $('#career-response').hide();
                     }
 
                 },
                 error: function(data) {
+                    $('#upcareer').html('Save');
                     $('#career-response').removeClass();
                     $('#career-response').html('');
 
@@ -687,14 +1266,18 @@
                 data: $('#family-frm').serialize(),
                 cache: false,
                 datatype: "json",
+                beforeSend: function() {
+                    $('#upfamily').html('Save <i class="fa fa-spinner fa-spin"></i>');
+                },
                 success: function(data) {
+                    $('#upfamily').html('Save');
                     // console.log(data);
                     family_inputs.forEach(item => {
                         $('#error-' + item).html('');
                         $('#' + item).removeClass('border-red');
 
                     });
-                    if (data.status == 'success') {
+                    if (data.status == 'success' || data.status == 'danger') {
                         $('#family-response').removeClass();
                         $('#family-response').addClass('alert alert-' + data.status);
                         $('#family-response').html(data.msg);
@@ -704,6 +1287,7 @@
 
                 },
                 error: function(data) {
+                    $('#upfamily').html('Save');
                     $('#family-response').removeClass();
                     $('#family-response').html('');
 
@@ -744,23 +1328,29 @@
                 data: $('#contact-frm').serialize(),
                 cache: false,
                 datatype: "json",
+                beforeSend: function() {
+                    $('#updatecontact').html('Save <i class="fa fa-spinner fa-spin"></i>');
+                },
                 success: function(data) {
-                    // console.log(data);
+                    $('#updatecontact').html('Save');
+                    // console.log(typeof(data));
                     contact_inputs.forEach(item => {
                         $('#error-' + item).html('');
                         $('#' + item).removeClass('border-red');
 
                     });
-                    if (data.status == 'success') {
+                    if (data.status == 'success' || data.status == 'danger') {
                         $('#contact-response').removeClass();
                         $('#contact-response').addClass('alert alert-' + data.status);
                         $('#contact-response').html(data.msg);
+                        $('#contact-response').show();
                     } else {
                         $('#contact-response').hide();
                     }
 
                 },
                 error: function(data) {
+                    $('#updatecontact').html('Save');
                     $('#contact-response').removeClass();
                     $('#contact-response').html('');
 
@@ -801,7 +1391,11 @@
                 data: $('#sib-frm').serialize(),
                 cache: false,
                 datatype: "json",
+                beforeSend: function() {
+                    $('#mbtn').html('Add <i class="fa fa-spinner fa-spin"></i>');
+                },
                 success: function(data) {
+                    $('#mbtn').html('Add');
 
                     if (data.status == 'success') {
                         $('#sib').modal('hide');
@@ -812,7 +1406,7 @@
                             $('#' + item).removeClass('border-red');
                         });
                         siblingData();
-                        
+
                         $('#sib-frm')[0].reset();
 
                     } else {
@@ -821,6 +1415,7 @@
 
                 },
                 error: function(data) {
+                    $('#mbtn').html('Add');
                     $('#contact-response').removeClass();
                     $('#contact-response').html('');
                     // console.log($('#sib-frm').serialize());
@@ -909,7 +1504,5 @@
         $('#siblings').change(function() {
             sib();
         });
-
     </script>
-
 @endsection
