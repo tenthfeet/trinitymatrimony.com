@@ -61,7 +61,7 @@
             </div>
             <div id="s_result" class="row bottom-ab-grids">
                 <!--/row-grids-->
-                @foreach ($latest as $item)
+                @foreach ($data['latest'] as $item)
                     <div class="col-lg-6 subject-card mt-lg-0 mt-4">
                         <div class="subject-card-header p-4">
                             <a href="{{ url('viewprofile/' . $item->uid) }}" class="card_title p-lg-4d-block">
@@ -188,29 +188,29 @@
                 <!-- /grids -->
                 <div class="testimonial-width">
                     <div id="owl-demo1" class="owl-two owl-carousel owl-theme">
+                        @foreach ($data['testimonial'] as $item)
                         <div class="item">
                             <div class="testimonial-content">
                                 <div class="testimonial">
                                     <blockquote>
                                         <span class="fa fa-quote-left" aria-hidden="true"></span>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit beatae laudantium
-                                        voluptate rem ullam dolore nisi voluptatibus esse quasi. Integer sit amet .Lorem
-                                        ipsum dolor sit
-                                        amet adipisicing elit. Laborum dolor facere ipsum adipisicingelit.
+                                        {{$item->content}}
                                     </blockquote>
                                     <div class="testi-des">
-                                        <div class="test-img"><img src="{{ asset('images/c1.jpg') }}"
+                                        {{-- <div class="test-img"><img src="{{ asset('images/c1.jpg') }}"
                                                 class="img-fluid" alt="client-img">
-                                        </div>
+                                        </div> --}}
                                         <div class="peopl align-self">
-                                            <h3>Rohit Paul</h3>
-                                            <p class="indentity">Example City</p>
+                                            <h3>{{$item->name}}</h3>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
+                        @endforeach
+                        
+                        {{-- <div class="item">
                             <div class="testimonial-content">
                                 <div class="testimonial">
                                     <blockquote>
@@ -275,7 +275,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                     </div>

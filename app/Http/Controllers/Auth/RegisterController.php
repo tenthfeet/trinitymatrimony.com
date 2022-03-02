@@ -52,7 +52,7 @@ class RegisterController extends Controller
     {
 
         $latest = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo','occupation')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo', 'occupation')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
             ->where(PROFILES . '.photo', '!=', null)
@@ -60,7 +60,13 @@ class RegisterController extends Controller
             ->limit(6)
             ->get();
 
-        return view('auth.register',['latest'=>$latest]);
+        $testimonial = DB::table(TESTIMONIAL)
+            ->select('name', 'content')
+            ->orderBy('id','desc')
+            ->limit(10)
+            ->get();
+
+        return view('auth.register', ['data' => ['latest' => $latest, 'testimonial' => $testimonial]]);
     }
 
 

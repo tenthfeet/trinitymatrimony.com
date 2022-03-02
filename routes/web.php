@@ -53,6 +53,10 @@ Route::group(['prefix'=>'tmadmin','middleware' => ['is_admin']], function () {
     Route::get('/dashboard', [ManageUser::class,'today']);
     Route::get('/userlist', [ManageUser::class,'userlist']);
     Route::post('/userlist', [ManageUser::class,'updateUserStatus']);
+    Route::get('/testimonial/{id?}',[ManageUser::class,'showTesimonialForm']);
+    Route::post('/testimonial',[ManageUser::class,'addTesimonial']);
+    Route::put('/testimonial/{id?}',[ManageUser::class,'updateTesimonial']);
+    Route::get('/testimonial_list',[ManageUser::class,'testimonialList']);
 });
 
 // Roures for user

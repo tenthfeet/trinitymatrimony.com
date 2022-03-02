@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         {{-- <li class="breadcrumb-item"><a href="{{url('/tmadmin/dashboard')}}">Dashboard</a></li> --}}
-                        <li class="breadcrumb-item active">Today Registered Users</li>
+                        <li class="breadcrumb-item active">User Approval</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -24,7 +24,7 @@
 <div class="col-md-12">
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title text-primary"><b>Today Registered Users </b></h3>
+            <h3 class="card-title text-primary"><b>User Approval</b></h3>
             {{-- <a href="{{ url('/tmadmin/register') }}" class="btn btn-primary btn-sm" style="float:right;">Add</a> --}}
         </div>
         <div class="card-body">

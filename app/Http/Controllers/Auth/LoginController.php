@@ -47,7 +47,7 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         $latest = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo','occupation')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo', 'occupation')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
             ->where(PROFILES . '.photo', '!=', null)
@@ -55,7 +55,13 @@ class LoginController extends Controller
             ->limit(6)
             ->get();
 
-        return view('auth.login',['latest'=>$latest]);
+        $testimonial = DB::table(TESTIMONIAL)
+            ->select('name', 'content')
+            ->orderBy('id','desc')
+            ->limit(10)
+            ->get();
+
+        return view('auth.login',  ['data'=>['latest' => $latest,'testimonial'=>$testimonial]]);
     }
 
     public function login(Request $request)
@@ -65,8 +71,10 @@ class LoginController extends Controller
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+        if (
+            method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)
+        ) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
@@ -88,25 +96,22 @@ class LoginController extends Controller
     {
         if (DB::table(USERS)->where('email', $request->email)->exists()) {
 
-            $condition= DB::table(USERS)->where('email', $request->email)->value('status');
-            if($condition === 'active'){
+            $condition = DB::table(USERS)->where('email', $request->email)->value('status');
+            if ($condition === 'active') {
                 return $this->guard()->attempt(
-                    $this->credentials($request), $request->filled('remember')
+                    $this->credentials($request),
+                    $request->filled('remember')
                 );
-            }else{
+            } else {
                 throw ValidationException::withMessages([
                     "msg" => "Your account is might been not yet activated or Deactivated...",
                 ]);
             }
-
-            
-        }else{
+        } else {
             throw ValidationException::withMessages([
                 "msg" => "These credentials do not match our records..."
             ]);
         }
-
-         
     }
 
     /**
@@ -118,7 +123,7 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         // return $request->only($this->username(), 'password');
-        return ['email' => $request['email'], 'password' => $request['password'], 'status' => 'active','role'=>'user'];
+        return ['email' => $request['email'], 'password' => $request['password'], 'status' => 'active', 'role' => 'user'];
     }
 
     protected function sendFailedLoginResponse(Request $request)
@@ -126,7 +131,5 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             "msg" => "These credentials do not match our records..."
         ]);
-
     }
-    
 }

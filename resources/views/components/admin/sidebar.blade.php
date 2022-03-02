@@ -52,10 +52,10 @@
                 @endif
                 <li class="nav-item">
                     <a href="{{ url('/tmadmin/dashboard') }}" class="nav-link">
-                        <i class="nav-icon fas fa-user-clock"></i>
+                        <i class="nav-icon fas fa-user-check"></i>
                         <!-- <i class="nav-icon fas fa-poll"></i> -->
                         <p>
-                            Users Today
+                            User Approval
                         </p>
                     </a>
                 </li>
@@ -65,6 +65,14 @@
                         <!-- <i class="nav-icon fas fa-poll"></i> -->
                         <p>
                             All Users
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/tmadmin/testimonial') }}" class="nav-link">
+                        <i class="nav-icon fas fa-comment"></i>
+                        <p>
+                            Testimonial
                         </p>
                     </a>
                 </li>
