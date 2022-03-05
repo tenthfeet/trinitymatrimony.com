@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ManageUserController as ManageUser;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ProfileSearchController as Search;
+use App\Http\Controllers\Admin\RegisterUserController as User;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,8 @@ Route::group(['prefix'=>'tmadmin','middleware' => ['is_admin']], function () {
     });
     Route::get('/dashboard', [ManageUser::class,'today']);
     Route::get('/userlist', [ManageUser::class,'userlist']);
+    Route::get('/register_user/{id?}', [User::class,'showRegistrationForm']);
+    Route::post('/register_user', [User::class,'register']);
     Route::post('/userlist', [ManageUser::class,'updateUserStatus']);
     Route::get('/testimonial/{id?}',[ManageUser::class,'showTesimonialForm']);
     Route::post('/testimonial',[ManageUser::class,'addTesimonial']);
@@ -72,7 +75,7 @@ Route::group(['middleware' => ['is_user']], function () {
     Route::post('/deletesibling', [UserProfileController::class,'deletesibling']);
     Route::post('/sibling', [UserProfileController::class,'sibling']);
     Route::post('/search',[Search::class,'result']);
-    Route::get('/search',[Search::class,'show']);
+    Route::get('/search',[Search::class,'result']);
     Route::get('/viewedprofiles',[Search::class,'viewedProfile']);
     Route::get('/newprofiles',[Search::class,'newProfile']);
     Route::post('/profilesearch',[UserProfileController::class,'profilesearch']);

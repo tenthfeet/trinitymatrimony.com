@@ -37,7 +37,11 @@
                             @php
                                 echo selectOptionFromArray(Arrays::$gender, 'gender');
                             @endphp
-
+                            @error('gender')
+                                <span class="text-red" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-input col-md-5  mt-3">
                             {{-- <input type="text" name="" placeholder="Mobile" required=""> --}}
@@ -67,8 +71,8 @@
 
                     <div class="row book-form">
                         <div class="form-input col-md-5  mt-3">
-                            <input type="password" id="edit-pass" name="password" placeholder="Password" size="60" maxlength="128"
-                                class="form-text @error('password') border-red @enderror">
+                            <input type="password" id="edit-pass" name="password" placeholder="Password" size="60"
+                                maxlength="128" class="form-text @error('password') border-red @enderror">
                             @error('password')
                                 <span class="text-red" role="alert">
                                     {{ $message }}
@@ -77,8 +81,8 @@
                             {{-- <input type="text" name="" placeholder="Password" required=""> --}}
                         </div>
                         <div class="form-input col-md-5  mt-3">
-                            <input type="password" id="edit-cpass" name="password_confirmation" placeholder="Confirm Password" size="60"
-                                        maxlength="128" class="form-text">
+                            <input type="password" id="edit-cpass" name="password_confirmation"
+                                placeholder="Confirm Password" size="60" maxlength="128" class="form-text">
                             {{-- <input type="text" name="" placeholder="Confirm Password" required=""> --}}
                         </div>
                         <div class="bottom-btn col-md-4 mt-3">

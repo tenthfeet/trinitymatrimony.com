@@ -24,12 +24,12 @@ class ProfileSearchController extends Controller
         if ($request->qualification) {
             array_push($condition, [PROFILES . '.qualification', '=', $request->qualification]);
         }
-        if ($request->from) {
-            $from = date("Y-m-d", strtotime($date . ' -' . $request->from . 'year'));
+        if ($request->afrm) {
+            $from = date("Y-m-d", strtotime($date . ' -' . $request->afrm . 'year'));
             array_push($condition, [PROFILES . '.dob', '<', $from]);
         }
-        if ($request->to) {
-            $to = date("Y-m-d", strtotime($date . ' -' . $request->to . 'year'));
+        if ($request->ato) {
+            $to = date("Y-m-d", strtotime($date . ' -' . $request->ato . 'year'));
             array_push($condition, [PROFILES . '.dob', '>', $to]);
         }
 
@@ -44,21 +44,22 @@ class ProfileSearchController extends Controller
         }
 
         $users = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'height', 'photo','occupation')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where($condition)
-            ->get();
+            ->paginate(1)
+            ->withQueryString();
 
-        $tnor = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo')
-            ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
-            ->where($condition)
-            ->count();
+        // $tnor = DB::table(USERS)
+        //     ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo')
+        //     ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
+        //     ->where($condition)
+        //     ->count();
 
 
 
-        // return view('search',['collection'=>$users,'req'=>$request]);
-        return response()->json(["tnor" => $tnor, "data" => $users]);
+        return view('search',['profiles'=>$users]);
+        // return response()->json(["tnor" => $tnor, "data" => $users]);
     }
 
     public function viewedProfile()
@@ -66,7 +67,7 @@ class ProfileSearchController extends Controller
         $viewed = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('viewed');
         $v_arr = explode(",", $viewed);
         $users = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
             ->where(USERS . '.id', '!=', Auth::user()->id)
@@ -82,10 +83,13 @@ class ProfileSearchController extends Controller
         $viewed = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('viewed');
         $v_arr = explode(",", $viewed);
         $users = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
             ->where(USERS . '.id', '!=', Auth::user()->id)
+            ->where(PROFILES . '.dob', '!=', '1970-01-01')
+            // ->where(USERS . '.id', '!=', Auth::user()->id)
+            // ->where(USERS . '.id', '!=', Auth::user()->id)
             ->whereNotIn(PROFILES . '.uid', $v_arr)
             ->paginate(10);
 

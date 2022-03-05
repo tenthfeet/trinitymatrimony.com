@@ -15,6 +15,22 @@ function selectOptionFromArray(array $a, string $id = "", string $class = "", st
     return $data;
 }
 
+function optionsFromArray(array $a, string $key, $value = "", string $ph = "")
+{
+    $data='';
+    // $c = $class != '' ? "class='$class'" : '';
+    // $data = "<select id='$id' name='$id' $c $attr>";
+    if ($ph != "") {
+        $data .= "<option value=''>--Select $ph--</option><br>";
+    }
+    foreach ($a[$key] as $x => $val) {
+        $v = ($x == $value) ? "selected" : "";
+        $data .= "<option value='$x' $v>$val</option>";
+    }
+    // $data .= "</select>";
+    return $data;
+}
+
 function age(string $dob)
 {
     $birthDate = $dob;

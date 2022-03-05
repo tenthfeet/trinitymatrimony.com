@@ -23,7 +23,7 @@
             <div class="container py-lg-3">
                 <div class="contact-grids row">
                     <div class="col-lg-6 contact-left">
-                        <div class="partners">
+                        {{-- <div class="partners">
                             <div class="cont-details">
                                 <h5>Get in touch</h5>
                                 <p class="mt-3 mb-4">Hi there, We are available 24/7 by fax, e-mail or by phone. Drop
@@ -39,7 +39,7 @@
                                 <h6 class="mt-4">Contact:</h6>
                                 <p class="margin-top"><a href="tel:+44-255-366-88">+44-255-366-88</a></p>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-lg-6 mt-lg-0 mt-5 contact-right">
                         <form action="#" method="post" class="signin-form">

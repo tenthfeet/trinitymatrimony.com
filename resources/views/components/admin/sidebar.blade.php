@@ -51,6 +51,15 @@
                 </li>
                 @endif
                 <li class="nav-item">
+                    <a href="{{ url('/tmadmin/register_user') }}" class="nav-link">
+                        <i class="nav-icon fas fa-user-plus"></i>
+                        <!-- <i class="nav-icon fas fa-poll"></i> -->
+                        <p>
+                            Add User
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ url('/tmadmin/dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-user-check"></i>
                         <!-- <i class="nav-icon fas fa-poll"></i> -->
@@ -76,9 +85,6 @@
                         </p>
                     </a>
                 </li>
-                
-                
-                
 
             </ul>
         </nav>

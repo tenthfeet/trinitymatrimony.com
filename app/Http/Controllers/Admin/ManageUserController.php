@@ -31,6 +31,7 @@ class ManageUserController extends Controller
             ->select('id', 'firstname', 'surname', 'email', 'mobile', 'status', 'married')
             ->where('id', "!=", 1)
             ->where('role', 'user')
+            // ->paginate(2);
             ->get();
 
         return view('admin.userlist', ['data' => $user]);
@@ -121,7 +122,7 @@ class ManageUserController extends Controller
     {
         $user = DB::table(TESTIMONIAL)
             ->select('id', 'name', 'content')
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('admin.testimonial_list', ['data' => $user]);
@@ -134,13 +135,13 @@ class ManageUserController extends Controller
             "content" => "required",
         ]);
 
-        $affectedRows=Testimonial::where('id',$request->id)
-        ->update([
-            "name"=>$request->name,
-            "content"=>$request->content,
-        ]);
+        $affectedRows = Testimonial::where('id', $request->id)
+            ->update([
+                "name" => $request->name,
+                "content" => $request->content,
+            ]);
 
-        if($affectedRows>0){
+        if ($affectedRows > 0) {
             return redirect()->back()->with('msg', 'Testimonial details updated successfully..!');
         } else {
             return redirect()->back()->with('msg', 'Testimonial details not updated ..!');

@@ -8,8 +8,8 @@
     <div class="col-md-12">
         <div class="card card-outline card-primary">
             <div class="card-header">
-                <h3 class="card-title text-primary"><b>List of Administrators </b></h3>
-                <a href="{{ url('/tmadmin/register') }}" class="btn btn-primary btn-sm" style="float:right;">Add</a>
+                <h3 class="card-title text-primary"><b>List of Users </b></h3>
+                <a href="{{ url('/tmadmin/register_user') }}" class="btn btn-primary btn-sm" style="float:right;">Add</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -54,6 +54,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{-- {{ $data->links() }} --}}
             </div>
         </div>
     </div>

@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
-class RegisterController extends Controller
+class RegisterUserController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/tmadmin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -43,34 +42,47 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // $this->middleware('auth');
+
+
     }
 
-
-
-    public function showRegistrationForm()
+    public function showRegistrationForm($id=0)
     {
-
-        $latest = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo', 'occupation')
-            ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
-            ->where(USERS . '.married', '=', 'No')
-            ->where(PROFILES . '.photo', '!=', null)
-            ->orderBy(PROFILES . '.id', 'desc')
-            ->limit(6)
-            ->get();
-
-        $testimonial = DB::table(TESTIMONIAL)
-            ->select('name', 'content')
-            ->orderBy('id', 'desc')
-            ->limit(10)
-            ->get();
-
-        return view('auth.register', ['data' => ['latest' => $latest, 'testimonial' => $testimonial]]);
+        // $id=$request->has('id')?$request->id:0;
+        if ($id) {
+            $user = DB::table(USERS)
+                ->select('id', 'firstname','surname', 'email', 'mobile','gender')
+                ->where('id', "=", $id)
+                ->first();
+            return view('admin.register_user', ['data' => $user]);
+            // return view('admin.adminlist', ['data' => $adminlist]);
+        } else {
+            return view('admin.register_user');
+        }
     }
 
+    public function update(Request $request)
+    {
+        // echo "From update method";
+        $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+        ]);
 
+        $affectedRows = DB::table(USERS)
+            ->where('id', $request['id'])
+            ->update([
+                'firstname' => $request['name'],
+                'status' => $request['status']
+            ]);
 
+        if($affectedRows>0){
+            return redirect()->back()->with('msg', 'Updated successfully..!');
+            // return redirect()->back()->withSuccess('Updated successfully..!');
+        }else{
+            return redirect()->back()->with('msg', 'Record not updated...');
+        }
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -83,9 +95,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
+            'gender'=>['required','string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . USERS],
             'mobile' => ['required', 'string', 'max:10', 'unique:' . USERS],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -97,12 +110,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        // print_r($data);
+
+        // session()->forget(['reg_otp','reg_email','otp_time']);
         return User::create([
-            'surname' => $data['surname'],
             'firstname' => $data['firstname'],
+            'surname' => $data['surname'],
+            'gender'=>$data['gender'],
             'email' => $data['email'],
             'mobile' => $data['mobile'],
             'status' => 'disabled',
+            'role' => 'user',
             'password' => Hash::make($data['password']),
         ]);
     }
@@ -121,35 +140,20 @@ class RegisterController extends Controller
         return $request->wantsJson()
             ? new JsonResponse([], 201)
             : redirect($this->redirectPath())
-            ->withSuccess('Registration Completed Successfully...You Can Login after activation of your account...');
+            ->withSuccess('Admin user added Successfully..!');
     }
 
-    protected function createUser(array $data)
+    public function list()
     {
-        return User::create([
-            'surname' => $data['surname'],
-            'firstname' => $data['firstname'],
-            'email' => $data['email'],
-            'mobile' => $data['mobile'],
-            'status' => $data['status'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $adminlist = DB::table(USERS)
+            ->select('id', 'firstname', 'email', 'status')
+            ->where('id', '!=', 1)
+            ->where(function($query){
+                $query->where('role','admin')
+                      ->orWhere('role','superadmin');
+            })
+            ->get();
+        return view('admin.adminlist', ['data' => $adminlist]);
     }
 
-    public function addUser(Request $request)
-    {
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->createUser($request->all())));
-
-        // $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect($this->redirectPath())
-            ->withSuccess('Registration Completed Successfully..!');
-    }
 }

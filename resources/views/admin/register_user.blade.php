@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
 @section('breadcrumb')
-    <x-admin.breadcrumbs page="Admin Registration" />
+    <x-admin.breadcrumbs page="User Registration" />
 @endsection
 @section('content')
     <div class="col-md-12">
         <div class="card card-outline card-primary">
             <div class="card-header">
-                <h3 class="card-title text-primary"><b>Add administrator </b></h3>
-                <a href="{{ url('/tmadmin/adminlist') }}" class="btn btn-primary btn-sm" style="float:right;">List</a>
+                <h3 class="card-title text-primary"><b>Add User </b></h3>
+                <a href="{{ url('/tmadmin/userlist') }}" class="btn btn-primary btn-sm" style="float:right;">List</a>
             </div>
             <div class="card-body">
 
@@ -27,13 +27,46 @@
                     @endif
                     <div class="row">
                         <div class="col-md-4 form-group">
-                            <label class="float-right col-form-label">Name</label>
+                            <label class="float-right col-form-label">First Name</label>
                         </div>
                         <div class="col-md-4">
-                            <input class="form-control @error('name') border-red @enderror" type="text" id="name"
-                                name="name" value="{{ request()->route()->id ? $data->firstname : old('name') }}">
+                            <input class="form-control @error('firstname') border-red @enderror" type="text" id="firstname"
+                                name="firstname"
+                                value="{{ request()->route()->id ? $data->firstname : old('firstname') }}">
                         </div>
-                        @error('name')
+                        @error('firstname')
+                            <span class="text-red" role="alert">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="float-right col-form-label">Surname</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control @error('surname') border-red @enderror" type="text" id="surname"
+                                name="surname" value="{{ request()->route()->id ? $data->surname : old('surname') }}">
+                        </div>
+                        @error('surname')
+                            <span class="text-red" role="alert">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="float-right col-form-label">Gender</label>
+                        </div>
+                        <div class="col-md-4">
+                            @php
+                                $v = request()->route()->id ? $data->gender : old('gender');
+                                $c = $errors->has('gender') ? 'form-control border-red' : 'form-control';
+                                echo selectOptionFromArray(Arrays::$gender, 'gender', $c, '', $v, 'Gender');
+                            @endphp
+                        </div>
+
+                        @error('gender')
                             <span class="text-red" role="alert">
                                 {{ $message }}
                             </span>
@@ -60,7 +93,7 @@
                                 <label class="float-right col-form-label">Password</label>
                             </div>
                             <div class="col-md-4">
-                                <input class="form-control @error('password') border-red @enderror" type="text"
+                                <input class="form-control @error('password') border-red @enderror" type="password"
                                     id="password" name="password" value="{{ old('password') }}">
                             </div>
                             @error('password')
@@ -70,15 +103,14 @@
                             @enderror
                         </div>
                     @endif
-                    {{-- <div class=" row">
+                    <div class=" row">
                         <div class="col-md-4 form-group">
                             <label class="float-right col-form-label">Confirm Password</label>
                         </div>
                         <div class="col-md-4">
-                            <input class="form-control @error('password') border-red @enderror" type="password" id="password_confirmation" name="password_confirmation" >
+                            <input class="form-control @error('password') border-red @enderror" type="text" id="password_confirmation" name="password_confirmation" >
                         </div>
-                        
-                    </div> --}}
+                    </div>
 
                     <div class=" row">
                         <div class="col-md-4 form-group">
@@ -95,7 +127,7 @@
                             </span>
                         @enderror
                     </div>
-                    <div class=" row">
+                    {{-- <div class=" row">
                         <div class="col-md-4 form-group">
                             <label class="float-right col-form-label">Status</label>
                         </div>
@@ -105,7 +137,7 @@
                                 echo selectOptionFromArray(Arrays::$status, 'status', 'form-control', '', $v);
                             @endphp
                         </div>
-                    </div>
+                    </div> --}}
 
 
                     <div class="row">
@@ -115,5 +147,4 @@
             </div>
         </div>
     </div>
-
 @endsection

@@ -510,6 +510,29 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-sm-6">
+                                                        <label>State</label>
+                                                        <div class="select-block1">
+                                                            @php
+                                                                $v = $data->housetype != '' ? $data->housetype : '';
+                                                                echo selectOptionFromArray(Arrays::$states, 'state', 'custom-select', '', $v,'Select');
+                                                            @endphp
+                                                        </div>
+                                                        <div id="error-fparish" class="text-red"></div>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>District</label>
+                                                        <select class="custom-select" name="district" id="district">
+                                                            @php
+                                                                $v = $data->housetype != '' ? $data->housetype : '';
+                                                                echo optionsFromArray(Arrays::$district, 'Tamilnadu','','District');
+                                                            @endphp
+                                                        </select>
+                                                        
+                                                        <div id="error-housetype" class="text-red"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-6">
                                                         <label>Address for Contact</label>
                                                         <textarea name="caddress" id="caddress" cols="30"
                                                             class="form-control"
