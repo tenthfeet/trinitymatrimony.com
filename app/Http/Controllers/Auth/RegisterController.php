@@ -50,23 +50,26 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+        if (session()->has('verified_mobile')) {
+            $latest = DB::table(USERS)
+                ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo', 'occupation')
+                ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
+                ->where(USERS . '.married', '=', 'No')
+                ->where(PROFILES . '.photo', '!=', null)
+                ->orderBy(PROFILES . '.id', 'desc')
+                ->limit(6)
+                ->get();
 
-        $latest = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo', 'occupation')
-            ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
-            ->where(USERS . '.married', '=', 'No')
-            ->where(PROFILES . '.photo', '!=', null)
-            ->orderBy(PROFILES . '.id', 'desc')
-            ->limit(6)
-            ->get();
+            $testimonial = DB::table(TESTIMONIAL)
+                ->select('name', 'content')
+                ->orderBy('id', 'desc')
+                ->limit(10)
+                ->get();
 
-        $testimonial = DB::table(TESTIMONIAL)
-            ->select('name', 'content')
-            ->orderBy('id', 'desc')
-            ->limit(10)
-            ->get();
-
-        return view('auth.register', ['data' => ['latest' => $latest, 'testimonial' => $testimonial]]);
+            return view('auth.register', ['data' => ['latest' => $latest, 'testimonial' => $testimonial]]);
+        } else {
+            return redirect('/registration');
+        }
     }
 
 
@@ -80,9 +83,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
+            'gender'=>['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . USERS],
             'mobile' => ['required', 'string', 'max:10', 'unique:' . USERS],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
@@ -100,6 +105,7 @@ class RegisterController extends Controller
         return User::create([
             'surname' => $data['surname'],
             'firstname' => $data['firstname'],
+            'gender'=>$data['gender'],
             'email' => $data['email'],
             'mobile' => $data['mobile'],
             'status' => 'disabled',
@@ -118,38 +124,19 @@ class RegisterController extends Controller
         if ($response = $this->registered($request, $user)) {
             return $response;
         }
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect($this->redirectPath())
+        // return $request->wantsJson()
+        //     ? new JsonResponse([], 201)
+        //     : redirect($this->redirectPath())
+        //     ->withSuccess('Registration Completed Successfully...You Can Login after activation of your account...');
+
+        if($request->wantsJson()){
+            session()->forget(['reg_mobile', 'reg_otp','otp_time','verified_mobile']);
+            return new JsonResponse([], 201);
+        }else{
+            session()->forget(['reg_mobile', 'reg_otp','otp_time','verified_mobile']);
+            return redirect($this->redirectPath())
             ->withSuccess('Registration Completed Successfully...You Can Login after activation of your account...');
-    }
-
-    protected function createUser(array $data)
-    {
-        return User::create([
-            'surname' => $data['surname'],
-            'firstname' => $data['firstname'],
-            'email' => $data['email'],
-            'mobile' => $data['mobile'],
-            'status' => $data['status'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
-
-    public function addUser(Request $request)
-    {
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->createUser($request->all())));
-
-        // $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
         }
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect($this->redirectPath())
-            ->withSuccess('Registration Completed Successfully..!');
     }
+
 }

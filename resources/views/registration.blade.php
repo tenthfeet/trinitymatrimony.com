@@ -11,9 +11,14 @@
                         <h3 class="ml-2">Register</h3>
 
                         <div class="form-input col-md-6  mt-3">
-                            <input type="text" name="email" value="" placeholder="Email"
-                                class="@error('email') border-red @enderror">
-                            @error('email')
+                            <input type="text" name="mobile" value="{{ old('mobile') }}" placeholder="Mobile number"
+                                class="@error('mobile') border-red @enderror">
+                            @error('mobile')
+                                <span class="text-red" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                            @error('msg')
                                 <span class="text-red" role="alert">
                                     {{ $message }}
                                 </span>
@@ -28,5 +33,4 @@
             </div>
         </div>
     </div>
-    
 @endsection

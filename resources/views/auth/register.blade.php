@@ -35,7 +35,7 @@
                         <div class="form-input col-md-5  mt-3">
 
                             @php
-                                echo selectOptionFromArray(Arrays::$gender, 'gender');
+                                echo selectOptionFromArray(Arrays::$gender, 'gender','','','','Gender');
                             @endphp
                             @error('gender')
                                 <span class="text-red" role="alert">
@@ -45,8 +45,8 @@
                         </div>
                         <div class="form-input col-md-5  mt-3">
                             {{-- <input type="text" name="" placeholder="Mobile" required=""> --}}
-                            <input type="text" name="mobile" value="{{ old('mobile') }}" placeholder="Mobile number"
-                                size="60" maxlength="60" class="form-text @error('mobile') border-red @enderror">
+                            <input type="text" name="mobile" value="{{ session('reg_mobile') }}" placeholder="Mobile number"
+                                size="60" maxlength="60" class="form-text @error('mobile') border-red @enderror" readonly>
                             @error('mobile')
                                 <span class="text-red" role="alert">
                                     {{ $message }}
@@ -56,9 +56,9 @@
                     </div>
                     <div class="row book-form">
                         <div class="form-input col-md-10  mt-3">
-                            <input type="text" id="edit-email" name="email" value="{{ session('reg_email') }}"
+                            <input type="text" id="edit-email" name="email" value="{{old('email')}}"
                                 placeholder="Email ID" size="60" maxlength="60"
-                                class="form-text @error('email') border-red @enderror" readonly>
+                                class="form-text @error('email') border-red @enderror" >
                             @error('email')
                                 <span class="text-red" role="alert">
                                     {{ $message }}

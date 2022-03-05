@@ -118,10 +118,12 @@
                                                     <label>Gender *</label>
 
                                                     @php
-                                                        $v = $errors->has('gender') ? old('gender') : $data->gender;
+                                                        $v = Auth::user()->gender;
                                                         $c = $errors->has('gender') ? 'custom-select border-red' : 'custom-select';
-                                                        echo selectOptionFromArray(Arrays::$gender, 'gender', $c, '', $v, 'Gender');
+                                                        echo selectOptionFromArray(Arrays::$gender, '', $c, 'disabled', $v, 'Gender');
                                                     @endphp
+                                                    
+                                                    <input type="hidden" name="gender" value="{{Auth::user()->gender}}">
 
                                                     @error('gender')
                                                         <div class="text-red">{{ $message }}</div>
