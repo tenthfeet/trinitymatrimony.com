@@ -135,7 +135,7 @@ class RegisterController extends Controller
         }else{
             session()->forget(['reg_mobile', 'reg_otp','otp_time','verified_mobile']);
             return redirect($this->redirectPath())
-            ->withSuccess('Registration Completed Successfully...You Can Login after activation of your account...');
+            ->withSuccess('Hurray ! First step of your registration completed successfully !! Your account yet to activate, you can enter your profile once it is activated.');
         }
     }
 

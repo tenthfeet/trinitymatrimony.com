@@ -122,8 +122,8 @@
                                                         $c = $errors->has('gender') ? 'custom-select border-red' : 'custom-select';
                                                         echo selectOptionFromArray(Arrays::$gender, '', $c, 'disabled', $v, 'Gender');
                                                     @endphp
-                                                    
-                                                    <input type="hidden" name="gender" value="{{Auth::user()->gender}}">
+
+                                                    <input type="hidden" name="gender" value="{{ Auth::user()->gender }}">
 
                                                     @error('gender')
                                                         <div class="text-red">{{ $message }}</div>
@@ -516,7 +516,7 @@
                                                         <div class="select-block1">
                                                             @php
                                                                 $v = $data->housetype != '' ? $data->housetype : '';
-                                                                echo selectOptionFromArray(Arrays::$states, 'state', 'custom-select', '', $v,'Select');
+                                                                echo selectOptionFromArray(Arrays::$states, 'state', 'custom-select', '', $v, 'Select');
                                                             @endphp
                                                         </div>
                                                         <div id="error-fparish" class="text-red"></div>
@@ -526,10 +526,10 @@
                                                         <select class="custom-select" name="district" id="district">
                                                             @php
                                                                 $v = $data->housetype != '' ? $data->housetype : '';
-                                                                echo optionsFromArray(Arrays::$district, 'Tamilnadu','','District');
+                                                                echo optionsFromArray(Arrays::$district, 'Tamilnadu', '', 'District');
                                                             @endphp
                                                         </select>
-                                                        
+
                                                         <div id="error-housetype" class="text-red"></div>
                                                     </div>
                                                 </div>
@@ -609,517 +609,7 @@
     </div>
 
 
-    {{-- <div class="grid_3">
-        <div class="container">
-            <div class="profile">
-                <div class="col-md-8 profile_left">
-                    @if (session()->has('msg'))
-                        <div class="alert alert-info">
-                            {{ session('msg') }}
-                        </div>
-                    @endif
-                    <h2>Your Profile Id : {{ $data->pid }}</h2>
-
-                    <div class="col_4">
-                        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-                            <ul id="myTab" class="nav nav-tabs nav-tabs1" role="tablist" style="color:white">
-                                <li role="presentation" class="active"><a href="#basic" id="basic-tab" role="tab"
-                                        data-toggle="tab" aria-controls="home" aria-expanded="true">Basic Information</a>
-                                </li>
-                                <li role="presentation"><a href="#career" role="tab" id="career-tab" data-toggle="tab"
-                                        aria-controls="career">Qualification and career</a></li>
-                                <li role="presentation"><a href="#family" role="tab" id="family-tab" data-toggle="tab"
-                                        aria-controls="family">About family</a></li>
-                                <li role="presentation"><a href="#contact" role="tab" id="contact-tab" data-toggle="tab"
-                                        aria-controls="contact">Contact details</a></li>
-                            </ul>
-                            <div id="myTabContent" class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade in active" id="basic" aria-labelledby="basic-tab">
-                                    <div class="basic_1">
-                                        <h3>Basics </h3>
-                                        <div class="col-sm-12 login_left">
-                                            <form action="{{ url('/updateprofile') }}" method="post"
-                                                enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>House Name *</label>
-                                                        <input type="text" id="housename" name="housename"
-                                                            value="{{ $errors->has('housename') ? old('housename') : $data->housename }}"
-                                                            class="form-text @error('housename') border-red @enderror">
-                                                        @error('housename')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Gender *</label>
-                                                        <div class="select-block1 ">
-                                                            @php
-                                                                $v = $errors->has('gender') ? old('gender') : $data->gender;
-                                                                $c = $errors->has('gender') ? 'border-red' : '';
-                                                                echo selectOptionFromArray(Arrays::$gender, 'gender', $c, '', $v, 'Gender');
-                                                            @endphp
-                                                        </div>
-                                                        @error('gender')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Date of Birth *</label>
-                                                        <input type="date" id="dob" name="dob"
-                                                            value="{{ $data->dob == '1970-01-01' ? '' : date('Y-m-d', strtotime($data->dob)) }}"
-                                                            class="form-text @error('dob') border-red @enderror">
-                                                        @error('dob')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Date of Baptism</label>
-                                                        <input type="date" id="dobap" name="dobap"
-                                                            value="{{ $data->dobap == '1970-01-01' ? '' : date('Y-m-d', strtotime($data->dobap)) }}"
-                                                            size="60" maxlength="60"
-                                                            class="form-text @error('dobap') border-red @enderror">
-                                                        @error('dobap')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Mother Tongue *</label>
-                                                        <div class="select-block1">
-                                                            @php
-                                                                $v = $errors->has('mothertongue') ? old('mothertongue') : $data->mothertongue;
-                                                                $c = $errors->has('mothertongue') ? 'border-red' : '';
-                                                                echo selectOptionFromArray(Arrays::$lang, 'mothertongue', $c, '', $v, 'Language');
-                                                            @endphp
-
-                                                        </div>
-                                                        @error('mothertongue')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Other Language Known</label>
-                                                        <input type="text" id="otherlang" name="otherlang"
-                                                            value="{{ $errors->has('otherlang') ? old('otherlang') : $data->otherlang }}"
-                                                            size="60" maxlength="60"
-                                                            class="form-text @error('otherlang') border-red @enderror">
-                                                        @error('otherlang')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Particular Church</label>
-                                                        <div class="select-block1 ">
-                                                            @php
-                                                                $v = $errors->has('particularchurch') ? old('particularchurch') : $data->particularchurch;
-                                                                $c = $errors->has('particularchurch') ? 'border-red' : '';
-                                                                echo selectOptionFromArray(Arrays::$church, 'particularchurch', $c, '', $v, 'Church');
-                                                            @endphp
-                                                        </div>
-                                                        @error('particularchurch')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Non Catholic Church</label>
-                                                        <input type="text" id="noncath_church" name="noncath_church"
-                                                            value="{{ $errors->has('noncath_church') ? old('noncath_church') : $data->noncath_church }}"
-                                                            class="form-text @error('noncath_church') border-red @enderror">
-                                                        @error('noncath_church')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Height (cm) *</label>
-                                                        <input type="text" id="height" name="height"
-                                                            value="{{ $errors->has('height') ? old('height') : $data->height }}"
-                                                            class="form-text @error('height') border-red @enderror">
-                                                        @error('height')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Weight (Kg) *</label>
-                                                        <input type="text" id="weight" name="weight"
-                                                            value="{{ $errors->has('weight') ? old('weight') : $data->weight }}"
-                                                            class="form-text @error('weight') border-red @enderror">
-                                                        @error('weight')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Blood Group *</label>
-                                                        <input type="text" id="blood" name="blood"
-                                                            value="{{ $errors->has('blood') ? old('blood') : $data->blood }}"
-                                                            class="form-text @error('blood') border-red @enderror">
-                                                        @error('blood')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Complexion</label>
-                                                        <input type="text" id="complex" name="complex"
-                                                            value="{{ $errors->has('complex') ? old('complex') : $data->complex }}"
-                                                            class="form-text @error('complex') border-red @enderror">
-                                                        @error('complex')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Marital Status *</label>
-                                                        <div class="select-block1">
-                                                            @php
-                                                                $v = $errors->has('maritalstatus') ? old('maritalstatus') : $data->maritalstatus;
-                                                                $c = $errors->has('maritalstatus') ? 'border-red' : '';
-                                                                echo selectOptionFromArray(Arrays::$marital, 'maritalstatus', $c, '', $v, 'Status');
-                                                            @endphp
-                                                        </div>
-                                                        @error('maritalstatus')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Upload Photo<span class="form-required"
-                                                                title="This field is required.">*</span></label>
-                                                        <input type="file" id="photo" name="photo"
-                                                            class="form-text @error('photo') border-red @enderror">
-                                                    </div>
-                                                    @error('photo')
-                                                        <div class="text-red">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Describe about yourself in few words*</label>
-                                                        <textarea name="about" id="about" cols="30"
-                                                            class="form-text @error('about') border-red @enderror"
-                                                            style="height: 100px;">{{ $errors->has('about') ? old('about') : $data->about }}</textarea>
-                                                        @error('about')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Partner preference any *</label>
-                                                        <textarea name="preference" id="preference" cols="30"
-                                                            class="form-text @error('preference') border-red @enderror"
-                                                            style="height: 100px;">{{ $errors->has('preference') ? old('preference') : $data->preference }}</textarea>
-                                                        @error('preference')
-                                                            <div class="text-red">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-
-                                                </div>
-
-                                                <input type="hidden" name="pid" value="{{ $data->pid }}">
-
-                                                <div class="form-actions">
-                                                    <input type="submit" id="edit-submit" value="SAVE"
-                                                        class="btn_1 submit">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                </div>
-
-                                <div role="tabpanel" class="tab-pane fade" id="career" aria-labelledby="career-tab">
-                                    <div class="basic_3">
-                                        <h4>Qualification and Career</h4>
-                                        <div class="basic_1 basic_2">
-                                            <form id="career-frm">
-                                                <div class="col-md-12 basic_1-left">
-                                                    <div class="row">
-                                                        <div class="form-group col-sm-6">
-                                                            <label>Educational Qualification</label>
-                                                            <div class="select-block1">
-                                                                @php
-                                                                    $v = $errors->has('qualification') ? old('qualification') : $data->qualification;
-                                                                    echo selectOptionFromArray(Arrays::$qualification, 'qualification', '', 'required', $v, 'Qualification');
-                                                                @endphp
-                                                            </div>
-                                                            <div id="er-qualification" class="text-red"></div>
-                                                        </div>
-                                                        <div class="form-group col-sm-6">
-                                                            <label>Occupation</label>
-                                                            <input type="text" id="occupation" name="occupation"
-                                                                value="{{ $data->occupation }}"
-                                                                class="form-text required">
-                                                            <div id="er-occupation" class="text-red"></div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="form-group col-sm-6">
-                                                            <label>Area / Field</label>
-                                                            <input type="text" id="area" name="area"
-                                                                value="{{ $data->area }}" size="60" maxlength="150"
-                                                                class="form-text">
-                                                            <div id="er-area" class="text-red"></div>
-                                                        </div>
-                                                        <div class="form-group col-sm-6">
-                                                            <label>Annual income</label>
-                                                            <input type="number" id="income" name="income"
-                                                                value="{{ $data->income }}" class="form-text">
-                                                            <div id="er-income" class="text-red"></div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="form-group col-sm-6">
-                                                            <label>Address of the Firm / Company / Self business</label>
-                                                            <textarea name="firmaddress" id="firmaddress" cols="30"
-                                                                class="form-text"
-                                                                style="height: 100px;">{{ $data->firmaddress }}</textarea>
-                                                            <div id="er-firmaddress" class="text-red"></div>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div id='career-response'></div>
-
-                                                    <div class="form-actions">
-                                                        <input type="button" value="SAVE" class="btn_1 submit"
-                                                            onclick="updatecareer()">
-                                                    </div>
-                                                </div>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade" id="family" aria-labelledby="family-tab">
-                                    <div class="basic_1 basic_2">
-                                        <form id="family-frm">
-                                            <div class="basic_1-left">
-                                                <div class="row">
-                                                    <div class="form-group col-sm-4">
-                                                        <label>Father's Name</label>
-                                                        <input type="text" id="fathername" name="fathername"
-                                                            value="{{ $data->fathername }}" size="60" maxlength="150"
-                                                            class="form-text">
-                                                        <div id="error-fathername" class="text-red"></div>
-                                                    </div>
-                                                    <div class="form-group col-sm-4">
-                                                        <label>House Name</label>
-                                                        <input type="text" id="fhouse" name="fhouse"
-                                                            value="{{ $data->fhouse }}" size="60" maxlength="150"
-                                                            class="form-text">
-                                                        <div id="error-fhouse" class="text-red"></div>
-                                                    </div>
-                                                    <div class="form-group col-sm-4">
-                                                        <label>Father's Occupation</label>
-                                                        <input type="text" id="foccupation" name="foccupation"
-                                                            value="{{ $data->foccupation }}" size="60" maxlength="150"
-                                                            class="form-text">
-                                                        <div id="error-foccupation" class="text-red"></div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-4">
-                                                        <label>Mother's Name</label>
-                                                        <input type="text" id="mothername" name="mothername"
-                                                            value="{{ $data->mothername }}" size="60" maxlength="150"
-                                                            class="form-text">
-                                                        <div id="error-mothername" class="text-red"></div>
-                                                    </div>
-                                                    <div class="form-group col-sm-4">
-                                                        <label>House Name</label>
-                                                        <input type="text" id="mhouse" name="mhouse"
-                                                            value="{{ $data->mhouse }}" size="60" maxlength="150"
-                                                            class="form-text">
-                                                        <div id="error-mhouse" class="text-red"></div>
-                                                    </div>
-                                                    <div class="form-group col-sm-4">
-                                                        <label>Mother's Occupation</label>
-                                                        <input type="text" id="moccupation" name="moccupation"
-                                                            value="{{ $data->moccupation }}" size="60" maxlength="150"
-                                                            class="form-text">
-                                                        <div id="error-moccupation" class="text-red"></div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-4">
-                                                        <label>Do you have Siblings?</label>
-                                                    </div>
-                                                    <div class="form-group col-sm-4">
-                                                        <div class="select-block1">
-                                                            @php
-                                                                $v = $data->siblings != '' ? $data->siblings : '';
-                                                                echo selectOptionFromArray(Arrays::$ny, 'siblings', '', '', $v);
-                                                            @endphp
-
-                                                        </div>
-                                                        <div id="error-siblings" class="text-red"></div>
-                                                    </div>
-                                                    <div class="form-group col-sm-4">
-                                                        
-                                                        <button type="button" id="addsibling" class="btn_1 submit"
-                                                            data-toggle="modal" data-target="#sib" style="margin-top: 0px;">
-                                                            Add Siblings
-                                                        </button>
-                                                    </div>
-
-                                                    <table id="sib_table" class="table table-bordered table-responsive">
-                                                        <thead>
-                                                            <tr>
-                                                                <td width="25%">Name</td>
-                                                                <td width="5%">Age</td>
-                                                                <td width="20%">Job</td>
-                                                                <td width="20%">Name of Brother in law / Sister in law</td>
-                                                                <td width="20%">House Name</td>
-                                                                <td width="5%">Del</td>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <div id='family-response'></div>
-
-                                                <div class="form-actions">
-                                                    <input type="button" value="SAVE" class="btn_1 submit"
-                                                        onclick="updatefamily()">
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade" id="contact" aria-labelledby="contact-tab">
-                                    <div class="basic_1 basic_2">
-                                        <form id="contact-frm">
-                                            <div class="basic_1-left">
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Present parish</label>
-                                                        <input type="text" id="pparish" name="pparish"
-                                                            value="{{ $data->pparish }}" maxlength="150"
-                                                            class="form-text">
-                                                        <div id="error-pparish" class="text-red"></div>
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>From Which year</label>
-                                                        <input type="text" id="pyear" name="pyear"
-                                                            value="{{ $data->pyear }}" size="60" maxlength="60"
-                                                            class="form-text">
-                                                        <div id="error-pyear" class="text-red"></div>
-
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Former parish, Diocese</label>
-                                                        <input type="text" id="fparish" name="fparish"
-                                                            value="{{ $data->fparish }}" size="60" maxlength="60"
-                                                            class="form-text">
-                                                        <div id="error-fparish" class="text-red"></div>
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>House</label>
-                                                        <div class="select-block1">
-                                                            @php
-                                                                $v = $data->housetype != '' ? $data->housetype : '';
-                                                                echo selectOptionFromArray(Arrays::$housetype, 'housetype', '', '', $v);
-                                                            @endphp
-                                                        </div>
-                                                        <div id="error-housetype" class="text-red"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Address for Contact</label>
-                                                        <textarea name="caddress" id="caddress" cols="30"
-                                                            class="form-text"
-                                                            style="height: 100px;">{{ $data->caddress }}</textarea>
-                                                        <div id="error-caddress" class="text-red"></div>
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Permanent Address</label>
-                                                        <textarea name="paddress" id="paddress" cols="30"
-                                                            class="form-text"
-                                                            style="height: 100px;">{{ $data->paddress }}</textarea>
-                                                        <div id="error-paddress" class="text-red"></div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Phone number 1</label>
-                                                        <input type="number" id="mobile1" name="mobile1"
-                                                            value="{{ Auth::user()->mobile }}" maxlength="10"
-                                                            class="form-text" disabled>
-                                                    </div>
-                                                    <div class="form-group col-sm-6">
-                                                        <label>Phone number 2</label>
-                                                        <input type="number" id="mobile2" name="mobile2"
-                                                            value="{{ $data->mobile2 }}" maxlength="10"
-                                                            class="form-text">
-                                                        <div id="error-mobile2" class="text-red"></div>
-                                                    </div>
-                                                </div>
-
-                                                <div id='contact-response'></div>
-
-                                                <div class="form-actions">
-                                                    <input type="button" value="SAVE" class="btn_1 submit"
-                                                        onclick="updateContact()">
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 profile_right">
-                    <div class="newsletter">
-                        <form method="post" action="{{ url('/profilesearch') }}">
-                            @csrf
-                            <input type="text" name="pid" size="30" required="" placeholder="Enter Profile ID :">
-                            <input type="submit" value="Go">
-                        </form>
-                    </div>
-                    <div class="view_profile">
-                        <h3>View Similar Profiles</h3>
-
-
-
-
-                    </div>
-                    <div class="view_profile view_profile1">
-                        <h3>Members who viewed this profile also viewed</h3>
-
-                    </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div> --}}
-
+    
     {{-- Modal --}}
     <div class="modal fade " id="sib" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -1178,7 +668,7 @@
 @section('script')
     <script>
         function del(id) {
-            if (confirm("Are you really want to delete this row...?")) {
+            if (confirm("Are you really want to delete this Record...?")) {
                 // $(this).closest("tr").remove();
                 var input = {
                     sid: id
@@ -1208,10 +698,8 @@
         }
     </script>
     <script>
-        let fields = ["qualification", "occupation", "area", "income", "firmaddress"];
-
         function updatecareer() {
-
+            let fields = ["qualification", "occupation", "area", "income", "firmaddress"];
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1465,7 +953,6 @@
             });
 
         }
-
 
         function siblingData() {
             let len = 0;

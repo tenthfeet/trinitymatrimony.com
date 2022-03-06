@@ -45,8 +45,7 @@
                         </div>
                         <div class="col-md-4">
                             <input class="form-control @error('email') border-red @enderror" type="email" id="email"
-                                name="email" value="{{ request()->route()->id ? $data->email : old('email') }}"
-                                {{ request()->route()->id ? 'disabled' : old('email') }}>
+                                name="email" value="{{ request()->route()->id ? $data->email : old('email') }}">
                         </div>
                         @error('email')
                             <span class="text-red" role="alert">
@@ -86,8 +85,7 @@
                         </div>
                         <div class="col-md-4">
                             <input class="form-control @error('mobile') border-red @enderror" type="number" id="mobile"
-                                name="mobile" value="{{ request()->route()->id ? $data->mobile : old('mobile') }}"
-                                {{ request()->route()->id ? 'disabled' : old('mobile') }}>
+                                name="mobile" value="{{ request()->route()->id ? $data->mobile : old('mobile') }}">
                         </div>
                         @error('mobile')
                             <span class="text-red" role="alert">

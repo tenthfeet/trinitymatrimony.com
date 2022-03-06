@@ -47,7 +47,7 @@ class RegisterController extends Controller
 
     }
 
-    public function showRegistrationForm($id=0)
+    public function showRegistrationForm($id = 0)
     {
         // $id=$request->has('id')?$request->id:0;
         if ($id) {
@@ -65,21 +65,32 @@ class RegisterController extends Controller
     public function update(Request $request)
     {
         // echo "From update method";
+
         $request->validate([
             'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'mobile' => ['required', 'string', 'size:10'],
         ]);
+        if (DB::table(USERS)->where([['email', $request->email], ['id', '!=', $request['id']]])->exists()) {
+            return redirect()->back()->with('msg', 'This email is already taken..!');
+        }
+        if (DB::table(USERS)->where([['mobile', $request->mobile], ['id', '!=', $request['id']]])->exists()) {
+            return redirect()->back()->with('msg', 'This mobile number is already taken..!');
+        }
 
-        $affectedRows = DB::table(USERS)
-            ->where('id', $request['id'])
+        
+        $affectedRows = User::where('id', $request['id'])
             ->update([
                 'firstname' => $request['name'],
+                'email' => $request['email'],
+                'mobile' => $request['mobile'],
                 'status' => $request['status']
             ]);
 
-        if($affectedRows>0){
+        if ($affectedRows > 0) {
             return redirect()->back()->with('msg', 'Updated successfully..!');
             // return redirect()->back()->withSuccess('Updated successfully..!');
-        }else{
+        } else {
             return redirect()->back()->with('msg', 'Record not updated...');
         }
     }
@@ -145,9 +156,9 @@ class RegisterController extends Controller
         $adminlist = DB::table(USERS)
             ->select('id', 'firstname', 'email', 'status')
             ->where('id', '!=', 1)
-            ->where(function($query){
-                $query->where('role','admin')
-                      ->orWhere('role','superadmin');
+            ->where(function ($query) {
+                $query->where('role', 'admin')
+                    ->orWhere('role', 'superadmin');
             })
             ->get();
         return view('admin.adminlist', ['data' => $adminlist]);

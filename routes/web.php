@@ -53,9 +53,11 @@ Route::group(['prefix'=>'tmadmin','middleware' => ['is_admin']], function () {
     });
     Route::get('/dashboard', [ManageUser::class,'today']);
     Route::get('/userlist', [ManageUser::class,'userlist']);
+    Route::post('/userlist', [ManageUser::class,'updateUserStatus']);
+    Route::post('/deleteuser',[ManageUser::class,'deleteUser']);
     Route::get('/register_user/{id?}', [User::class,'showRegistrationForm']);
     Route::post('/register_user', [User::class,'register']);
-    Route::post('/userlist', [ManageUser::class,'updateUserStatus']);
+    Route::put('/register_user/{id?}', [User::class,'update']);
     Route::get('/testimonial/{id?}',[ManageUser::class,'showTesimonialForm']);
     Route::post('/testimonial',[ManageUser::class,'addTesimonial']);
     Route::put('/testimonial/{id?}',[ManageUser::class,'updateTesimonial']);

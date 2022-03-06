@@ -65,21 +65,35 @@ class RegisterUserController extends Controller
     public function update(Request $request)
     {
         // echo "From update method";
-        $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-        ]);
 
-        $affectedRows = DB::table(USERS)
-            ->where('id', $request['id'])
+        $request->validate([
+            'firstname' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
+            'gender'=>['required','string'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'mobile' => ['required', 'digits:10'],
+        ]);
+        if (DB::table(USERS)->where([['email', $request->email], ['id', '!=', $request['id']]])->exists()) {
+            return redirect()->back()->with('msg', 'This email is already taken..!');
+        }
+        if (DB::table(USERS)->where([['mobile', $request->mobile], ['id', '!=', $request['id']]])->exists()) {
+            return redirect()->back()->with('msg', 'This mobile number is already taken..!');
+        }
+
+        
+        $affectedRows = User::where('id', $request['id'])
             ->update([
-                'firstname' => $request['name'],
-                'status' => $request['status']
+                'firstname' => $request['firstname'],
+                'surname'=>$request['surname'],
+                'gender'=>$request['gender'],
+                'email' => $request['email'],
+                'mobile' => $request['mobile'],
             ]);
 
-        if($affectedRows>0){
+        if ($affectedRows > 0) {
             return redirect()->back()->with('msg', 'Updated successfully..!');
             // return redirect()->back()->withSuccess('Updated successfully..!');
-        }else{
+        } else {
             return redirect()->back()->with('msg', 'Record not updated...');
         }
     }
@@ -97,7 +111,7 @@ class RegisterUserController extends Controller
             'surname' => ['required', 'string', 'max:255'],
             'gender'=>['required','string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . USERS],
-            'mobile' => ['required', 'string', 'max:10', 'unique:' . USERS],
+            'mobile' => ['required', 'digits:10', 'unique:' . USERS],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -142,6 +156,9 @@ class RegisterUserController extends Controller
             : redirect($this->redirectPath())
             ->withSuccess('Admin user added Successfully..!');
     }
+
+
+    
 
     public function list()
     {

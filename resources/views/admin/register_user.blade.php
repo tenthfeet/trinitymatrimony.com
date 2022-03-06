@@ -78,8 +78,7 @@
                         </div>
                         <div class="col-md-4">
                             <input class="form-control @error('email') border-red @enderror" type="email" id="email"
-                                name="email" value="{{ request()->route()->id ? $data->email : old('email') }}"
-                                {{ request()->route()->id ? 'disabled' : old('email') }}>
+                                name="email" value="{{ request()->route()->id ? $data->email : old('email') }}">
                         </div>
                         @error('email')
                             <span class="text-red" role="alert">
@@ -102,15 +101,15 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class=" row">
+                            <div class="col-md-4 form-group">
+                                <label class="float-right col-form-label">Confirm Password</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control @error('password') border-red @enderror" type="text" id="password_confirmation" name="password_confirmation" >
+                            </div>
+                        </div>
                     @endif
-                    <div class=" row">
-                        <div class="col-md-4 form-group">
-                            <label class="float-right col-form-label">Confirm Password</label>
-                        </div>
-                        <div class="col-md-4">
-                            <input class="form-control @error('password') border-red @enderror" type="text" id="password_confirmation" name="password_confirmation" >
-                        </div>
-                    </div>
 
                     <div class=" row">
                         <div class="col-md-4 form-group">
@@ -118,8 +117,7 @@
                         </div>
                         <div class="col-md-4">
                             <input class="form-control @error('mobile') border-red @enderror" type="number" id="mobile"
-                                name="mobile" value="{{ request()->route()->id ? $data->mobile : old('mobile') }}"
-                                {{ request()->route()->id ? 'disabled' : old('mobile') }}>
+                                name="mobile" value="{{ request()->route()->id ? $data->mobile : old('mobile') }}">
                         </div>
                         @error('mobile')
                             <span class="text-red" role="alert">

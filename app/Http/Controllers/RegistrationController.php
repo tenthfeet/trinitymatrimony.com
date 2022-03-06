@@ -112,7 +112,7 @@ class RegistrationController extends Controller
             $res = json_decode($response);
             if ($res->return) {
 
-                return redirect('/verify')->with('otp_res', 'OTP sent successfully.');
+                return redirect('/verify')->with('otp_res', 'OTP sent successfully..! This will be valid for only 10 minutes...');
             }
         }
     }
@@ -128,7 +128,8 @@ class RegistrationController extends Controller
                 return redirect()->back()->withErrors(['msg' => 'OTP is wrong..!']);
             }
         } else {
-            return redirect()->back()->withErrors(['msg' => 'OTP verification time expired..!']);
+            return redirect()->back()->withErrors(['msg' => 'OTP verification time expired..! 
+            please try again...']);
         }
     }
 }

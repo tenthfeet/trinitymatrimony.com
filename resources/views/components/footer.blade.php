@@ -1,4 +1,4 @@
-<footer>
+<footer style="border-top:1px solid #ccc">
     <!-- footer -->
     <section class="w3l-footer">
         <div class="w3l-footer-16-main py-5">

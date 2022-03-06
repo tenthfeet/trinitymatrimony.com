@@ -16,13 +16,14 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Surame</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Mrg status</th>
-                                <th>Action</th>
+                                <th width="5%">#</th>
+                                <th width="22%">Name</th>
+                                <th width="20%">Email</th>
+                                <th width="10%">Mobile</th>
+                                <th width="10%">Status</th>
+                                <th width="3%">Mrg status</th>
+                                <th width="5%">Paymt Revd</th>
+                                <th width="17%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,9 +33,17 @@
                             @foreach ($data as $user)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $user->firstname }}</td>
-                                    <td>{{ $user->surname }}</td>
+                                    <td>
+                                        @if ($user->photo != null)
+                                            <a href="#" jdata-toggle="modal" jdata-target="#profilephoto"
+                                                onclick="photo('{{ str_replace('\\', '/', asset($user->photo)) }}')">
+                                                <img src="{{ asset($user->photo) }}" style="height: 30px;width:30px;">
+                                            </a>
+                                        @endif
+                                        {{ $user->firstname . ' ' . $user->surname }}
+                                    </td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ $user->mobile }}</td>
                                     <td>
                                         @php
                                             echo selectOptionFromArray(Arrays::$status, 'status-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn(' . $user->id . ')"', $user->status);
@@ -46,8 +55,17 @@
                                         @endphp
                                     </td>
                                     <td>
-                                        <button id="{{ $user->id }}" class="btn btn-primary btn-sm my-0"
-                                            onclick="update({{ $user->id }})" type="button">Save</button>
+                                        @php
+                                            echo selectOptionFromArray(Arrays::$ny, 'pay-' . $user->id, 'form-control form-control-sm my-0 st', 'onchange="enable_btn(' . $user->id . ')"', $user->payment);
+                                        @endphp
+                                    </td>
+                                    <td>
+                                        <button id="{{ $user->id }}" class="btn btn-primary btn-sm py-0"
+                                            onclick="update({{ $user->id }})" type="button">SVE</button>
+                                        <a class="btn btn-sm btn-primary py-0"
+                                            href="{{ url('/tmadmin/register_user/' . $user->id) }}">EDT</a>
+                                        <button class="btn btn-primary btn-sm py-0" id="{{ 'del-' . $user->id }}"
+                                            onclick="del({{ $user->id }})">DEL</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -58,21 +76,43 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="profilephoto" tabindex="-1" aria-labelledby="profilephoto" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img id="pm" src="" style="height: 250px;jwidth:30px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         $("#dataTable").DataTable();
 
+        function photo(location) {
+            $('#profilephoto').modal('show');
+            $('#pm').attr("src", location);
+        }
+
         function enable_btn(id) {
-            $("#" + id).html("Save");
+            $("#" + id).html("SVE");
             $('#' + id).attr('disabled', false);
         }
 
         function update(id) {
             let status = $('#status-' + id).val();
             let married = $('#married-' + id).val();
+            let paid = $('#pay-' + id).val();
             let dstring = {
                 "id": id,
                 "status": status,
-                "married": married
+                "married": married,
+                "payment": paid
             }
             // console.log(dstring);
             $.ajaxSetup({
@@ -87,21 +127,57 @@
                 cache: false,
                 datatype: "json",
                 beforeSend: function() {
-                    $('#'+id).html('Save <i class="fas fa-spinner fa-spin"></i>');
+                    $('#' + id).html('Saving <i class="fas fa-spinner fa-spin"></i>');
                 },
                 success: function(data) {
                     // console.log(data);
                     if (data.msg == "success") {
-                        $("#" + id).html("Saved");
+                        $("#" + id).html("SVD");
                         $('#' + id).attr('disabled', true);
                     } else {
                         $('#' + id).attr('disabled', false);
-                        $("#" + id).html("Save");
+                        $("#" + id).html("SVE");
                     }
                 }
 
             });
 
+        }
+    </script>
+    <script>
+        function del(id) {
+            // $(this).closest("tr").remove();
+            let delbtn = $('#del-' + id);
+            if (confirm("Are you really want to delete this Record...?")) {
+                var input = {
+                    uid: id
+                }
+                // console.log(input);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('/tmadmin/deleteuser') }}",
+                    data: input,
+                    cache: false,
+                    datatype: "json",
+                    beforeSend: function() {
+                        delbtn.html('<i class="fas fa-spinner fa-spin"></i>');
+                    },
+                    success: function(data) {
+                        if (data.status == "success") {
+                            delbtn.closest("tr").remove();
+                        } else {
+                            delbtn.html('<i class="fas fa-spinner fa-spin"></i>');
+                            alert("Could not delete record...");
+                        }
+
+                    }
+                });
+            }
         }
     </script>
 @endsection
