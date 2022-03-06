@@ -61,31 +61,10 @@
             </div>
             <div id="s_result" class="row bottom-ab-grids">
                 <!--/row-grids-->
-                @foreach ($data['latest'] as $item)
-                    <div class="col-lg-6 subject-card mt-lg-0 mt-4">
-                        <div class="subject-card-header p-4">
-                            <a href="{{ url('viewprofile/' . $item->uid) }}" class="card_title p-lg-4d-block">
-                                <div class="row align-items-center">
-                                    <div class="col-sm-5 subject-img text-center">
-                                        <img src="{{ asset($item->photo) }}" class="img-fluid" alt=""
-                                            style="height: 150px;">
-                                    </div>
-                                    <div class="col-sm-7 subject-content mt-sm-0 mt-4">
-
-                                        <div class="dst-btm">
-                                            <h6 class=""> ID </h6>
-                                            <span>{{ $item->pid }}</span>
-                                        </div>
-                                        <p>22yrs, 154cm</p>
-                                        <p class="sub-para">{{ $item->occupation }}</p>
-                                        <p class="sub-para">Madurai,Tamil Nadu, India</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-
+                @php
+                    echo profileCards($data['latest']->toArray());
+                @endphp
+                
                 <!--//row-grids-->
             </div>
         </div>

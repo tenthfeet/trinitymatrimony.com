@@ -515,22 +515,26 @@
                                                         <label>State</label>
                                                         <div class="select-block1">
                                                             @php
-                                                                $v = $data->housetype != '' ? $data->housetype : '';
-                                                                echo selectOptionFromArray(Arrays::$states, 'state', 'custom-select', '', $v, 'Select');
+                                                                $v = $data->state ? $data->state : '';
+                                                                echo selectOptionFromArray(Arrays::$states, 'state', 'custom-select', '', $v, 'State');
                                                             @endphp
                                                         </div>
-                                                        <div id="error-fparish" class="text-red"></div>
+                                                        <div id="error-state" class="text-red"></div>
                                                     </div>
                                                     <div class="form-group col-sm-6">
                                                         <label>District</label>
-                                                        <select class="custom-select" name="district" id="district">
+                                                        <select id="district" class="custom-select" name="district" id="district">
                                                             @php
-                                                                $v = $data->housetype != '' ? $data->housetype : '';
-                                                                echo optionsFromArray(Arrays::$district, 'Tamilnadu', '', 'District');
+                                                            if($data->district){
+
+                                                                echo optionsFromArray(Arrays::$district,$data->state,$data->district, 'District');
+                                                            }else{
+                                                                echo '<option value="">--Select District--</option>';
+                                                            }
                                                             @endphp
                                                         </select>
 
-                                                        <div id="error-housetype" class="text-red"></div>
+                                                        <div id="error-district" class="text-red"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -696,6 +700,38 @@
                 });
             }
         }
+
+        $('#state').change(function(){
+            let state=$('#state').val();
+            if(state==''){
+                let state=$('#district').html('<option value="">--Select District--</option>');
+            }else{
+                var input = {
+                    st: state
+                }
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('/district') }}",
+                    data: input,
+                    cache: false,
+                    datatype: "json",
+                    success: function(data) {
+                        $('#district').html(data);
+                        // if (data.status == "success") {
+                        //     siblingData();
+                        // } else {
+                        //     alert("Could not delete record...");
+                        // }
+
+                    }
+                });
+            }
+        })
     </script>
     <script>
         function updatecareer() {
@@ -828,7 +864,7 @@
 
         function updateContact() {
 
-            let contact_inputs = ["pparish", "pyear", "fparish", "housetype", "caddress", "paddress", "mobile2"];
+            let contact_inputs = ["pparish", "pyear", "fparish", "housetype","state","district", "caddress", "paddress", "mobile2"];
 
             $.ajaxSetup({
                 headers: {

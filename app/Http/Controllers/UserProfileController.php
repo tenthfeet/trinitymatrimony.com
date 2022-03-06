@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+// use App\Helpers\Arrays;
+use App\Models\UserProfile;
 
 class UserProfileController extends Controller
 {
@@ -206,18 +208,21 @@ class UserProfileController extends Controller
             // 'pyear' => ['required'],
             'fparish' => ['required', 'string'],
             'housetype' => ['required', 'string'],
+            'state' => ['required', 'string'],
+            'district' => ['required', 'string'],
             'caddress' => ['required', 'string'],
             'paddress' => ['required', 'string'],
-            'mobile2' => ['nullable', 'string', 'size:10']
+            // 'mobile2' => ['nullable', 'string', 'size:10']
         ]);
 
-        $profiledata = DB::table(PROFILES)
-            ->where('uid', Auth::user()->id)
+        $profiledata = UserProfile::where('uid', Auth::user()->id)
             ->update([
                 'pparish' => $request['pparish'],
                 'pyear' => $request['pyear'],
                 'fparish' => $request['fparish'],
                 'housetype' => $request['housetype'],
+                'state' => $request['state'],
+                'district' => $request['district'],
                 'caddress' => $request['caddress'],
                 'paddress' => $request['paddress'],
                 'mobile2' => $request['mobile2']
@@ -227,6 +232,11 @@ class UserProfileController extends Controller
         } else {
             return response()->json(['status' => 'danger', 'msg' => 'Contact details not updated..!']);
         }
+    }
+
+    public function district(Request $request){
+        $arr=Arrays::$district;
+       return optionsFromArray($arr,$request->st,'', 'District');
     }
 
     public function addsibling(Request $request)
@@ -270,11 +280,12 @@ class UserProfileController extends Controller
         return Response::json($users);
     }
 
-    public function profilesearch(Request $req){
+    public function profilesearch(Request $req)
+    {
         if (DB::table(PROFILES)->where('pid', $req->pid)->exists()) {
-            $uid=DB::table(PROFILES)->where('pid', $req->pid)->value('uid');
-            return redirect('/viewprofile/'.$uid);
-        }else{
+            $uid = DB::table(PROFILES)->where('pid', $req->pid)->value('uid');
+            return redirect('/viewprofile/' . $uid);
+        } else {
             return redirect()->back();
         }
     }

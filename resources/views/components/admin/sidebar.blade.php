@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 @if (Auth::user()->role =="superadmin")
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <!-- <i class="nav-icon fas fa-poll"></i> -->
@@ -32,7 +32,7 @@
                             Settings
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ url('/tmadmin/register') }}" class="nav-link">
                         <i class="nav-icon fas fa-user-cog"></i>

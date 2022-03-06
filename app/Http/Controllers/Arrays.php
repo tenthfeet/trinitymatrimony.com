@@ -1,6 +1,6 @@
 <?php
 
-// namespace App\Helpers\Arrays;
+namespace App\Http\Controllers;
 
 class Arrays
 {

@@ -44,10 +44,10 @@ class ProfileSearchController extends Controller
         }
 
         $users = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'height', 'photo','occupation')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob','qualification', 'height', 'photo','occupation','state','district')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where($condition)
-            ->paginate(1)
+            ->paginate(10)
             ->withQueryString();
 
         // $tnor = DB::table(USERS)
@@ -67,7 +67,7 @@ class ProfileSearchController extends Controller
         $viewed = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('viewed');
         $v_arr = explode(",", $viewed);
         $users = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo','state','district')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
             ->where(USERS . '.id', '!=', Auth::user()->id)
@@ -83,7 +83,7 @@ class ProfileSearchController extends Controller
         $viewed = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('viewed');
         $v_arr = explode(",", $viewed);
         $users = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo','state','district')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
             ->where(USERS . '.id', '!=', Auth::user()->id)

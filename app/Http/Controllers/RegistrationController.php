@@ -20,7 +20,7 @@ class RegistrationController extends Controller
     protected function register()
     {
         $latest = DB::table(USERS)
-            ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo', 'occupation')
+            ->select('pid', 'uid', 'firstname', 'surname', 'dob','qualification', 'income', 'photo', 'occupation','height','state','district')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
             ->where(PROFILES . '.photo', '!=', null)
@@ -40,7 +40,7 @@ class RegistrationController extends Controller
     {
         if (session()->has('reg_otp')) {
             $latest = DB::table(USERS)
-                ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'income', 'photo', 'occupation')
+                ->select('pid', 'uid', 'firstname', 'surname', 'dob','qualification', 'income', 'photo', 'occupation','height','state','district')
                 ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
                 ->where(USERS . '.married', '=', 'No')
                 ->where(PROFILES . '.photo', '!=', null)

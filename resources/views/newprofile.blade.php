@@ -25,42 +25,9 @@
             <div id="s_result" class="row bottom-ab-grids my-3">
                 <!--/row-grids-->
                 @if (count($collection) > 0)
-                    @foreach ($collection as $item)
-                        <div class="col-lg-6 subject-card mt-lg-0 mt-4">
-                            <div class="subject-card-header p-4">
-                                <a href="{{ url('viewprofile/' . $item->uid) }}" class="card_title p-lg-4d-block">
-                                    <div class="row align-items-center">
-                                        <div class="col-sm-5 subject-img text-center">
-                                            <img src="{{ asset($item->photo) }}" class="img-fluid" alt=""
-                                                style="height: 150px;">
-                                        </div>
-                                        <div class="col-sm-7 subject-content mt-sm-0 mt-4">
-
-                                            <div class="dst-btm">
-                                                <h6 class="">Profile ID </h6>
-                                                <span>{{ $item->pid }}</span>
-                                            </div>
-                                            <p>
-                                                @if ($item->dob != '1970-01-01')
-                                                    {{ age($item->dob) }}
-                                                @else
-                                                Age not yet Provided
-                                                @endif
-
-                                                @if ($item->height)
-                                                    
-                                                , {{ $item->height }}cm
-                                                @endif
-                                                
-                                            </p>
-                                            <p class="sub-para">{{ $item->occupation }}</p>
-                                            <p class="sub-para">Madurai,Tamil Nadu, India</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
+                    @php
+                        echo profileCards($collection);
+                    @endphp
                 @else
                     {{-- {{ count($profiles) }} --}}
                     <div style="text-align: center;">Sorry, we are unable to find a perfect match based on the search
@@ -76,5 +43,4 @@
         </div>
     </section>
     <!--//grids-->
-
 @endsection
