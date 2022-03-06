@@ -57,3 +57,21 @@ animation-delay:0.8s;
 .loader div:nth-child(5){
 animation-delay:1s;
 }
+
+ul#pro.nav-tabs {
+    border-bottom: 1px solid #FF1654;
+}
+
+ul#pro.nav li.nav-item a.nav-link{
+    color:#FF1654;
+    /* border-color: #FF1654; */
+}
+
+ul#pro.nav li.nav-item a.nav-link.active{
+    color:#FF1654;
+    border-top-color: #FF1654;
+    border-bottom-color: #fff;
+    border-right-color: #FF1654;
+    border-left-color: #FF1654;
+    background-color:#f8bacb77;
+}

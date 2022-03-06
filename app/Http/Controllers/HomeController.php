@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
 
 class HomeController extends Controller
 {
@@ -42,5 +44,22 @@ class HomeController extends Controller
             ->get();
 
         return view('welcome', ['data'=>['latest' => $latest,'testimonial'=>$testimonial]]);
+    }
+
+    public function contact(Request $data){
+
+        $data->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'subject' => ['required'],
+            'message' => ['required'],
+        ]);
+
+        Mail::to(trinity_email)->send(new ContactMail($data));
+
+        if(Mail::failures()){
+            return redirect()->back()->with('error', 'Could not submit enquiry..!');
+        }
+        return redirect()->back()->with('success', 'Enquiry submitted sucessfully..!');
     }
 }

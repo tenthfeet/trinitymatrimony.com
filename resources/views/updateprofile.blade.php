@@ -16,9 +16,9 @@
     </section>
     <!-- //about breadcrumb -->
 
-    <div class="grid_3">
+    <div class="grid_3 py-5">
         <div class="container">
-            <div class="profile row">
+            <div class="profile row py-lg-5">
                 <div class="col-md-9">
                     <div class="m-4">
                         @if (session()->has('msg'))
@@ -26,60 +26,11 @@
                                 {{ session('msg') }}
                             </div>
                         @endif
-                        <h2 class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
-                        {{-- <div class="row">
-                            <div class="col-sm-6  text-center">
-                                <img class="rounded" style="height:200px;" src="{{ asset($data->photo) }}" />
-                            </div>
-                            <div class="col-sm-6">
-                                <table class="table_working_hours">
-                                    <tbody>
-                                        <tr>
-                                            <td width="40%">Name :</td>
-                                            <td>{{ $data->firstname . ' ' . $data->surname }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Age :</td>
-
-                                            <td>
-                                                @php
-                                                    if ($data->dob != '1970-01-01') {
-                                                        echo age($data->dob);
-                                                    }
-                                                @endphp
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gender :</td>
-                                            <td>{{ $data->gender }}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Marital Status :</td>
-                                            <td>{{ $data->maritalstatus }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Height :</td>
-                                            <td>
-                                                @php
-                                                    if ($data->height != null) {
-                                                        echo htmlspecialchars($data->height) . ' cm';
-                                                    }
-                                                @endphp
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                @if ($data->uid == Auth::User()->id)
-                                    <ul class="breadcrumbs-custom-path">
-                                        <li><a href="{{ url('/updateprofile') }}">Update profile</a></li>
-                                    </ul>
-                                @endif
-
-                            </div>
-                        </div> --}}
+                        <div class="ctr">
+                            <h2 class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
+                        </div>
                         <div class="my-4">
-                            <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
+                            <ul id="pro" class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab"
                                         aria-controls="home" aria-selected="true">Basic Information</a>
@@ -98,7 +49,7 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="basic" role="tabpanel"
+                                <div class="tab-pane fade show active my-4" id="basic" role="tabpanel"
                                     aria-labelledby="basic-tab">
                                     <div class="col-sm-12 login_left">
                                         <form action="{{ url('/updateprofile') }}" method="post"
@@ -262,16 +213,45 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group col-sm-6">
-                                                    <label>Upload Photo<span class="form-required"
-                                                            title="This field is required.">*</span></label>
-                                                    <input type="file"
-                                                        class="form-control-file @error('photo') border-red @enderror"
-                                                        id="photo" name="photo">
+                                                    <div class="row">
+                                                        <div class="col-sm-2 col-3 d-flex justify-content-center">
+                                                            @if ($data->photo != null)
+                                                                <a class="my-auto" href="#" data-toggle="modal"
+                                                                    data-target="#profilephoto">
+                                                                    <img src="{{ asset($data->photo) }}"
+                                                                        style="height: 50px;width:50px;">
+                                                                </a>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="profilephoto" tabindex="-1"
+                                                                    aria-labelledby="profilephoto" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-body">
+                                                                                <div class="text-center">
+                                                                                    <img id="pm" src="{{ str_replace('\\', '/', asset($data->photo)) }}"
+                                                                                        style="max-height: 70vh;">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-sm-10 col-9">
+
+                                                            <label>Upload Photo<span class="form-required"
+                                                                    title="This field is required.">*</span></label>
+                                                            <input type="file"
+                                                                class="form-control-file @error('photo') border-red @enderror"
+                                                                id="photo" name="photo">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 @error('photo')
                                                     <div class="text-red">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
 
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
@@ -304,9 +284,9 @@
                                     </div>
 
                                 </div>
-                                <div class="tab-pane fade" id="career" role="tabpanel" aria-labelledby="career-tab">
+                                <div class="tab-pane fade my-4" id="career" role="tabpanel" aria-labelledby="career-tab">
                                     <div class="basic_3">
-                                        <h4>Qualification and Career</h4>
+                                        {{-- <h4>Qualification and Career</h4> --}}
                                         <div class="basic_1 basic_2">
                                             <form id="career-frm">
                                                 <div class="col-md-12 basic_1-left">
@@ -369,7 +349,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="family" role="tabpanel" aria-labelledby="family-tab">
+                                <div class="tab-pane fade my-4" id="family" role="tabpanel" aria-labelledby="family-tab">
                                     <div class="basic_1 basic_2">
                                         <form id="family-frm">
                                             <div class="basic_1-left">
@@ -470,7 +450,7 @@
 
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="tab-pane fade my-4" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="basic_1 basic_2">
                                         <form id="contact-frm">
                                             <div class="basic_1-left">
@@ -523,14 +503,14 @@
                                                     </div>
                                                     <div class="form-group col-sm-6">
                                                         <label>District</label>
-                                                        <select id="district" class="custom-select" name="district" id="district">
+                                                        <select id="district" class="custom-select" name="district"
+                                                            id="district">
                                                             @php
-                                                            if($data->district){
-
-                                                                echo optionsFromArray(Arrays::$district,$data->state,$data->district, 'District');
-                                                            }else{
-                                                                echo '<option value="">--Select District--</option>';
-                                                            }
+                                                                if ($data->district) {
+                                                                    echo optionsFromArray(Arrays::$district, $data->state, $data->district, 'District');
+                                                                } else {
+                                                                    echo '<option value="">--Select District--</option>';
+                                                                }
                                                             @endphp
                                                         </select>
 
@@ -603,17 +583,17 @@
                         </form>
                     </div>
 
-                    <div class="view_profile view_profile1">
+                    {{-- <div class="view_profile view_profile1">
                         <h4 class="text-theme">Recent Profiles</h4>
 
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
 
 
-    
+
     {{-- Modal --}}
     <div class="modal fade " id="sib" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -701,11 +681,11 @@
             }
         }
 
-        $('#state').change(function(){
-            let state=$('#state').val();
-            if(state==''){
-                let state=$('#district').html('<option value="">--Select District--</option>');
-            }else{
+        $('#state').change(function() {
+            let state = $('#state').val();
+            if (state == '') {
+                let state = $('#district').html('<option value="">--Select District--</option>');
+            } else {
                 var input = {
                     st: state
                 }
@@ -864,7 +844,9 @@
 
         function updateContact() {
 
-            let contact_inputs = ["pparish", "pyear", "fparish", "housetype","state","district", "caddress", "paddress", "mobile2"];
+            let contact_inputs = ["pparish", "pyear", "fparish", "housetype", "state", "district", "caddress", "paddress",
+                "mobile2"
+            ];
 
             $.ajaxSetup({
                 headers: {

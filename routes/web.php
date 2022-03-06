@@ -29,6 +29,8 @@ Route::view('/about', 'about');
 Route::view('/contact', 'contact');
 Route::view('/terms', 'terms');
 Route::view('/privacy', 'privacy');
+Route::view('/faq', 'faq');
+Route::post('/contact',[HomeController::class, 'contact']);
 
 Route::get('/registration', [RegistrationController::class, 'register']);
 Route::post('/registration', [RegistrationController::class, 'otp']);

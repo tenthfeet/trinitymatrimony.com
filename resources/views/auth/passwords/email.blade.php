@@ -19,7 +19,7 @@
     <!-- contact-form -->
     <section class="w3l-contact" id="contact">
         <div class="contact-infubd py-5">
-            <div class="container py-lg-3">
+            <div class="container py-lg-5">
                 <div class="contact-grids row">
 
                     <div class="col-lg-6 mt-lg-0 mt-5 contact-right">
@@ -52,19 +52,21 @@
                     <div class="col-lg-6 contact-left">
                         <div class="partners">
                             <div class="cont-details">
-                                <h5>Get in touch</h5>
+                                <h5 class="text-theme">Get in touch</h5>
                                 <p class="mt-3 mb-4">Hi there, We are available 24/7 by fax, e-mail or by phone. Drop
                                     us line so we can talk
                                     futher about that.</p>
                             </div>
                             <div class="hours">
                                 <h6 class="mt-4">Email:</h6>
-                                <p> <a href="mailto:mail@traversal.com">
-                                        mail@traversal.com</a></p>
+                                <p> <a href="mailto:{{trinity_email}}">
+                                    {{trinity_email}}</a></p>
                                 <h6 class="mt-4">Visit Us:</h6>
-                                <p> 78-80 Upper St Giles St. Norwich NR2 1LT United Kingdom.</p>
+                                <p> @php
+                                    echo trinity_address;
+                                @endphp</p>
                                 <h6 class="mt-4">Contact:</h6>
-                                <p class="margin-top"><a href="tel:+44-255-366-88">+44-255-366-88</a></p>
+                                <p class="margin-top"><a href="tel:+44-255-366-88">{{trinity_mobile}}</a></p>
                             </div>
                         </div>
                     </div>

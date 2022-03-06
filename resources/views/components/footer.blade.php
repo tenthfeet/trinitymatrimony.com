@@ -19,7 +19,7 @@
                         <h3>Useful Links</h3>
                         <ul class="footer-gd-16">
                             <li><a href="{{url('/terms')}}">Terms & Conditions</a></li>
-                            <li><a href="#">FAQ</a></li>
+                            <li><a href="{{url('/faq')}}">FAQ</a></li>
                             <li><a href="{{url('/privacy')}}">Privacy Policy</a></li>
                             {{-- <li><a href="#">About Company</a></li> --}}
                             {{-- <li><a href="#">Our Packages</a></li> --}}

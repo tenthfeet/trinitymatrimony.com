@@ -100,7 +100,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="text-center">
-                    <img id="pm" src="" style="height: 250px;jwidth:30px;">
+                    <img id="pm" src="" style="max-height: 70vh;">
                 </div>
             </div>
         </div>

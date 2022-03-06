@@ -16,14 +16,15 @@
     </section>
     <!-- //about breadcrumb -->
 
-
-    <div class="grid_3">
+    <div class="grid_3 py-5">
         <div class="container">
-            <div class="profile row">
+            <div class="profile row py-lg-5">
                 <div class="col-md-9">
-                    <div class="m-4">
-                        <h2 class="mb-1 text-theme">Profile Id : {{ $data->pid }}</h2>
-                        <div class="row">
+                    <div class=" m-4">
+                        <div class="ctr">
+                            <h2 class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
+                        </div>
+                        <div class="row my-4">
                             <div class="col-sm-6  text-center">
                                 <img class="rounded" style="height:200px;"
                                     src="{{ asset($data->photo) }}" />
@@ -75,8 +76,8 @@
 
                             </div>
                         </div>
-                        <div class="my-4">
-                            <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
+                        <div class="my-5">
+                            <ul id="pro" class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab"
                                         aria-controls="home" aria-selected="true">About Myself</a>
@@ -97,17 +98,17 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="basic" role="tabpanel"
                                     aria-labelledby="basic-tab">
-                                    <div class="tab_box">
-                                        <h6>{{ $data->about }}</h6>
+                                    <div class="tab_box my-3">
+                                        <p style="color:black">{{ $data->about }}</p>
                                     </div>
                                     <div class="row">
                                         {{-- <h3>Education & Career</h3> --}}
                                         <div class="col-12 col-md-6">
-                                            <table>
+                                            <table class="table table-sm table-borderless" style="color: #777777">
                                                 <tbody>
 
                                                     <tr>
-                                                        <td width="45%">House Name :</td>
+                                                        <td width="50%">House Name :</td>
                                                         <td class="day_value">{{ $data->housename }}</td>
                                                     </tr>
                                                     <tr>
@@ -155,7 +156,7 @@
                                             </table>
                                         </div>
                                         <div class="col-12 col-md-6">
-                                            <table>
+                                            <table class="table table-sm table-borderless" style="color: #777777">
                                                 <tbody>
                                               
                                                     <tr>
@@ -200,10 +201,10 @@
                                 <div class="tab-pane fade" id="career" role="tabpanel" aria-labelledby="career-tab">
                                     <div class="basic_1 basic_2">
                                         <div class="basic_1-left">
-                                            <table class="table_working_hours">
+                                            <table class="table table-sm table-borderless" style="color: #777777">
                                                 <tbody>
-                                                    <tr class="opened">
-                                                        <td class="day_label">Educational Qualification :</td>
+                                                    <tr  class="opened">
+                                                        <td width="50%" class="day_label">Educational Qualification :</td>
                                                         <td class="day_value">{{ $data->qualification }}</td>
                                                     </tr>
                                                     <tr class="opened">
@@ -236,10 +237,10 @@
                                 <div class="tab-pane fade" id="family" role="tabpanel" aria-labelledby="family-tab">
                                     <div class="basic_1 basic_2">
                                         <div class="basic_1-left">
-                                            <table class="table_working_hours">
+                                            <table class="table table-sm table-borderless" style="color: #777777">
                                                 <tbody>
                                                     <tr class="opened">
-                                                        <td class="day_label">Father's Name :</td>
+                                                        <td width="50%" class="day_label">Father's Name :</td>
                                                         <td class="day_value">{{ $data->fathername }}</td>
                                                     </tr>
                                                     <tr class="opened">
@@ -273,7 +274,7 @@
                                     </div>
                                     @if ($data->siblings == 'Yes')
                                         <div class="tab_box">
-                                            <h6>Sibling Details</h6>
+                                            <h6 class="my-3">Sibling Details</h6>
                                         </div>
                                         <div class="table-responsive">
                                             <table id="sib_table" class="table table-bordered">
@@ -305,11 +306,11 @@
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="basic_1 basic_2">
                                         <div class="basic_1-left">
-                                            <table class="table_working_hours">
+                                            <table class="table table-sm table-borderless" style="color: #777777">
                                                 {{-- <h1>Sibling</h1> --}}
                                                 <tbody>
                                                     <tr class="opened">
-                                                        <td class="day_label">Phone number 1 :</td>
+                                                        <td width="50%" class="day_label">Phone number 1 :</td>
                                                         <td class="day_value">{{ $data->mobile }}</td>
                                                     </tr>
                                                     <tr class="opened">
@@ -379,7 +380,7 @@
                     </div>
                     
                     <div class="view_profile view_profile1">
-                        <h4 class="text-theme">Recent Profiles</h4>
+                        {{-- <h4 class="text-theme">Recent Profiles</h4> --}}
 
                     </div>
                 </div>
