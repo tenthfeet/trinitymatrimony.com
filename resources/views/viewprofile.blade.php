@@ -22,12 +22,24 @@
                 <div class="col-md-9">
                     <div class=" m-4">
                         <div class="ctr">
-                            <h2 class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
+                            <h2 class="mb-1 text-theme">Profile Id : {{ $data->pid }}</h2>
                         </div>
                         <div class="row my-4">
                             <div class="col-sm-6  text-center">
                                 <img class="rounded" style="height:200px;"
-                                    src="{{ asset($data->photo) }}" />
+                                    @php
+                                        if($data->photo){
+                                            echo 'src="'.$data->photo.'"';
+                                        }else{
+                                            if($data->uid == Auth::User()->id){
+                                                echo 'src="'.asset('images/YourPhotoHere2.jpg').'"';
+                                            }else{
+                                                echo 'src="'.asset('images/photo-not-available.jpg').'"';
+                                            }
+                                        }
+                                    @endphp
+                                    
+                                    />
                             </div>
                             <div class="col-sm-6">
                                 <table class="table_working_hours">

@@ -738,6 +738,9 @@
                         $('#' + item).removeClass('border-red');
 
                     });
+                    if(data.status == 'success'){
+                        $('.nav-tabs a[href="#family"]').tab('show');
+                    }
                     if (data.status == 'success' || data.status == 'danger') {
                         $('#career-response').removeClass();
                         $('#career-response').addClass('alert alert-' + data.status);
@@ -806,6 +809,9 @@
                         $('#' + item).removeClass('border-red');
 
                     });
+                    if(data.status == 'success'){
+                        $('.nav-tabs a[href="#contact"]').tab('show');
+                    }
                     if (data.status == 'success' || data.status == 'danger') {
                         $('#family-response').removeClass();
                         $('#family-response').addClass('alert alert-' + data.status);
@@ -870,6 +876,9 @@
                         $('#' + item).removeClass('border-red');
 
                     });
+                    if(data.status == 'success'){
+                        $('.nav-tabs a[href="#basic"]').tab('show');
+                    }
                     if (data.status == 'success' || data.status == 'danger') {
                         $('#contact-response').removeClass();
                         $('#contact-response').addClass('alert alert-' + data.status);

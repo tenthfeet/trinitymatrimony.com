@@ -88,8 +88,6 @@ class ProfileSearchController extends Controller
             ->where(USERS . '.married', '=', 'No')
             ->where(USERS . '.id', '!=', Auth::user()->id)
             ->where(PROFILES . '.dob', '!=', '1970-01-01')
-            // ->where(USERS . '.id', '!=', Auth::user()->id)
-            // ->where(USERS . '.id', '!=', Auth::user()->id)
             ->whereNotIn(PROFILES . '.uid', $v_arr)
             ->paginate(10);
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Mail\Mailable;
 use App\Mail\ContactMail;
 
 class HomeController extends Controller
@@ -31,6 +32,7 @@ class HomeController extends Controller
         $latest = DB::table(USERS)
             ->select('pid', 'uid', 'firstname', 'surname', 'dob','qualification','photo', 'occupation','height','state','district')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
+            ->where(USERS . '.status', '=', 'active')
             ->where(USERS . '.married', '=', 'No')
             ->where(PROFILES . '.photo', '!=', null)
             ->orderBy(PROFILES . '.id', 'desc')
