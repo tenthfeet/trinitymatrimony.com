@@ -75,3 +75,13 @@ ul#pro.nav li.nav-item a.nav-link.active{
     border-left-color: #FF1654;
     background-color:#f8bacb77;
 }
+
+.mt{
+    margin-top: 73.8px;
+}
+
+@media (min-width: 992px) {
+    .mt{
+        margin-top: 90px !important;
+    }
+}

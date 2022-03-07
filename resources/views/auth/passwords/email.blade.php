@@ -23,6 +23,11 @@
                 <div class="contact-grids row">
 
                     <div class="col-lg-6 mt-lg-0 mt-5 contact-right">
+                        @if (session('status'))
+                            <div class="alert alert-success my-4" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         <form action="{{ route('password.email') }}" method="post" class="signin-form">
                             @csrf
                             <div class="input-grids">
@@ -42,11 +47,7 @@
                             </div>
                         </form>
 
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                        
 
                     </div>
                     <div class="col-lg-6 contact-left">

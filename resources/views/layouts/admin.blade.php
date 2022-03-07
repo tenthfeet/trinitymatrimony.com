@@ -62,6 +62,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link">{{ Auth::user()->firstname }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('password.request') }}">Change Password</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();" role="button"><i
                             class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
