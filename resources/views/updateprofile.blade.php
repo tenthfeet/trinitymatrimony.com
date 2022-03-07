@@ -16,7 +16,7 @@
     </section>
     <!-- //about breadcrumb -->
 
-    <div class="grid_3 py-5">
+    <div id="top_page" class="grid_3 py-5">
         <div class="container">
             <div class="profile row py-lg-5">
                 <div class="col-md-9">
@@ -27,9 +27,10 @@
                             </div>
                         @endif
                         <div class="ctr">
-                            <h2 class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
+                            <h2  class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
                         </div>
                         <div class="my-4">
+                            <div id='ajax-response' class="my-4"></div>
                             <ul id="pro" class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab"
@@ -52,7 +53,7 @@
                                 <div class="tab-pane fade show active my-4" id="basic" role="tabpanel"
                                     aria-labelledby="basic-tab">
                                     <div class="col-sm-12 login_left">
-                                        <form action="{{ url('/updateprofile') }}" method="post"
+                                        <form id="basic-frm" action="{{ url('/updateprofile') }}" method="post"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">
@@ -64,6 +65,7 @@
                                                     @error('housename')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-housename" class="text-red"></div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label>Gender *</label>
@@ -79,6 +81,7 @@
                                                     @error('gender')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-gender" class="text-red"></div>
                                                 </div>
                                             </div>
 
@@ -91,6 +94,7 @@
                                                     @error('dob')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-dob" class="text-red"></div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label>Date of Baptism</label>
@@ -101,6 +105,7 @@
                                                     @error('dobap')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-dobap" class="text-red"></div>
                                                 </div>
                                             </div>
 
@@ -118,6 +123,7 @@
                                                     @error('mothertongue')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-mothertongue" class="text-red"></div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label>Other Language Known</label>
@@ -128,6 +134,7 @@
                                                     @error('otherlang')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-otherlang" class="text-red"></div>
                                                 </div>
                                             </div>
 
@@ -144,6 +151,7 @@
                                                     @error('particularchurch')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-particularchurch" class="text-red"></div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label>Non Catholic Church</label>
@@ -153,6 +161,7 @@
                                                     @error('noncath_church')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-noncath_church" class="text-red"></div>
                                                 </div>
                                             </div>
 
@@ -165,6 +174,7 @@
                                                     @error('height')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-height" class="text-red"></div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label>Weight (Kg) *</label>
@@ -174,6 +184,7 @@
                                                     @error('weight')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-weight" class="text-red"></div>
                                                 </div>
                                             </div>
 
@@ -186,6 +197,7 @@
                                                     @error('blood')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-blood" class="text-red"></div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label>Complexion</label>
@@ -195,6 +207,7 @@
                                                     @error('complex')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-complex" class="text-red"></div>
                                                 </div>
                                             </div>
 
@@ -211,6 +224,7 @@
                                                     @error('maritalstatus')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-maritalstatus" class="text-red"></div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <div class="row">
@@ -218,7 +232,7 @@
                                                             @if ($data->photo != null)
                                                                 <a class="my-auto" href="#" data-toggle="modal"
                                                                     data-target="#profilephoto">
-                                                                    <img src="{{ asset($data->photo) }}"
+                                                                    <img id="p-img" src="{{ asset($data->photo) }}"
                                                                         style="height: 50px;width:50px;">
                                                                 </a>
                                                                 <!-- Modal -->
@@ -228,7 +242,8 @@
                                                                         <div class="modal-content">
                                                                             <div class="modal-body">
                                                                                 <div class="text-center">
-                                                                                    <img id="pm" src="{{ str_replace('\\', '/', asset($data->photo)) }}"
+                                                                                    <img id="pm"
+                                                                                        src="{{ str_replace('\\', '/', asset($data->photo)) }}"
                                                                                         style="max-height: 70vh;">
                                                                                 </div>
                                                                             </div>
@@ -246,6 +261,7 @@
                                                                 id="photo" name="photo">
                                                         </div>
                                                     </div>
+                                                    <div id="er-photo" class="text-red"></div>
                                                 </div>
                                                 @error('photo')
                                                     <div class="text-red">{{ $message }}</div>
@@ -262,6 +278,7 @@
                                                     @error('about')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-about" class="text-red"></div>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label>Partner preference any *</label>
@@ -271,14 +288,17 @@
                                                     @error('preference')
                                                         <div class="text-red">{{ $message }}</div>
                                                     @enderror
+                                                    <div id="er-preference" class="text-red"></div>
                                                 </div>
 
                                             </div>
 
                                             <input type="hidden" name="pid" value="{{ $data->pid }}">
 
+                                            <div id='basic-response'></div>
+
                                             <div class="form-actions">
-                                                <input type="submit" id="edit-submit" value="SAVE" class="btn btn-warning">
+                                                <button type="submit" id="upbasic" class="btn btn-warning">Update</button>
                                             </div>
                                         </form>
                                     </div>
@@ -341,7 +361,7 @@
 
                                                     <div class="form-actions">
                                                         <button id="upcareer" type="button" class="btn btn-warning"
-                                                            onclick="updatecareer()">Save</button>
+                                                            onclick="updatecareer()">Update</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -443,7 +463,7 @@
 
                                                 <div class="form-actions">
                                                     <button id="upfamily" type="button" class="btn btn-warning"
-                                                        onclick="updatefamily()">Save</button>
+                                                        onclick="updatefamily()">Update</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -554,7 +574,7 @@
 
                                                 <div class="form-actions">
                                                     <button id="updatecontact" type="button" class="btn btn-warning"
-                                                        onclick="updateContact()">SAVE</button>
+                                                        onclick="updateContact()">Update</button>
 
                                                 </div>
                                             </div>
@@ -563,6 +583,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -711,9 +732,83 @@
                     }
                 });
             }
-        })
+        });
+        function movetotab(){
+            var elmnt = document.getElementById("top_page");
+            elmnt.scrollIntoView();
+        }
     </script>
     <script>
+        $('#basic-frm').submit(function(e) {
+            e.preventDefault();
+            let basic_fields = [
+                "housename", "gender", "dob", "dobap", "mothertongue","otherlang",
+                "particularchurch", "noncath_church", "height", "weight","photo",
+                "blood", "complex","maritalstatus", "about", "preference",
+            ];
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('/updateprofile') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#upbasic').html('Updating... <i class="fa fa-spinner fa-spin"></i>');
+                },
+                success: (data) => {
+                    $('#upbasic').html('Update');
+                    movetotab();
+                    basic_fields.forEach(item => {
+                        $('#er-' + item).html('');
+                        $('#' + item).removeClass('border-red');
+                    });
+                    if (data.status == 'success') {
+                        $('.nav-tabs a[href="#career"]').tab('show');
+                    }
+                    if ((data.status == 'success')&&(data.path != '')) {
+                        $('#p-img').attr("src",data.path);
+                        $('#pm').attr("src",data.path);
+                    }
+                    if (data.status == 'success' || data.status == 'danger') {
+                        $('#ajax-response').removeClass();
+                        $('#ajax-response').addClass('alert alert-' + data.status);
+                        $('#ajax-response').html(data.msg);
+                        $('#ajax-response').show();
+                    } else {
+                        $('#ajax-response').hide();
+                    }
+                },
+                error: function(data) {
+                    $('#upbasic').html('Update');
+                    $('#ajax-response').removeClass();
+                    $('#ajax-response').html('');
+                    if (data.status === 422) {
+                        var response = $.parseJSON(data.responseText);
+                        var errors = response.errors;
+                        basic_fields.forEach(item => {
+                            if (errors.hasOwnProperty(item)) {
+                                value = errors[item][0];
+                                $('#er-' + item).html(value);
+                                $('#' + item).addClass('border-red');
+                            } else {
+                                $('#er-' + item).html('');
+                                $('#' + item).removeClass('border-red');
+
+                            }
+                        });
+
+                    }
+                }
+            });
+        });
+
         function updatecareer() {
             let fields = ["qualification", "occupation", "area", "income", "firmaddress"];
             $.ajaxSetup({
@@ -728,33 +823,33 @@
                 cache: false,
                 datatype: "json",
                 beforeSend: function() {
-                    $('#upcareer').html('Save <i class="fa fa-spinner fa-spin"></i>');
+                    $('#upcareer').html('Updating... <i class="fa fa-spinner fa-spin"></i>');
                 },
                 success: function(data) {
-                    $('#upcareer').html('Save');
+                    $('#upcareer').html('Update');
+                    movetotab();
                     // console.log(data);
                     fields.forEach(item => {
                         $('#er-' + item).html('');
                         $('#' + item).removeClass('border-red');
-
                     });
-                    if(data.status == 'success'){
+                    if (data.status == 'success') {
                         $('.nav-tabs a[href="#family"]').tab('show');
                     }
                     if (data.status == 'success' || data.status == 'danger') {
-                        $('#career-response').removeClass();
-                        $('#career-response').addClass('alert alert-' + data.status);
-                        $('#career-response').html(data.msg);
-                        $('#career-response').show();
+                        $('#ajax-response').removeClass();
+                        $('#ajax-response').addClass('alert alert-' + data.status);
+                        $('#ajax-response').html(data.msg);
+                        $('#ajax-response').show();
                     } else {
-                        $('#career-response').hide();
+                        $('#ajax-response').hide();
                     }
 
                 },
                 error: function(data) {
-                    $('#upcareer').html('Save');
-                    $('#career-response').removeClass();
-                    $('#career-response').html('');
+                    $('#upcareer').html('Update');
+                    $('#ajax-response').removeClass();
+                    $('#ajax-response').html('');
 
                     if (data.status === 422) {
                         var response = $.parseJSON(data.responseText);
@@ -799,32 +894,34 @@
                 cache: false,
                 datatype: "json",
                 beforeSend: function() {
-                    $('#upfamily').html('Save <i class="fa fa-spinner fa-spin"></i>');
+                    $('#upfamily').html('Updating... <i class="fa fa-spinner fa-spin"></i>');
                 },
                 success: function(data) {
-                    $('#upfamily').html('Save');
+                    $('#upfamily').html('Update');
+                    movetotab();
                     // console.log(data);
                     family_inputs.forEach(item => {
                         $('#error-' + item).html('');
                         $('#' + item).removeClass('border-red');
 
                     });
-                    if(data.status == 'success'){
+                    if (data.status == 'success') {
                         $('.nav-tabs a[href="#contact"]').tab('show');
                     }
                     if (data.status == 'success' || data.status == 'danger') {
-                        $('#family-response').removeClass();
-                        $('#family-response').addClass('alert alert-' + data.status);
-                        $('#family-response').html(data.msg);
+                        $('#ajax-response').removeClass();
+                        $('#ajax-response').addClass('alert alert-' + data.status);
+                        $('#ajax-response').html(data.msg);
+                        $('#ajax-response').show();
                     } else {
-                        $('#family-response').hide();
+                        $('#ajax-response').hide();
                     }
 
                 },
                 error: function(data) {
-                    $('#upfamily').html('Save');
-                    $('#family-response').removeClass();
-                    $('#family-response').html('');
+                    $('#upfamily').html('Update');
+                    $('#ajax-response').removeClass();
+                    $('#ajax-response').html('');
 
                     if (data.status === 422) {
                         var response = $.parseJSON(data.responseText);
@@ -866,33 +963,34 @@
                 cache: false,
                 datatype: "json",
                 beforeSend: function() {
-                    $('#updatecontact').html('Save <i class="fa fa-spinner fa-spin"></i>');
+                    $('#updatecontact').html('Updating... <i class="fa fa-spinner fa-spin"></i>');
                 },
                 success: function(data) {
-                    $('#updatecontact').html('Save');
+                    $('#updatecontact').html('Update');
+                    movetotab();
                     // console.log(typeof(data));
                     contact_inputs.forEach(item => {
                         $('#error-' + item).html('');
                         $('#' + item).removeClass('border-red');
 
                     });
-                    if(data.status == 'success'){
+                    if (data.status == 'success') {
                         $('.nav-tabs a[href="#basic"]').tab('show');
                     }
                     if (data.status == 'success' || data.status == 'danger') {
-                        $('#contact-response').removeClass();
-                        $('#contact-response').addClass('alert alert-' + data.status);
-                        $('#contact-response').html(data.msg);
-                        $('#contact-response').show();
+                        $('#ajax-response').removeClass();
+                        $('#ajax-response').addClass('alert alert-' + data.status);
+                        $('#ajax-response').html(data.msg);
+                        $('#ajax-response').show();
                     } else {
-                        $('#contact-response').hide();
+                        $('#ajax-response').hide();
                     }
 
                 },
                 error: function(data) {
-                    $('#updatecontact').html('Save');
-                    $('#contact-response').removeClass();
-                    $('#contact-response').html('');
+                    $('#updatecontact').html('Update');
+                    $('#ajax-response').removeClass();
+                    $('#ajax-response').html('');
 
                     if (data.status === 422) {
                         var response = $.parseJSON(data.responseText);
@@ -956,8 +1054,8 @@
                 },
                 error: function(data) {
                     $('#mbtn').html('Add');
-                    $('#contact-response').removeClass();
-                    $('#contact-response').html('');
+                    $('#ajax-response').removeClass();
+                    $('#ajax-response').html('');
                     // console.log($('#sib-frm').serialize());
                     if (data.status === 422) {
                         var response = $.parseJSON(data.responseText);

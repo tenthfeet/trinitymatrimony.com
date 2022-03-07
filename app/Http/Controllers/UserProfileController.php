@@ -87,8 +87,7 @@ class UserProfileController extends Controller
             'preference' => ['required', 'string']
         ]);
 
-        $profiledata = DB::table(PROFILES)
-            ->where('uid', Auth::user()->id)
+        $profiledata = UserProfile::where('uid', Auth::user()->id)
             ->update([
                 'housename' => $request['housename'],
                 'gender' => $request['gender'],
@@ -110,6 +109,7 @@ class UserProfileController extends Controller
 
 
         $photo = 0;
+        $profile_path='';
         if ($request->hasFile('photo')) {
             if ($request->file('photo')->isValid()) {
                 $location = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('photo');
@@ -122,6 +122,7 @@ class UserProfileController extends Controller
                     $name = $request->pid . "_" . date("dmyHis") . "." . $request->photo->extension();
                     // $path = $request->photo->storeAs('profile_pic', $name);
                     $path = $request->photo->move('profile_picture', $name);
+                    $profile_path=str_replace('\\', '/', asset($path)); //str_replace('\\', '/', asset($data->photo))
                     $photo = DB::table(PROFILES)
                         ->where('uid', Auth::user()->id)
                         ->update([
@@ -133,13 +134,17 @@ class UserProfileController extends Controller
 
 
         if (($profiledata > 0) && ($photo > 0)) {
-            return redirect()->back()->with('msg', 'Profile data & Photo Updated successfully..!');
+            return response()->json(['status' => 'success', 'msg' => 'Profile data & Photo Updated successfully..!','path'=>$profile_path]);
+            // return redirect()->back()->with('msg', 'Profile data & Photo Updated successfully..!');
         } elseif (($profiledata > 0)) {
-            return redirect()->back()->with('msg', 'Profile data Updated successfully..!');
+            return response()->json(['status' => 'success', 'msg' => 'Profile data Updated successfully..!','path'=>'']);
+            // return redirect()->back()->with('msg', 'Profile data Updated successfully..!');
         } elseif (($photo > 0)) {
-            return redirect()->back()->with('msg', 'Profile photo Updated successfully..!');
+            return response()->json(['status' => 'success', 'msg' => 'Profile photo Updated successfully..!','path'=>$profile_path]);
+            // return redirect()->back()->with('msg', 'Profile photo Updated successfully..!');
         } else {
-            return redirect()->back()->with('msg', 'Profile not Updated..!');
+            return response()->json(['status' => 'danger', 'msg' => 'Could not update basic information..!','path'=>'']);
+            // return redirect()->back()->with('msg', 'Profile not Updated..!');
         }
     }
 
@@ -153,8 +158,7 @@ class UserProfileController extends Controller
             'firmaddress' => ['required', 'string']
         ]);
 
-        $profiledata = DB::table(PROFILES)
-            ->where('uid', Auth::user()->id)
+        $profiledata = UserProfile::where('uid', Auth::user()->id)
             ->update([
                 'qualification' => $request['qualification'],
                 'occupation' => $request['occupation'],
@@ -182,8 +186,7 @@ class UserProfileController extends Controller
             'siblings' => ['required', 'string']
         ]);
 
-        $profiledata = DB::table(PROFILES)
-            ->where('uid', Auth::user()->id)
+        $profiledata = UserProfile::where('uid', Auth::user()->id)
             ->update([
                 'fathername' => $request['fathername'],
                 'fhouse' => $request['fhouse'],
