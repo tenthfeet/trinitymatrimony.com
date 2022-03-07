@@ -70,6 +70,7 @@ class ProfileSearchController extends Controller
             ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo','state','district')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
+            ->where(PROFILES . '.dob', '!=', '1970-01-01')
             ->where(USERS . '.id', '!=', Auth::user()->id)
             ->whereIn(PROFILES . '.uid', $v_arr)
             ->paginate(10);

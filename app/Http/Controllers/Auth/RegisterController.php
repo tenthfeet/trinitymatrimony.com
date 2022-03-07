@@ -55,6 +55,7 @@ class RegisterController extends Controller
                 ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'about', 'qualification', 'photo', 'occupation','height','state','district')
                 ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
                 ->where(USERS . '.married', '=', 'No')
+                ->where(PROFILES . '.dob', '!=', '1970-01-01')
                 ->where(PROFILES . '.photo', '!=', null)
                 ->orderBy(PROFILES . '.id', 'desc')
                 ->limit(6)

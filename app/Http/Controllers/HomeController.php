@@ -34,6 +34,7 @@ class HomeController extends Controller
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.status', '=', 'active')
             ->where(USERS . '.married', '=', 'No')
+            ->where(PROFILES . '.dob', '!=', '1970-01-01')
             ->where(PROFILES . '.photo', '!=', null)
             ->orderBy(PROFILES . '.id', 'desc')
             ->limit(6)
