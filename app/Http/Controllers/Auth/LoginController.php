@@ -53,7 +53,7 @@ class LoginController extends Controller
             ->where(PROFILES . '.dob', '!=', '1970-01-01')
             ->where(PROFILES . '.photo', '!=', null)
             ->orderBy(PROFILES . '.id', 'desc')
-            ->limit(6)
+            ->limit(10)
             ->get();
 
         $testimonial = DB::table(TESTIMONIAL)
