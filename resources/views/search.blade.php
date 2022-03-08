@@ -50,9 +50,9 @@
                                         echo selectOptionFromArray(Arrays::$income, 'income', 'selectpicker', '', request()->get('income'), 'Income');
                                     @endphp
                                 </div>
-                                <div class="bottom-btn col-md-2 mt-md-0 mt-3">
-                                    <label class="text-theme"></label>
-                                    <button id="search" class="btn btn-style btn-secondary"><span class="fa fa-search mr-1"
+                                <div class="bottom-btn col-md-2 mt-md-0 mt-3 pt-2">
+                                    {{-- <label class="text-theme">Search</label> --}}
+                                    <button id="search" class="btn btn-style btn-secondary mt-4"><span class="fa fa-search mr-1"
                                             aria-hidden="true"></span> Search</button>
                                 </div>
                             </div>

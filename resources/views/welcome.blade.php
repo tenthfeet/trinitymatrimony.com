@@ -5,6 +5,12 @@
         <div class="banner-infhny">
             <h3>Way to To Make Your Wedding</h3>
             <h6 class="mb-3">Discover your Soulmate</h6>
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+            
             <div class="flex-wrap search-wthree-field mt-md-5 mt-4">
                 <form action="{{url('/search')}}" method="get" class="booking-form">
                     <div class="row book-form">

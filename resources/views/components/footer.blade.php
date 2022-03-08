@@ -46,7 +46,7 @@
                     </div>
                     <div class="columns-2 mt-lg-0 mt-3">
                         <ul class="social">
-                            <li><a href="https://www.facebook.com/Ramanathapuram.CBE/"><span class="fa fa-facebook" aria-hidden="true"></span></a>
+                            <li><a href="https://www.facebook.com/Ramanathapuram.CBE/" target="_blank"><span class="fa fa-facebook" aria-hidden="true"></span></a>
                             </li>
                             <li><a href="#"><span class="fa fa-youtube" aria-hidden="true"></span></a>
                             </li>

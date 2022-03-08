@@ -27,7 +27,7 @@
                             </div>
                         @endif
                         <div class="ctr">
-                            <h2  class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
+                            <h2 class="mb-1 text-theme">Your Profile Id : {{ $data->pid }}</h2>
                         </div>
                         <div class="my-4">
                             <div id='ajax-response' class="my-4"></div>
@@ -229,28 +229,40 @@
                                                 <div class="form-group col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-2 col-3 d-flex justify-content-center">
-                                                            @if ($data->photo != null)
-                                                                <a class="my-auto" href="#" data-toggle="modal"
-                                                                    data-target="#profilephoto">
-                                                                    <img id="p-img" src="{{ asset($data->photo) }}"
-                                                                        style="height: 50px;width:50px;">
-                                                                </a>
-                                                                <!-- Modal -->
-                                                                <div class="modal fade" id="profilephoto" tabindex="-1"
-                                                                    aria-labelledby="profilephoto" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-body">
-                                                                                <div class="text-center">
-                                                                                    <img id="pm"
-                                                                                        src="{{ str_replace('\\', '/', asset($data->photo)) }}"
-                                                                                        style="max-height: 70vh;">
-                                                                                </div>
+
+                                                            <a class="my-auto" href="#" data-toggle="modal"
+                                                                data-target="#profilephoto">
+                                                                <img id="p-img" style="height: 50px;width:50px;"
+                                                                    @php
+                                                                        if ($data->photo != null) {
+                                                                            echo 'src="' . asset($data->photo) . '"';
+                                                                        } else {
+                                                                            echo 'src="' . asset('images/YourPhotoHere2.jpg') . '"';
+                                                                        }
+                                                                    @endphp>
+                                                            </a>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="profilephoto" tabindex="-1"
+                                                                aria-labelledby="profilephoto" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-body">
+                                                                            <div class="text-center">
+                                                                                <img id="pm"
+                                                                                    style="max-height: 70vh;"
+                                                                                    @php
+                                                                                    if ($data->photo != null) {
+                                                                                        echo 'src="' . str_replace('\\', '/', asset($data->photo)) . '"';
+                                                                                    } else {
+                                                                                        echo 'src="' . asset('images/YourPhotoHere2.jpg') . '"';
+                                                                                    }
+                                                                                @endphp>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            @endif
+                                                            </div>
+
                                                         </div>
                                                         <div class="col-sm-10 col-9">
 
@@ -583,7 +595,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -733,7 +745,8 @@
                 });
             }
         });
-        function movetotab(){
+
+        function movetotab() {
             var elmnt = document.getElementById("top_page");
             elmnt.scrollIntoView();
         }
@@ -742,9 +755,9 @@
         $('#basic-frm').submit(function(e) {
             e.preventDefault();
             let basic_fields = [
-                "housename", "gender", "dob", "dobap", "mothertongue","otherlang",
-                "particularchurch", "noncath_church", "height", "weight","photo",
-                "blood", "complex","maritalstatus", "about", "preference",
+                "housename", "gender", "dob", "dobap", "mothertongue", "otherlang",
+                "particularchurch", "noncath_church", "height", "weight", "photo",
+                "blood", "complex", "maritalstatus", "about", "preference",
             ];
             $.ajaxSetup({
                 headers: {
@@ -772,9 +785,9 @@
                     if (data.status == 'success') {
                         $('.nav-tabs a[href="#career"]').tab('show');
                     }
-                    if ((data.status == 'success')&&(data.path != '')) {
-                        $('#p-img').attr("src",data.path);
-                        $('#pm').attr("src",data.path);
+                    if ((data.status == 'success') && (data.path != '')) {
+                        $('#p-img').attr("src", data.path);
+                        $('#pm').attr("src", data.path);
                     }
                     if (data.status == 'success' || data.status == 'danger') {
                         $('#ajax-response').removeClass();

@@ -172,7 +172,7 @@
                                                 <tbody>
                                               
                                                     <tr>
-                                                        <td width="45%">Date of Baptism :</td>
+                                                        <td width="50%">Date of Baptism :</td>
                                                         <td class="day_value">
                                                             @php
                                                                 if ($data->dobap != '1970-01-01') {
@@ -344,6 +344,14 @@
                                                     <tr class="opened">
                                                         <td class="day_label">House type :</td>
                                                         <td class="day_value">{{ $data->housetype }}</td>
+                                                    </tr>
+                                                    <tr class="opened">
+                                                        <td class="day_label">State :</td>
+                                                        <td class="day_value">{{ $data->state }}</td>
+                                                    </tr>
+                                                    <tr class="opened">
+                                                        <td class="day_label">District :</td>
+                                                        <td class="day_value">{{ $data->district }}</td>
                                                     </tr>
                                                     <tr class="opened">
                                                         <td class="day_label">Address for Contact :</td>
