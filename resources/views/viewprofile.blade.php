@@ -29,7 +29,7 @@
                                 <img class="rounded" style="height:200px;"
                                     @php
                                         if($data->photo){
-                                            echo 'src="'.$data->photo.'"';
+                                            echo 'src="'.asset($data->photo).'"';
                                         }else{
                                             if($data->uid == Auth::User()->id){
                                                 echo 'src="'.asset('images/YourPhotoHere2.jpg').'"';

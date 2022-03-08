@@ -161,8 +161,8 @@
         <div class="cusrtomer-layout py-5">
             <div class="container py-lg-4 py-md-3 pb-lg-0">
                 <div class="heading text-center mx-auto">
-                    <h6 class="sub-title text-center">Here’s what they have to say</h6>
-                    <h3 class="hny-title mb-md-5 mb-4">our clients do the talking</h3>
+                    <h6 class="sub-title text-center">Few of our Successful Couple says</h6>
+                    <h3 class="hny-title mb-md-5 mb-4">our couples do the talking</h3>
                 </div>
                 <!-- /grids -->
                 <div class="testimonial-width">
