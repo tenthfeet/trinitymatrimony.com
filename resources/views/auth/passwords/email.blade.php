@@ -54,7 +54,7 @@
                         <div class="partners">
                             <div class="cont-details">
                                 <h5 class="text-theme">Get in touch</h5>
-                                <p class="mt-3 mb-4">Hi there, We are available 24/7 by fax, e-mail or by phone. Drop
+                                <p class="mt-3 mb-4">Hi there, We are available 24/7 by e-mail or by phone. Drop
                                     us line so we can talk
                                     futher about that.</p>
                             </div>
