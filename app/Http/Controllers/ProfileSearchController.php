@@ -83,7 +83,7 @@ class ProfileSearchController extends Controller
     {
         $viewed = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('viewed');
         $v_arr = explode(",", $viewed);
-        $gender=(Auth::user()->gender=="male")?"Female":"Male";
+        $gender=(Auth::user()->gender=="Male")?"Female":"Male";
         $users = DB::table(USERS)
             ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo','state','district')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')

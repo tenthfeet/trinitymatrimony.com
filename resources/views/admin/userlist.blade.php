@@ -134,16 +134,21 @@
                     if (data.msg == "success") {
                         $("#" + id).html("SVD");
                         $('#' + id).attr('disabled', true);
-                    } else if(data.msg == "failed") {
+                    } else if (data.msg == "failed") {
                         $('#' + id).attr('disabled', false);
                         $("#" + id).html("SVE");
-                    }else{
+                    } else {
                         $('#' + id).attr('disabled', false);
                         $("#" + id).html("SVE");
                         location.reload();
                     }
                 },
-                
+                error: function(data) {
+                    if (data.status === 419) {
+                        location.reload();
+                    }
+                }
+
             });
 
         }
@@ -179,6 +184,11 @@
                             alert("Could not delete record...");
                         }
 
+                    },
+                    error: function(data) {
+                        if (data.status === 419) {
+                            location.reload();
+                        }
                     }
                 });
             }

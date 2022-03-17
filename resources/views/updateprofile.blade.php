@@ -248,15 +248,14 @@
                                                                     <div class="modal-content">
                                                                         <div class="modal-body">
                                                                             <div class="text-center">
-                                                                                <img id="pm"
-                                                                                    style="max-height: 70vh;"
+                                                                                <img id="pm" style="max-height: 70vh;"
                                                                                     @php
-                                                                                    if ($data->photo != null) {
-                                                                                        echo 'src="' . str_replace('\\', '/', asset($data->photo)) . '"';
-                                                                                    } else {
-                                                                                        echo 'src="' . asset('images/YourPhotoHere2.jpg') . '"';
-                                                                                    }
-                                                                                @endphp>
+                                                                                        if ($data->photo != null) {
+                                                                                            echo 'src="' . str_replace('\\', '/', asset($data->photo)) . '"';
+                                                                                        } else {
+                                                                                            echo 'src="' . asset('images/YourPhotoHere2.jpg') . '"';
+                                                                                        }
+                                                                                    @endphp>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -284,8 +283,7 @@
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
                                                     <label>Describe about yourself in few words*</label>
-                                                    <textarea name="about" id="about" cols="30"
-                                                        class="form-control @error('about') border-red @enderror"
+                                                    <textarea name="about" id="about" cols="30" class="form-control @error('about') border-red @enderror"
                                                         style="height: 100px;">{{ $errors->has('about') ? old('about') : $data->about }}</textarea>
                                                     @error('about')
                                                         <div class="text-red">{{ $message }}</div>
@@ -294,8 +292,7 @@
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label>Partner preference any *</label>
-                                                    <textarea name="preference" id="preference" cols="30"
-                                                        class="form-control @error('preference') border-red @enderror"
+                                                    <textarea name="preference" id="preference" cols="30" class="form-control @error('preference') border-red @enderror"
                                                         style="height: 100px;">{{ $errors->has('preference') ? old('preference') : $data->preference }}</textarea>
                                                     @error('preference')
                                                         <div class="text-red">{{ $message }}</div>
@@ -361,8 +358,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-sm-6">
                                                             <label>Address of the Firm / Company / Self business</label>
-                                                            <textarea name="firmaddress" id="firmaddress" cols="30"
-                                                                class="form-control"
+                                                            <textarea name="firmaddress" id="firmaddress" cols="30" class="form-control"
                                                                 style="height: 100px;">{{ $data->firmaddress }}</textarea>
                                                             <div id="er-firmaddress" class="text-red"></div>
                                                         </div>
@@ -552,15 +548,13 @@
                                                 <div class="row">
                                                     <div class="form-group col-sm-6">
                                                         <label>Address for Contact</label>
-                                                        <textarea name="caddress" id="caddress" cols="30"
-                                                            class="form-control"
+                                                        <textarea name="caddress" id="caddress" cols="30" class="form-control"
                                                             style="height: 100px;">{{ $data->caddress }}</textarea>
                                                         <div id="error-caddress" class="text-red"></div>
                                                     </div>
                                                     <div class="form-group col-sm-6">
                                                         <label>Permanent Address</label>
-                                                        <textarea name="paddress" id="paddress" cols="30"
-                                                            class="form-control"
+                                                        <textarea name="paddress" id="paddress" cols="30" class="form-control"
                                                             style="height: 100px;">{{ $data->paddress }}</textarea>
                                                         <div id="error-paddress" class="text-red"></div>
                                                     </div>
@@ -709,6 +703,11 @@
                             alert("Could not delete record...");
                         }
 
+                    },
+                    error: function(data) {
+                        if (data.status === 419) {
+                            location.reload();
+                        }
                     }
                 });
             }
@@ -735,12 +734,11 @@
                     datatype: "json",
                     success: function(data) {
                         $('#district').html(data);
-                        // if (data.status == "success") {
-                        //     siblingData();
-                        // } else {
-                        //     alert("Could not delete record...");
-                        // }
-
+                    },
+                    error: function(data) {
+                        if (data.status === 419) {
+                            location.reload();
+                        }
                     }
                 });
             }
@@ -802,6 +800,7 @@
                     $('#upbasic').html('Update');
                     $('#ajax-response').removeClass();
                     $('#ajax-response').html('');
+                    
                     if (data.status === 422) {
                         var response = $.parseJSON(data.responseText);
                         var errors = response.errors;
@@ -816,7 +815,9 @@
 
                             }
                         });
-
+                    }
+                    if (data.status === 419) {
+                        location.reload();
                     }
                 }
             });
@@ -841,7 +842,7 @@
                 success: function(data) {
                     $('#upcareer').html('Update');
                     movetotab();
-                     console.log(data);
+                    console.log(data);
                     fields.forEach(item => {
                         $('#er-' + item).html('');
                         $('#' + item).removeClass('border-red');
@@ -884,9 +885,9 @@
                         });
 
                     }
-					if (data.status === 419) {
-						location.reload();
-					}
+                    if (data.status === 419) {
+                        location.reload();
+                    }
                 }
 
             });
@@ -954,6 +955,9 @@
                             }
                         });
 
+                    }
+                    if (data.status === 419) {
+                        location.reload();
                     }
                 }
 
@@ -1024,6 +1028,9 @@
                         });
 
                     }
+                    if (data.status === 419) {
+                        location.reload();
+                    }
                 }
 
             });
@@ -1089,6 +1096,9 @@
                         });
 
                     }
+                    if (data.status === 419) {
+                        location.reload();
+                    }
                 }
 
             });
@@ -1138,6 +1148,11 @@
                         data += '</tr>';
                     });
                     $('#sib_table tbody').html(data);
+                },
+                error:function(data){
+                    if (data.status === 419) {
+                        location.reload();
+                    }
                 }
             });
 

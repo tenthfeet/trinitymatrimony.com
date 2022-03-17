@@ -456,6 +456,11 @@
                         data += '</tr>';
                     });
                     $('#sib_table tbody').html(data);
+                },
+                error:function(data){
+                    if (data.status === 419) {
+                        location.reload();
+                    }
                 }
             });
 

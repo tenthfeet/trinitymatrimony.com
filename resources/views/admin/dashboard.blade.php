@@ -154,7 +154,12 @@
                     $('#' + id).attr('disabled', false);
                     $("#" + id).html("SVE");
                 }
-            }
+            },
+            error:function(data){
+                    if (data.status === 419) {
+                        location.reload();
+                    }
+                }
 
         });
 
@@ -191,6 +196,11 @@
                         alert("Could not delete record...");
                     }
 
+                },
+                error:function(data){
+                    if (data.status === 419) {
+                        location.reload();
+                    }
                 }
             });
         }
