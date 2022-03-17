@@ -38,10 +38,16 @@ class Handler extends ExceptionHandler
             //
         });
 
-        $this->renderable(function (\Exception $e) {
+        $this->renderable(function (\Exception $e,$request) {
             if ($e->getPrevious() instanceof \Illuminate\Session\TokenMismatchException) {
-                return redirect()->back();
-            };
+				if ($request->ajax()) {
+					$response =["status"=>"Expired"];
+					return response()->json($response,419);
+				}else{
+					return redirect()->back();
+				}
+            }
         });
     }
+	
 }

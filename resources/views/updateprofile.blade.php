@@ -841,7 +841,7 @@
                 success: function(data) {
                     $('#upcareer').html('Update');
                     movetotab();
-                    // console.log(data);
+                     console.log(data);
                     fields.forEach(item => {
                         $('#er-' + item).html('');
                         $('#' + item).removeClass('border-red');
@@ -863,7 +863,7 @@
                     $('#upcareer').html('Update');
                     $('#ajax-response').removeClass();
                     $('#ajax-response').html('');
-
+                    console.log(data);
                     if (data.status === 422) {
                         var response = $.parseJSON(data.responseText);
                         // var response = data.responseText;
@@ -884,6 +884,9 @@
                         });
 
                     }
+					if (data.status === 419) {
+						location.reload();
+					}
                 }
 
             });

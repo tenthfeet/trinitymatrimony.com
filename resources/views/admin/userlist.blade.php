@@ -134,12 +134,16 @@
                     if (data.msg == "success") {
                         $("#" + id).html("SVD");
                         $('#' + id).attr('disabled', true);
-                    } else {
+                    } else if(data.msg == "failed") {
                         $('#' + id).attr('disabled', false);
                         $("#" + id).html("SVE");
+                    }else{
+                        $('#' + id).attr('disabled', false);
+                        $("#" + id).html("SVE");
+                        location.reload();
                     }
-                }
-
+                },
+                
             });
 
         }
