@@ -24,7 +24,7 @@
                         <div class="ctr">
                             <h2 class="mb-1 text-theme">Profile Id : {{ $data->pid }}</h2>
                         </div>
-                        <div class="row my-4">
+                        <div class="row my-4" style="border:1px solid #ddd; padding:10px;">
                             <div class="col-sm-6  text-center">
                                 <img class="rounded" style="height:200px;"
                                     @php

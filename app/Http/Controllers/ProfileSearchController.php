@@ -83,10 +83,12 @@ class ProfileSearchController extends Controller
     {
         $viewed = DB::table(PROFILES)->where('uid', Auth::user()->id)->value('viewed');
         $v_arr = explode(",", $viewed);
+        $gender=(Auth::user()->gender=="male")?"Female":"Male";
         $users = DB::table(USERS)
             ->select('pid', 'uid', 'firstname', 'surname', 'dob', 'occupation', 'qualification', 'height', 'photo','state','district')
             ->join(PROFILES, USERS . '.id', '=', PROFILES . '.uid')
             ->where(USERS . '.married', '=', 'No')
+            ->where(USERS . '.gender', '=', $gender)
             ->where(USERS . '.id', '!=', Auth::user()->id)
             ->where(PROFILES . '.dob', '!=', '1970-01-01')
             ->whereNotIn(PROFILES . '.uid', $v_arr)
