@@ -74,6 +74,7 @@
     <!--/-->
     <div class="best-rooms py-5">
         <div class="container py-md-5">
+            <h2 class="mb-5 text-theme text-center">Our Spiritual Leaders</h2>
             <div class="ban-content-inf row">
                 <div class="maghny-gd-1 col-lg-6">
                     <div class="maghny-grid">
